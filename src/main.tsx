@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import './ottoPremiumSystem.css';
 import './ottoReferencePalette.css';
+import './b1/b1A1Theme.css';
 import B1App from './b1/B1App';
 
 // OTTO B1 preview runs without A1 authentication, state-sync or payment endpoints.
