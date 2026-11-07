@@ -25,6 +25,26 @@ try{
  await page.getByRole('heading',{name:'Сегодня — ещё шаг к B1'}).waitFor();
  await page.getByRole('navigation',{name:'Основная навигация'}).waitFor();
  await page.getByRole('button',{name:'Начать тренировку'}).waitFor();
+ await page.getByRole('button',{name:'Hören'}).click();
+ await page.getByRole('heading',{name:'Аудирование B1'}).waitFor();
+ assert.equal(await page.getByRole('button',{name:'Подготовить аудио'}).count(),0,'Hören must never demand manual audio preparation');
+ assert.equal(await page.locator('.b1-inline-audio audio').count(),1,'Only one audio player per active Hören card');
+ await page.waitForFunction(()=>Boolean(document.querySelector('.b1-inline-audio audio')?.getAttribute('src')),null,{timeout:15000});
+ await page.getByRole('button',{name:/Проверить ответы/}).click();
+ await page.getByRole('button',{name:'Следующая аудиозапись'}).click();
+ const q1=page.getByRole('group',{name:'Aufgabe 1'});
+ const q2=page.getByRole('group',{name:'Aufgabe 2'});
+ await q1.waitFor();
+ await q1.getByRole('button',{name:/Richtig/}).click();
+ await q2.getByRole('button',{name:/a\)/}).click();
+ await page.getByRole('button',{name:/Проверить ответы/}).click();
+ await page.getByText(/Верных ответов: /).waitFor();
+ assert.equal(await page.locator('.b1-inline-audio audio').count(),1,'Only the active Hören audio should be visible');
+ await page.getByRole('button',{name:'Teil 2'}).click();
+ await page.getByRole('group',{name:'Aufgabe 11'}).waitFor();
+ assert.equal(await page.locator('.b1-inline-audio audio').count(),1,'Hören Teil 2 should show exactly one player');
+ assert.equal(await page.getByRole('button',{name:'Подготовить аудио'}).count(),0);
+ await page.getByRole('button',{name:'На главную'}).click();
  await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByRole('heading',{name:/Lesen · Teil 1 · №1/}).waitFor();
  await page.getByRole('button',{name:'Показать перевод'}).waitFor();
@@ -52,6 +72,7 @@ try{
  await page.getByRole('button',{name:'Справочник B1'}).click();
  await page.getByRole('heading',{name:'Справочник OTTO B1'}).waitFor();
  await page.getByRole('button',{name:'К заданиям'}).click();
+ await page.getByRole('button',{name:'На главную'}).click();
  await page.getByRole('button',{name:'Schreiben'}).click();
  await page.getByRole('heading',{name:/Schreiben · Teil 1 · №1/}).waitFor();
  await page.getByRole('textbox',{name:'Ваш текст'}).fill('Ich habe am Samstag einen Kurs besucht. Es war sehr interessant.');
@@ -60,6 +81,7 @@ try{
  await page.getByRole('button',{name:'Schreiben'}).click();
  await page.waitForFunction(()=>document.querySelector('#b1essay')?.value.includes('interessant'),null,{timeout:10000});
  assert.match(await page.getByRole('textbox',{name:'Ваш текст'}).inputValue(),/interessant/);
+ await page.getByRole('button',{name:'На главную'}).click();
  await page.getByRole('button',{name:'Sprechen'}).click();
  await page.getByRole('button',{name:'Записать ответ'}).click();
  await page.getByRole('button',{name:'Остановить запись'}).click();
@@ -67,5 +89,5 @@ try{
  const width=await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1);
  assert.ok(width,'Horizontal overflow on mobile');
  assert.deepEqual(errors,[],'JavaScript runtime errors');
- console.log('B1 browser smoke PASS: reading, grading, drafts, reference, speaking microphone and mobile viewport');
+ console.log('B1 browser smoke PASS: Hören A1-style player/choices, reading, grading, drafts, reference, speaking microphone and mobile viewport');
 }finally{if(browser)await browser.close();server.kill();}
