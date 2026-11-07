@@ -137,6 +137,9 @@ export default function B1App(){
  };
  const stopRecording=()=>recorder.current?.state==='recording'&&recorder.current.stop();
  useEffect(()=>()=>{if(recordUrl)URL.revokeObjectURL(recordUrl);},[recordUrl]);
+ const saveDraftNow=(nextAnswers:Record<string,string>,nextEssay:string,nextDone:boolean)=>{
+  try{localStorage.setItem(key,JSON.stringify({answers:nextAnswers,essay:nextEssay,done:nextDone,updatedAt:new Date().toISOString()}));}catch{/* Browser storage can be disabled. */}
+ };
  const score=setData?scoreB1Answers(setData.answerKey||{},answers):null;
  return <div className="min-h-screen bg-[#f7f1e8] text-slate-900">
   <header className="border-b border-[#d6cbbd] bg-white/90"><div className="mx-auto max-w-6xl px-4 py-4">
@@ -170,7 +173,7 @@ export default function B1App(){
     <div className="my-5 space-y-2">{visibleLines(setData.lines,done).map((line,i)=>
      <p key={i} className={/^(Aufgabe|Frage|Text \d|Folie)/i.test(line)?'break-words pt-2 font-semibold':'break-words leading-7'}>{line}</p>)}</div>
     {subject==='schreiben'?<div><label htmlFor="b1essay" className="block font-semibold">Ваш текст</label>
-      <textarea id="b1essay" className="mt-2 min-h-56 w-full rounded-xl border p-3" value={essay} onChange={e=>setEssay(e.target.value)}/>
+      <textarea id="b1essay" className="mt-2 min-h-56 w-full rounded-xl border p-3" value={essay} onChange={e=>{const value=e.target.value;setEssay(value);saveDraftNow(answers,value,done);}}/>
       <p className="text-sm">Слов: {essay.trim()?essay.trim().split(/\s+/).length:0}. Черновик сохраняется на этом устройстве.</p></div>:
      subject==='sprechen'?<div className="space-y-3">
        <button className="rounded-xl bg-teal-800 px-5 py-3 font-semibold text-white" onClick={recording?stopRecording:startRecording}>{recording?'Остановить запись':'Записать ответ'}</button>
@@ -180,7 +183,7 @@ export default function B1App(){
       <fieldset className="space-y-3"><legend className="font-semibold">Ваши ответы</legend>
         {Object.entries(setData.answerKey||{}).map(([id,answer])=><label key={id} className="flex flex-wrap items-center gap-3 rounded-lg border p-3">
           <span className="min-w-24 font-semibold">{questionLabel(setData.lines,id)}</span>
-          <select aria-label={'Aufgabe '+id} value={answers[id]||''} disabled={done} className="min-h-11 rounded-lg border bg-white px-3" onChange={e=>setAnswers(prev=>({...prev,[id]:e.target.value}))}>
+          <select aria-label={'Aufgabe '+id} value={answers[id]||''} disabled={done} className="min-h-11 rounded-lg border bg-white px-3" onChange={e=>setAnswers(prev=>{const next={...prev,[id]:e.target.value};saveDraftNow(next,essay,done);return next;})}>
            <option value="">Выберите ответ</option>{choices(answer,setData.answerKey||{}).map(v=><option key={v} value={v}>{v}</option>)}
           </select>
           {done&&<span className="text-sm">Верный ответ: {answer}</span>}
@@ -188,8 +191,8 @@ export default function B1App(){
       </fieldset>}
     {done&&score&&score.total>0&&<p role="status" className="mt-5 rounded-lg bg-teal-50 p-4 font-semibold">Правильных ответов: {score.correct} / {score.total}. Это учебная проверка, не официальный результат Goethe.</p>}
     <div className="mt-5 flex flex-wrap gap-2">
-     <button className="min-h-12 rounded-xl bg-teal-800 px-5 font-semibold text-white" onClick={()=>setDone(true)}>Завершить попытку и показать разбор</button>
-     <button className="min-h-12 rounded-xl border px-5" onClick={()=>{setDone(false);setAnswers({});setEssay('');}}>Повторить</button>
+     <button className="min-h-12 rounded-xl bg-teal-800 px-5 font-semibold text-white" onClick={()=>{saveDraftNow(answers,essay,true);setDone(true);}}>Завершить попытку и показать разбор</button>
+     <button className="min-h-12 rounded-xl border px-5" onClick={()=>{saveDraftNow({},'',false);setDone(false);setAnswers({});setEssay('');}}>Повторить</button>
      {setNum<part.sets.length&&<button className="min-h-12 rounded-xl border px-5" onClick={()=>setSetNum(n=>n+1)}>Следующий комплект →</button>}
     </div>
    </section>:<p role="alert">Комплект №{setNum} не найден.</p>}
