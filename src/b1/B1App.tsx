@@ -100,7 +100,7 @@ export default function B1App(){
  const [answers,setAnswers]=useState<Record<string,string>>({});
  const [essay,setEssay]=useState('');
  const [done,setDone]=useState(false);
- const [draftReadyKey,setDraftReadyKey]=useState('');
+
  const [recording,setRecording]=useState(false);
  const [showReference,setShowReference]=useState(false);
  const [recordUrl,setRecordUrl]=useState('');
@@ -116,11 +116,8 @@ export default function B1App(){
    .finally(()=>{if(!ctrl.signal.aborted)setLoading(false);});
   return ()=>ctrl.abort();
  },[subject,teil]);
- useEffect(()=>{setDraftReadyKey('');const draft=getDraft(key);setAnswers(draft.answers);setEssay(draft.essay);setDone(draft.done);setDraftReadyKey(key);},[key]);
- useEffect(()=>{
-  if(!setData || draftReadyKey!==key)return;
-  localStorage.setItem(key,JSON.stringify({answers,essay,done,updatedAt:new Date().toISOString()}));
- },[key,answers,essay,done,setData,draftReadyKey]);
+ useEffect(()=>{const draft=getDraft(key);setAnswers(draft.answers);setEssay(draft.essay);setDone(draft.done);},[key]);
+ // All user edits are persisted synchronously; never overwrite other drafts from effects.
  const changeSubject=(next:B1Subject)=>{setSubject(next);setTeil(1);setSetNum(1);};
  const changeTeil=(next:number)=>{setTeil(next);setSetNum(1);};
  const startRecording=async()=>{
