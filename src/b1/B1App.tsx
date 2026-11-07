@@ -9,6 +9,11 @@ function isRestricted(line:string) {
  return /^(?:RU\s*[·:]|Перевод|Полный перевод|Lösung|Lösungen|LÖSUNG|Erklärung|Begründung|Объяснение|Musterlösung|Mustertext|Musterantwort|Ключ|Ключи|Правильн|Ответы|Auswertung|Bewertung|[1-9]\.\s*Полный перевод)/i.test(line)
    || /[А-Яа-яЁё]/.test(line);
 }
+function hideInlineAnswer(line:string):string {
+ return line
+  .replace(/\\s*\\((?:Richtig|Falsch|Ja|Nein|[a-j])\\)\\s*$/i, '')
+  .replace(/\\s*\\(Lösung:[^)]*\\)/gi, ' (Beispiel)');
+}
 function visibleLines(lines:string[], reviewed:boolean) {
  if(reviewed)return lines;
  let transcript=false;
@@ -17,7 +22,7 @@ function visibleLines(lines:string[], reviewed:boolean) {
    if(/^AUDIO DE\s*[·:]/i.test(line)){transcript=true;visible.push(line);continue;}
    if(/^(?:RU\s*[·:]|СИТУАЦИЯ \(RU\)|[1-9]\.\s*Полный перевод|Aufgabe\s+\d+|Задание\s+\d+|Folie\s+\d+|\d+\.\s*(?:Текст|Задание)|SITUATION \(DE\))/i.test(line))transcript=false;
    if(transcript||isRestricted(line))continue;
-   visible.push(line);
+   visible.push(hideInlineAnswer(line));
  }
  return visible;
 }
@@ -80,7 +85,7 @@ function AudioClip({id,subject,teil}:{id:string;subject:B1Subject;teil:number}){
   {!src?<button type="button" onClick={()=>void load()} disabled={busy} className="min-h-11 rounded-xl border border-teal-700 px-4 font-semibold text-teal-800">{busy?'Загружаем аудио…':'Подготовить аудио'}</button>:
     plays>=max?<p className="text-sm">Лимит прослушиваний достигнут.</p>:
     <audio key={id} controls preload="none" className="w-full" src={src}
-      onPlay={e=>{if(e.currentTarget.currentTime<0.3)setPlays(p=>p+1);}}/>}
+      onEnded={()=>setPlays(p=>p+1)}/> }
   {audioError&&<p role="alert" className="mt-2 text-sm text-rose-700">{audioError}</p>}
   <p className="mt-1 text-xs text-slate-600">{Number.isFinite(max)?'Прослушиваний: '+plays+' / '+max:'Тренировочное аудио'}</p>
  </div>;
@@ -95,6 +100,7 @@ export default function B1App(){
  const [answers,setAnswers]=useState<Record<string,string>>({});
  const [essay,setEssay]=useState('');
  const [done,setDone]=useState(false);
+ const [draftReadyKey,setDraftReadyKey]=useState('');
  const [recording,setRecording]=useState(false);
  const [showReference,setShowReference]=useState(false);
  const [recordUrl,setRecordUrl]=useState('');
@@ -110,11 +116,11 @@ export default function B1App(){
    .finally(()=>{if(!ctrl.signal.aborted)setLoading(false);});
   return ()=>ctrl.abort();
  },[subject,teil]);
- useEffect(()=>{const draft=getDraft(key);setAnswers(draft.answers);setEssay(draft.essay);setDone(draft.done);},[key]);
+ useEffect(()=>{setDraftReadyKey('');const draft=getDraft(key);setAnswers(draft.answers);setEssay(draft.essay);setDone(draft.done);setDraftReadyKey(key);},[key]);
  useEffect(()=>{
-  if(!setData)return;
+  if(!setData || draftReadyKey!==key)return;
   localStorage.setItem(key,JSON.stringify({answers,essay,done,updatedAt:new Date().toISOString()}));
- },[key,answers,essay,done,setData]);
+ },[key,answers,essay,done,setData,draftReadyKey]);
  const changeSubject=(next:B1Subject)=>{setSubject(next);setTeil(1);setSetNum(1);};
  const changeTeil=(next:number)=>{setTeil(next);setSetNum(1);};
  const startRecording=async()=>{
@@ -158,7 +164,7 @@ export default function B1App(){
    {setData?<section key={subject+'-'+teil+'-'+setNum} className="rounded-2xl bg-white p-4 shadow-sm md:p-7">
     <h2 className="mb-4 text-2xl font-bold">{NAME[subject]} · Teil {teil} · №{setNum}</h2>
     <p className="mb-5 text-sm text-slate-600">{done?'Попытка завершена. Доступны перевод и разбор.':'Режим тренировки: ответы и перевод будут открыты после завершения попытки.'}</p>
-    <div className="space-y-3">{setData.audioIds.map(id=>setData.audioAvailable.includes(id)?
+    <div className="space-y-3">{setData.audioIds.filter(id=>!(subject==='sprechen'&&/-[QR]\\d{2}$/.test(id))).map(id=>setData.audioAvailable.includes(id)?
      <AudioClip key={id} id={id} subject={subject} teil={teil}/>:
      <p key={id} className="rounded-xl bg-amber-50 p-3 text-sm">Запись {id} отсутствует в исходных материалах.</p>)}</div>
     <div className="my-5 space-y-2">{visibleLines(setData.lines,done).map((line,i)=>
