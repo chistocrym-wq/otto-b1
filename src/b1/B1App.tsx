@@ -1,4 +1,6 @@
 import { B1Reference } from './B1Reference';
+import { B1HorenExercise } from './B1HorenExercise';
+import { AudioClip } from './B1AudioClip';
 import { OttoScene } from '../components/OttoScene';
 import { ArrowLeft, ArrowRight, BarChart3, BookOpen, BookOpenCheck, CheckCircle2, GraduationCap, Headphones, Home, Languages, MessageCircleMore, PenLine, RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -6,7 +8,6 @@ import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Subject, type 
 
 const SUBJECTS: B1Subject[] = ['horen', 'lesen', 'schreiben', 'sprechen'];
 const NAME: Record<B1Subject,string> = {horen:'Hören',lesen:'Lesen',schreiben:'Schreiben',sprechen:'Sprechen'};
-const MAX_PLAYS: Record<number,number> = {1:2,2:1,3:1,4:2};
 function hideInlineAnswer(line:string):string {
  return line
   .replace(/\s*\((?:Richtig|Falsch|Ja|Nein|[a-j])\)\s*$/i, '')
@@ -26,57 +27,6 @@ function choices(answer:string, key:Record<string,string>):string[]{
  if(answer==='0'||/^[d-j]$/.test(answer)||Object.values(key).some(v=>v==='0'||/^[d-j]$/.test(v)))return ['0','a','b','c','d','e','f','g','h','i','j'];
  return ['a','b','c'];
 }
-let indexPromise: Promise<Record<string,number>> | null = null;
-const packCache = new Map<number,Promise<Array<{name:string;b64:string}>>>();
-function audioIndex(){
- if(!indexPromise)indexPromise=fetch('/b1/audio-index.json').then(r=>{if(!r.ok)throw new Error('Audio index HTTP '+r.status);return r.json() as Promise<Record<string,number>>;});
- return indexPromise;
-}
-async function resolveAudio(id:string){
- const index=await audioIndex();
- const pack=index[id];
- if(!Number.isInteger(pack))throw new Error('Audio is not available: '+id);
- if(pack===0)return {src:'/b1/audio/'+encodeURIComponent(id)+'.mp3',object:false};
- let promise=packCache.get(pack);
- if(!promise){
-  promise=fetch('/b1/audio-packs/bundle-'+String(pack).padStart(3,'0')+'.jsonl')
-    .then(async r=>{if(!r.ok)throw new Error('Audio pack HTTP '+r.status);
-       return (await r.text()).split(/\n/).filter(Boolean).map(row=>JSON.parse(row) as {name:string;b64:string});});
-  packCache.set(pack,promise);
- }
- const records=await promise;
- const record=records.find(x=>x.name===id+'.mp3');
- if(!record)throw new Error('Audio missing in pack: '+id);
- const raw=atob(record.b64);
- const bytes=new Uint8Array(raw.length);
- for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
- return {src:URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'})),object:true};
-}
-function AudioClip({id,subject,teil}:{id:string;subject:B1Subject;teil:number}){
- const [plays,setPlays]=useState(0);
- const [src,setSrc]=useState('');
- const [busy,setBusy]=useState(false);
- const [audioError,setAudioError]=useState('');
- const isObject=useRef(false);
- const max=subject==='horen'? MAX_PLAYS[teil]||1:Infinity;
- useEffect(()=>()=>{if(isObject.current&&src)URL.revokeObjectURL(src);},[src]);
- const load=async()=>{
-  setBusy(true);setAudioError('');
-  try{const result=await resolveAudio(id);isObject.current=result.object;setSrc(result.src);}
-  catch(e){setAudioError(e instanceof Error?e.message:'Не удалось загрузить аудио');}
-  finally{setBusy(false);}
- };
- return <div className="rounded-xl border border-teal-200 bg-teal-50 p-3">
-  <div className="mb-2 text-sm font-semibold">{id}</div>
-  {!src?<button type="button" onClick={()=>void load()} disabled={busy} className="min-h-11 rounded-xl border border-teal-700 px-4 font-semibold text-teal-800">{busy?'Загружаем аудио…':'Подготовить аудио'}</button>:
-    plays>=max?<p className="text-sm">Лимит прослушиваний достигнут.</p>:
-    <audio key={id} controls preload="none" className="w-full" src={src}
-      onEnded={()=>setPlays(p=>p+1)}/> }
-  {audioError&&<p role="alert" className="mt-2 text-sm text-rose-700">{audioError}</p>}
-  <p className="mt-1 text-xs text-slate-600">{Number.isFinite(max)?'Прослушиваний: '+plays+' / '+max:'Тренировочное аудио'}</p>
- </div>;
-}
-
 type B1View = 'home' | 'training' | 'reference' | 'progress';
 const MODULES = [
   { id:'horen' as B1Subject, Icon:Headphones, desc:'Аудирование · 4 части', detail:'Слушайте диалоги и сообщения' },
@@ -249,19 +199,21 @@ export default function B1App(){
       <button className="b1-back" type="button" onClick={()=>setView('home')}><ArrowLeft size={17}/> На главную</button>
       <div className="b1-page-heading"><span className="b1-kicker">ТРЕНИРОВОЧНЫЙ ЭКЗАМЕН · ГОТЕ B1</span><h1>Разделы экзамена</h1><p>Выполняй задания на немецком. Русский перевод можно включать отдельно; ответы открываются после проверки.</p></div>
     </div>
-    <nav className="b1-subject-tabs" aria-label="Разделы экзамена">{MODULES.map(({id,Icon})=><button key={id} type="button" onClick={()=>changeSubject(id)} aria-label={NAME[id]} aria-pressed={subject===id} className={'b1-subject-tab '+(subject===id?'is-active':'')}><Icon size={18}/>{NAME[id]}</button>)}</nav>
     <div className="b1-selection b1-panel">
       <div className="b1-selection-title"><strong>{NAME[subject]}</strong><span>Выбери часть и комплект</span></div>
       <div className="b1-teil-tabs" aria-label="Части модуля">{Array.from({length:B1_PARTS[subject]},(_,i)=>i+1).map(n=><button key={n} type="button" aria-pressed={teil===n} onClick={()=>changeTeil(n)} className={'b1-teil-tab '+(teil===n?'is-active':'')}>Teil {n}</button>)}</div>
       {part&&<label className="b1-set-select">Тренировочный комплект<select value={setNum} onChange={e=>setSetNum(Number(e.target.value))}>{part.sets.map(s=><option key={s.number} value={s.number}>№ {s.number}</option>)}</select></label>}
     </div>
-    {loading?<p role="status" className="b1-panel b1-notice">Загружаем задания B1…</p>:error?<div role="alert" className="b1-panel b1-notice"><strong>Не удалось загрузить материалы B1.</strong><p>Проверь файл /b1/data/{subject}-{teil}.json.</p><small>{error}</small></div>:part&&setData?<section key={subject+'-'+teil+'-'+setNum} className="b1-panel b1-exercise">
+    {loading?<p role="status" className="b1-panel b1-notice">Загружаем задания B1…</p>:error?<div role="alert" className="b1-panel b1-notice"><strong>Не удалось загрузить материалы B1.</strong><p>Проверь файл /b1/data/{subject}-{teil}.json.</p><small>{error}</small></div>:part&&setData?(subject==='horen'?<B1HorenExercise key={'horen-'+teil+'-'+setNum} set={setData} teil={teil} answers={answers} done={done}
+       onAnswer={(id,value)=>setAnswers(prev=>{const next={...prev,[id]:value};saveDraftNow(next,essay,done);return next;})}
+       onComplete={completeAttempt} onReset={resetAttempt} onNextSet={()=>setSetNum(n=>n+1)}
+       hasNextSet={setNum<part.sets.length}/>:<section key={subject+'-'+teil+'-'+setNum} className="b1-panel b1-exercise">
       <div className="b1-exercise-top"><div><span className="b1-kicker">ПРАКТИКА B1 · КОМПЛЕКТ {setNum} ИЗ 30</span><h2>{NAME[subject]} · Teil {teil} · №{setNum}</h2></div><span className={'b1-state '+(done?'is-done':'')}>{done?'Проверено':'В процессе'}</span></div>
       <div className="b1-translation-bar">
        <div><Languages size={21}/><div><strong>Переводы и разбор</strong><small>{done?'Правильные ответы и объяснения доступны ниже.':'Русский перевод поможет разобраться в задании, не показывая ответов.'}</small></div></div>
        <button type="button" onClick={()=>setShowTranslation(v=>!v)} aria-pressed={showTranslation} className="b1-translate-button">{showTranslation?'Скрыть перевод':'Показать перевод'}</button>
       </div>
-      <div className="b1-audio-list">{setData.audioIds.filter(id=>!(subject==='sprechen'&&/-[QR]\d{2}$/.test(id))).map(id=>setData.audioAvailable.includes(id)?<AudioClip key={id} id={id} subject={subject} teil={teil}/>:<p key={id} className="b1-warning">Запись {id} отсутствует в исходных материалах.</p>)}</div>
+      <div className="b1-audio-list">{setData.audioIds.filter(id=>!(subject==='sprechen'&&/-[QR]\d{2}$/.test(id))).map(id=>setData.audioAvailable.includes(id)?<AudioClip key={id} id={id}/>:<p key={id} className="b1-warning">Запись {id} отсутствует в исходных материалах.</p>)}</div>
       {done&&subject==='horen'&&<button type="button" className="b1-transcript-button" onClick={()=>setShowTranscript(v=>!v)}>{showTranscript?'Скрыть транскрипт аудио':'Показать транскрипт аудио'}</button>}
       <ExamText lines={setData.lines} done={done} showTranslation={showTranslation} showTranscript={showTranscript}/>
       {subject==='schreiben'?<div className="b1-answer-section"><label htmlFor="b1essay" className="b1-input-title">Ваш текст</label><textarea id="b1essay" className="b1-essay" value={essay} placeholder="Schreiben Sie hier Ihren Text auf Deutsch…" onChange={e=>{const value=e.target.value;setEssay(value);saveDraftNow(answers,value,done);}}/><p className="b1-caption">Слов: {essay.trim()?essay.trim().split(/\s+/).length:0}. Черновик сохраняется на этом устройстве.</p></div>:
@@ -269,7 +221,7 @@ export default function B1App(){
        <fieldset className="b1-answer-section"><legend className="b1-input-title">Ваши ответы</legend><div className="b1-answers">{Object.entries(setData.answerKey||{}).map(([id,answer])=><label key={id} className="b1-answer-row"><span>{questionLabel(setData.lines,id)}</span><select aria-label={'Aufgabe '+id} value={answers[id]||''} disabled={done} onChange={e=>setAnswers(prev=>{const next={...prev,[id]:e.target.value};saveDraftNow(next,essay,done);return next;})}><option value="">Выберите ответ</option>{choices(answer,setData.answerKey||{}).map(v=><option key={v} value={v}>{v}</option>)}</select>{done&&<span className="b1-correct-value">Верный ответ: {answer}</span>}</label>)}</div></fieldset>}
       {done&&score&&score.total>0&&<div role="status" className="b1-score"><CheckCircle2 size={22}/><div><strong>Правильных ответов: {score.correct} / {score.total}</strong><p>Учебная проверка, не официальный результат Goethe-Institut.</p></div></div>}
       <div className="b1-action-row"><button type="button" className="b1-primary" onClick={completeAttempt}>{done?'Открыть разбор ещё раз':'Завершить попытку и показать разбор'}</button><button type="button" className="b1-secondary" onClick={resetAttempt}><RotateCcw size={17}/> Повторить</button>{setNum<part.sets.length&&<button type="button" className="b1-secondary" onClick={()=>setSetNum(n=>n+1)}>Следующий комплект <ArrowRight size={17}/></button>}</div>
-    </section>:<p role="alert" className="b1-notice">Комплект №{setNum} не найден.</p>}
+    </section>):<p role="alert" className="b1-notice">Комплект №{setNum} не найден.</p>}
    </div>}
    <footer className="b1-footer">OTTO B1 · Учебный тренажёр. Неофициальные материалы Goethe. Оплата и серверная авторизация в Preview отключены.</footer>
   </main>
