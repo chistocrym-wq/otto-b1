@@ -15,17 +15,35 @@ jobs:
       B1_AUDIO_HT3_URL: ${{ secrets.B1_AUDIO_HT3_URL }}
       B1_AUDIO_HT4_URL: ${{ secrets.B1_AUDIO_HT4_URL }}
       B1_AUDIO_ST3_URL: ${{ secrets.B1_AUDIO_ST3_URL }}
+      B1_AUDIO_REPO_TOKEN: ${{ secrets.B1_AUDIO_REPO_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Require private original source URLs
+      - name: Require one private archive access method
         shell: bash
         run: |
-          if [[ -z "$B1_AUDIO_HT3_URL" || -z "$B1_AUDIO_HT4_URL" || -z "$B1_AUDIO_ST3_URL" ]]; then
-            echo '::error::Provide protected B1_AUDIO_HT3_URL, B1_AUDIO_HT4_URL and B1_AUDIO_ST3_URL GitHub Secrets.'
+          if [[ -z "$B1_AUDIO_REPO_TOKEN" && ( -z "$B1_AUDIO_HT3_URL" || -z "$B1_AUDIO_HT4_URL" || -z "$B1_AUDIO_ST3_URL" ) ]]; then
+            echo '::error::Set B1_AUDIO_REPO_TOKEN (private GitHub release), or all three protected B1_AUDIO_*_URL secrets.'
             exit 1
           fi
-      - name: Download and verify source ZIP files (temporary runner only)
-        run: python3 scripts/download_b1_private_audio.py --out .b1-private-sources
+      - name: Fetch original ZIPs from private GitHub release or protected HTTPS URLs
+        shell: bash
+        run: |
+          mkdir -p .b1-private-sources
+          if [[ -n "$B1_AUDIO_REPO_TOKEN" ]]; then
+            if [[ "$(GH_TOKEN="$B1_AUDIO_REPO_TOKEN" gh api repos/chistocrym-wq/otto-b1-audio --jq .private)" != "true" ]]; then
+              echo '::error::Audio repository must be private.'
+              exit 1
+            fi
+            GH_TOKEN="$B1_AUDIO_REPO_TOKEN" gh release download b1-audio-source \
+              --repo chistocrym-wq/otto-b1-audio \
+              --pattern 'HT3.zip' --pattern 'HT4.zip' --pattern 'ST3.zip' \
+              --dir .b1-private-sources
+          else
+            python3 scripts/download_b1_private_audio.py --out .b1-private-sources
+          fi
+          for name in HT3.zip HT4.zip ST3.zip; do
+            test -s ".b1-private-sources/$name" || { echo "::error::Missing source $name"; exit 1; }
+          done
       - name: Assemble original 599 MP3 bundles without committing media
         shell: bash
         run: |
