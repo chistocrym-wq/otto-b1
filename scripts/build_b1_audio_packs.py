@@ -20,6 +20,7 @@ def main():
     if len(index) != 599:
         raise ValueError(f'Expected 599 original recordings, found {len(index)}')
     lookup = {}
+    expected_names = {stem + '.mp3' for stem in index}
     opened = []
     try:
         for path in args.archives:
@@ -29,6 +30,8 @@ def main():
                 if not member.lower().endswith('.mp3'):
                     continue
                 name = Path(member).name
+                if name not in expected_names:
+                    continue
                 if name in lookup:
                     raise ValueError(f'Duplicate MP3 name: {name}')
                 lookup[name] = (zf, member)
