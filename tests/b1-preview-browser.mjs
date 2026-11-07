@@ -31,6 +31,7 @@ try{
  await page.getByRole('button',{name:/Завершить попытку/}).click();
  await page.getByText(/Правильных ответов/).waitFor();
  await page.reload();
+ await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByText(/Правильных ответов/).waitFor();
  await page.getByRole('button',{name:'Справочник B1'}).click();
  await page.getByRole('heading',{name:'Справочник OTTO B1'}).waitFor();
@@ -39,6 +40,7 @@ try{
  await page.getByRole('heading',{name:/Schreiben · Teil 1 · №1/}).waitFor();
  await page.getByRole('textbox',{name:'Ваш текст'}).fill('Ich habe am Samstag einen Kurs besucht. Es war sehr interessant.');
  await page.reload();
+ await page.getByRole('button',{name:'Schreiben'}).click();
  assert.match(await page.getByRole('textbox',{name:'Ваш текст'}).inputValue(),/interessant/);
  await page.getByRole('button',{name:'Sprechen'}).click();
  await page.getByRole('button',{name:'Записать ответ'}).click();
