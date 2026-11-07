@@ -1,5 +1,7 @@
 import { B1Reference } from './B1Reference';
 import { B1HorenExercise } from './B1HorenExercise';
+import { B1TaskCatalog } from './B1TaskCatalog';
+import { getB1TotalProgress,markB1TaskComplete } from './taskProgress';
 import { AudioClip } from './B1AudioClip';
 import { OttoScene } from '../components/OttoScene';
 import { ArrowLeft, ArrowRight, BarChart3, BookOpen, BookOpenCheck, CheckCircle2, GraduationCap, Headphones, Home, Languages, MessageCircleMore, PenLine, RotateCcw } from 'lucide-react';
@@ -27,7 +29,7 @@ function choices(answer:string, key:Record<string,string>):string[]{
  if(answer==='0'||/^[d-j]$/.test(answer)||Object.values(key).some(v=>v==='0'||/^[d-j]$/.test(v)))return ['0','a','b','c','d','e','f','g','h','i','j'];
  return ['a','b','c'];
 }
-type B1View = 'home' | 'training' | 'reference' | 'progress';
+type B1View = 'home' | 'training' | 'exercise' | 'reference' | 'progress';
 const MODULES = [
   { id:'horen' as B1Subject, Icon:Headphones, desc:'Аудирование · 4 части', detail:'Слушайте диалоги и сообщения' },
   { id:'lesen' as B1Subject, Icon:BookOpen, desc:'Чтение · 5 частей', detail:'Читайте и выбирайте ответы' },
@@ -35,20 +37,6 @@ const MODULES = [
   { id:'sprechen' as B1Subject, Icon:MessageCircleMore, desc:'Говорение · 3 части', detail:'Записывайте и слушайте свою речь' },
 ] as const;
 
-function getCompletedStats() {
-  const perSubject:Record<B1Subject,number>={horen:0,lesen:0,schreiben:0,sprechen:0};
-  for (const subject of SUBJECTS) {
-    for (let part=1;part<=B1_PARTS[subject];part++) {
-      for (let set=1;set<=30;set++) {
-        try {
-          const raw=localStorage.getItem(b1DraftKey('local-preview',subject,part,set));
-          if (raw && JSON.parse(raw).done===true) perSubject[subject]++;
-        } catch {/* local storage may be unavailable */}
-      }
-    }
-  }
-  return {perSubject,total:Object.values(perSubject).reduce((sum,count)=>sum+count,0)};
-}
 type B1LineKind = 'heading'|'plain'|'option'|'translation'|'review'|'audio'|'transcript';
 function preparedLines(lines:string[],reviewed:boolean,translated:boolean,transcripts:boolean):Array<{text:string;kind:B1LineKind}> {
   let inTranscript=false;
@@ -116,7 +104,7 @@ export default function B1App(){
  const chunks=useRef<Blob[]>([]);
  const setData=useMemo(()=>part?.sets.find(s=>s.number===setNum),[part,setNum]);
  const key=b1DraftKey('local-preview',subject,teil,setNum);
- const stats=useMemo(()=>getCompletedStats(),[revision,view]);
+ const stats=useMemo(()=>getB1TotalProgress(),[revision,view]);
  useEffect(()=>{
   const ctrl=new AbortController();
   setPart(null);setError('');setLoading(true);
@@ -130,6 +118,7 @@ export default function B1App(){
   setShowTranslation(draft.done);setShowTranscript(false);
  },[key]);
  const changeSubject=(next:B1Subject)=>{setSubject(next);setTeil(1);setSetNum(1);setView('training');};
+ const openSet=(number:number)=>{setSetNum(number);setView('exercise');window.scrollTo({top:0,behavior:'smooth'});};
  const changeTeil=(next:number)=>{setTeil(next);setSetNum(1);};
  const startRecording=async()=>{
   if(!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder==='undefined'){setError('Браузер не поддерживает запись голоса.');return;}
@@ -148,7 +137,7 @@ export default function B1App(){
  const saveDraftNow=(nextAnswers:Record<string,string>,nextEssay:string,nextDone:boolean)=>{
   try{localStorage.setItem(key,JSON.stringify({answers:nextAnswers,essay:nextEssay,done:nextDone,updatedAt:new Date().toISOString()}));}catch{/* Browser storage can be disabled. */}
  };
- const completeAttempt=()=>{saveDraftNow(answers,essay,true);setDone(true);setShowTranslation(true);setShowTranscript(true);setRevision(n=>n+1);};
+ const completeAttempt=()=>{saveDraftNow(answers,essay,true);setDone(true);setShowTranslation(true);setShowTranscript(true);const result=setData?scoreB1Answers(setData.answerKey||{},answers):null;markB1TaskComplete(subject,teil,setNum,result&&result.total>0?result.correct:null,result&&result.total>0?result.total:null);setRevision(n=>n+1);};
  const resetAttempt=()=>{saveDraftNow({},'',false);setDone(false);setAnswers({});setEssay('');setShowTranscript(false);setRevision(n=>n+1);};
  const score=setData?scoreB1Answers(setData.answerKey||{},answers):null;
  const goTraining=()=>setView('training');
@@ -195,16 +184,12 @@ export default function B1App(){
     <div className="b1-progress-grid">{MODULES.map(({id,Icon})=><button key={id} type="button" onClick={()=>changeSubject(id)} className="b1-panel b1-progress-module"><div><Icon size={22}/><strong>{NAME[id]}</strong></div><span>{stats.perSubject[id]} / {B1_PARTS[id]*30} комплектов</span><div className="b1-progress-track"><span style={{width:(stats.perSubject[id]/(B1_PARTS[id]*30)*100)+'%'}}/></div></button>)}</div>
    </div>}
    {view==='training'&&<div className="b1-page b1-training">
-    <div className="b1-training-intro">
-      <button className="b1-back" type="button" onClick={()=>setView('home')}><ArrowLeft size={17}/> На главную</button>
-      <div className="b1-page-heading"><span className="b1-kicker">ТРЕНИРОВОЧНЫЙ ЭКЗАМЕН · ГОТЕ B1</span><h1>Разделы экзамена</h1><p>Выполняй задания на немецком. Русский перевод можно включать отдельно; ответы открываются после проверки.</p></div>
-    </div>
-    <div className="b1-selection b1-panel">
-      <div className="b1-selection-title"><strong>{NAME[subject]}</strong><span>Выбери часть и комплект</span></div>
-      <div className="b1-teil-tabs" aria-label="Части модуля">{Array.from({length:B1_PARTS[subject]},(_,i)=>i+1).map(n=><button key={n} type="button" aria-pressed={teil===n} onClick={()=>changeTeil(n)} className={'b1-teil-tab '+(teil===n?'is-active':'')}>Teil {n}</button>)}</div>
-      {part&&<label className="b1-set-select">Тренировочный комплект<select value={setNum} onChange={e=>setSetNum(Number(e.target.value))}>{part.sets.map(s=><option key={s.number} value={s.number}>№ {s.number}</option>)}</select></label>}
-    </div>
-    {loading?<p role="status" className="b1-panel b1-notice">Загружаем задания B1…</p>:error?<div role="alert" className="b1-panel b1-notice"><strong>Не удалось загрузить материалы B1.</strong><p>Проверь файл /b1/data/{subject}-{teil}.json.</p><small>{error}</small></div>:part&&setData?(subject==='horen'?<B1HorenExercise key={'horen-'+teil+'-'+setNum} set={setData} teil={teil} answers={answers} done={done}
+    <B1TaskCatalog subject={subject} teil={teil} part={part} loading={loading} revision={revision}
+      onBack={()=>setView('home')} onSelectTeil={changeTeil} onSelectSet={openSet}/>
+   </div>}
+   {view==='exercise'&&<div className="b1-page b1-training">
+    <div className="b1-training-intro"><button className="b1-back" type="button" onClick={()=>setView('training')}><ArrowLeft size={17}/> К списку заданий</button></div>
+        {loading?<p role="status" className="b1-panel b1-notice">Загружаем задания B1…</p>:error?<div role="alert" className="b1-panel b1-notice"><strong>Не удалось загрузить материалы B1.</strong><p>Проверь файл /b1/data/{subject}-{teil}.json.</p><small>{error}</small></div>:part&&setData?(subject==='horen'?<B1HorenExercise key={'horen-'+teil+'-'+setNum} set={setData} teil={teil} answers={answers} done={done}
        onAnswer={(id,value)=>setAnswers(prev=>{const next={...prev,[id]:value};saveDraftNow(next,essay,done);return next;})}
        onComplete={completeAttempt} onReset={resetAttempt} onNextSet={()=>setSetNum(n=>n+1)}
        hasNextSet={setNum<part.sets.length}/>:<section key={subject+'-'+teil+'-'+setNum} className="b1-panel b1-exercise">
