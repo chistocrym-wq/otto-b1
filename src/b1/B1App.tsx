@@ -1,3 +1,4 @@
+import { B1Reference } from './B1Reference';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Subject, type B1Teil } from './content';
 
@@ -58,6 +59,7 @@ export default function B1App(){
  const [essay,setEssay]=useState('');
  const [done,setDone]=useState(false);
  const [recording,setRecording]=useState(false);
+ const [showReference,setShowReference]=useState(false);
  const [recordUrl,setRecordUrl]=useState('');
  const recorder=useRef<MediaRecorder|null>(null);
  const chunks=useRef<Blob[]>([]);
@@ -95,10 +97,11 @@ export default function B1App(){
  const score=setData?scoreB1Answers(setData.answerKey||{},answers):null;
  return <div className="min-h-screen bg-[#f7f1e8] text-slate-900">
   <header className="border-b border-[#d6cbbd] bg-white/90"><div className="mx-auto max-w-6xl px-4 py-4">
-   <h1 className="text-3xl font-black text-teal-900">OTTO B1</h1>
+   <div className="flex items-center justify-between gap-4"><div><h1 className="text-3xl font-black text-teal-900">OTTO B1</h1><button className="mt-2 min-h-11 rounded-xl border border-teal-700 px-4 font-semibold text-teal-800" onClick={()=>setShowReference(x=>!x)}>{showReference?"К экзаменам":"Справочник B1"}</button></div><img src="/otto-full-transparent.webp" alt="Отто с усами" className="h-24 w-24 object-contain"/></div>
    <p className="text-sm">Тренажёр Goethe-Zertifikat B1 · учебная Preview-версия</p>
   </div></header>
   <main className="mx-auto max-w-6xl px-4 py-6">
+  {showReference?<B1Reference onClose={()=>setShowReference(false)}/>:<>
   <nav aria-label="Разделы экзамена" className="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4">
    {SUBJECTS.map(s=><button key={s} onClick={()=>changeSubject(s)} aria-pressed={subject===s}
     className={'min-h-12 rounded-2xl border px-4 font-bold '+(subject===s?'border-teal-800 bg-teal-800 text-white':'border-slate-300 bg-white')}>{NAME[s]}</button>)}
@@ -147,6 +150,7 @@ export default function B1App(){
      {setNum<part.sets.length&&<button className="min-h-12 rounded-xl border px-5" onClick={()=>setSetNum(n=>n+1)}>Следующий комплект →</button>}
     </div>
    </section>:<p role="alert">Комплект №{setNum} не найден.</p>}
+  </>}
   </>}
   <footer className="mt-8 text-xs text-slate-500">OTTO B1 · Учебные материалы не являются официальным экзаменом Goethe-Institut. Система оплаты отключена.</footer>
   </main>
