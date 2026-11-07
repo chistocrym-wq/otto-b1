@@ -48,6 +48,7 @@ try{
  assert.match(await page.evaluate(()=>localStorage.getItem('otto:b1:draft:local-preview:schreiben:1:1')||''),/interessant/,'Schreiben should persist immediately after input');
  await page.reload();
  await page.getByRole('button',{name:'Schreiben'}).click();
+ await page.waitForFunction(()=>document.querySelector('#b1essay')?.value.includes('interessant'),null,{timeout:10000});
  assert.match(await page.getByRole('textbox',{name:'Ваш текст'}).inputValue(),/interessant/);
  await page.getByRole('button',{name:'Sprechen'}).click();
  await page.getByRole('button',{name:'Записать ответ'}).click();
