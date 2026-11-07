@@ -95,6 +95,7 @@ try{
  await page.getByRole('button',{name:'Продолжить задание №1'}).click();
  await page.waitForFunction(()=>document.querySelector('#b1essay')?.value.includes('interessant'),null,{timeout:10000});
  assert.match(await page.getByRole('textbox',{name:'Ваш текст'}).inputValue(),/interessant/);
+ await page.getByRole('button',{name:'К списку заданий'}).click();
  await page.getByRole('button',{name:'На главную'}).click();
  await page.getByRole('button',{name:'Sprechen'}).click();
  await page.getByRole('button',{name:'Начать задание №1'}).click();
