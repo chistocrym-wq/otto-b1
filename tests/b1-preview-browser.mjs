@@ -26,6 +26,11 @@ try{
  await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByRole('heading',{name:/Lesen · Teil 1 · №1/}).waitFor();
  const responses=page.locator('select[aria-label^="Aufgabe"]');
+ if(await responses.count()===0){
+   console.error('B1 reading controls missing. Main text:',(await page.locator('main').innerText()).slice(0,2000));
+   console.error('B1 reading controls missing. Selects:',await page.locator('select').evaluateAll(nodes=>nodes.map(n=>({outer:n.outerHTML.slice(0,300)}))));
+   console.error('B1 page JS errors:',errors);
+ }
  assert.ok(await responses.count()>=1,'Expected reading answers');
  await responses.first().selectOption({index:1});
  await page.getByRole('button',{name:/Завершить попытку/}).click();
