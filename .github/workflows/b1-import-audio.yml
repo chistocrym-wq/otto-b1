@@ -1,49 +1,36 @@
-name: OTTO B1 import source audio from GitHub release
+name: OTTO B1 private audio import verification
 on:
-  workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  import-source-audio:
-    if: github.ref == 'refs/heads/feature/goethe-b1-content'
+  b1-source-audio-check:
+    if: github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      GH_TOKEN: ${{ github.token }}
+      B1_AUDIO_HT3_URL: ${{ secrets.B1_AUDIO_HT3_URL }}
+      B1_AUDIO_HT4_URL: ${{ secrets.B1_AUDIO_HT4_URL }}
+      B1_AUDIO_ST3_URL: ${{ secrets.B1_AUDIO_ST3_URL }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: feature/goethe-b1-content
-          persist-credentials: true
-      - name: Download exact original MP3 ZIPs from B1 release
+      - name: Require private original source URLs
+        shell: bash
         run: |
-          mkdir -p .b1-source-audio
-          gh release download b1-audio-source \
-            --pattern 'HT3.zip' \
-            --pattern 'HT4.zip' \
-            --pattern 'ST3.zip' \
-            --dir .b1-source-audio
-          test -s .b1-source-audio/HT3.zip
-          test -s .b1-source-audio/HT4.zip
-          test -s .b1-source-audio/ST3.zip
-      - name: Build only missing source MP3 packs
-        run: |
-          python3 scripts/build_b1_audio_packs.py \
-            .b1-source-audio/HT3.zip \
-            .b1-source-audio/HT4.zip \
-            .b1-source-audio/ST3.zip
-      - name: Reject incomplete audio manifest
-        run: node --test tests/b1-audio.test.mjs
-      - name: Commit B1-only media assets to B1 feature branch
-        run: |
-          git config user.name "otto-b1-preview-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public-b1/b1/audio-packs/
-          if git diff --cached --quiet; then
-            echo 'No missing audio packages to add.'
-            exit 0
+          if [[ -z "$B1_AUDIO_HT3_URL" || -z "$B1_AUDIO_HT4_URL" || -z "$B1_AUDIO_ST3_URL" ]]; then
+            echo '::error::Provide protected B1_AUDIO_HT3_URL, B1_AUDIO_HT4_URL and B1_AUDIO_ST3_URL GitHub Secrets.'
+            exit 1
           fi
-          git commit -m "assets(b1): add validated original MP3 audio packs"
-          git push origin HEAD:feature/goethe-b1-content
+      - name: Download and verify source ZIP files (temporary runner only)
+        run: python3 scripts/download_b1_private_audio.py --out .b1-private-sources
+      - name: Assemble original 599 MP3 bundles without committing media
+        shell: bash
+        run: |
+          python3 scripts/build_b1_audio_packs.py             .b1-private-sources/HT3.zip             .b1-private-sources/HT4.zip             .b1-private-sources/ST3.zip
+          node --test tests/b1-audio.test.mjs
+      - name: Remove protected original ZIPs
+        if: always()
+        run: rm -rf .b1-private-sources
