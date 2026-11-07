@@ -15,6 +15,9 @@ permissions:
 
 jobs:
   build:
+    # Legacy A1 regression suite is not applicable to the isolated B1 preview.
+    # The B1-specific workflow executes typecheck, content verification and build.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.ref != 'feature/goethe-b1-content'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

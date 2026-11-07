@@ -1,0 +1,57 @@
+name: OTTO B1 Preview Checks
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  b1-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: TypeScript typecheck
+        run: npm run typecheck
+      - name: Verify all B1 source tasks
+        run: npm run test:b1
+      - name: Build isolated OTTO B1
+        run: npm run build
+      - name: Install Playwright for real browser smoke
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install chromium
+      - name: Verify exam, grading, draft persistence, voice and mobile
+        run: node tests/b1-preview-browser.mjs
+      - name: Upload build for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: otto-b1-preview-dist
+          path: dist/
+          retention-days: 5
+
+  audio-index:
+    name: Validate B1 audio index (binary assets checked in secure preview)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check 599 indexed original recordings
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const assert = require('node:assert/strict');
+          const index = JSON.parse(fs.readFileSync('public-b1/b1/audio-index.json', 'utf8'));
+          const ids = Object.keys(index);
+          assert.equal(ids.length, 599, 'B1 manifest must list exactly 599 recordings');
+          assert.ok(ids.every(id => typeof id === 'string' && id.length > 0), 'Invalid recording identifier');
+          assert.ok(Object.values(index).every(pack => Number.isInteger(pack) && pack >= 0), 'Invalid audio bundle identifier');
+          console.log('B1 599-recording manifest valid. Full binary coverage is verified by the private-audio import and Netlify Preview workflows after protected archives are downloaded.');
+          NODE

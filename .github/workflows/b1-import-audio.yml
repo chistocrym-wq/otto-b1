@@ -1,0 +1,43 @@
+name: OTTO B1 original audio verification (same repository release)
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  b1-release-audio-check:
+    if: github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1' && github.event.pull_request.head.ref == 'feature/goethe-b1-content'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download three original ZIPs from OTTO B1 release
+        shell: bash
+        run: |
+          mkdir -p .b1-source-audio
+          if ! gh release view b1-audio-source --repo chistocrym-wq/otto-b1 >/dev/null 2>&1; then
+            echo '::error::Upload HT3.zip, HT4.zip and ST3.zip to release b1-audio-source in THIS otto-b1 repository.'
+            exit 1
+          fi
+          gh release download b1-audio-source \
+            --repo chistocrym-wq/otto-b1 \
+            --pattern 'HT3.zip' --pattern 'HT4.zip' --pattern 'ST3.zip' \
+            --dir .b1-source-audio
+          for name in HT3.zip HT4.zip ST3.zip; do
+            test -s ".b1-source-audio/$name" || { echo "::error::Source archive $name is missing"; exit 1; }
+          done
+      - name: Assemble and validate all 599 original B1 MP3
+        shell: bash
+        run: |
+          python3 scripts/build_b1_audio_packs.py \
+            .b1-source-audio/HT3.zip \
+            .b1-source-audio/HT4.zip \
+            .b1-source-audio/ST3.zip
+          node --test tests/b1-audio.test.mjs
+      - name: Remove temporary ZIP files
+        if: always()
+        run: rm -rf .b1-source-audio

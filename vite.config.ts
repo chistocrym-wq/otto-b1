@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
-import { preview20JourneyPlugin } from './scripts/preview20-journey-plugin.mjs';
 
+// Only B1 assets from public-b1 are served. This prevents copying the
+// A1 public directory (audio, SEO, service worker, marketing pages) to B1.
 export default defineConfig({
-  plugins: [preview20JourneyPlugin(), react()],
+  plugins: [react()],
+  publicDir: 'public-b1',
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
-  optimizeDeps: { exclude: ['lucide-react'] },
 });
