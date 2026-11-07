@@ -1,4 +1,4 @@
-name: OTTO B1 private audio import verification
+name: OTTO B1 original audio verification (same repository release)
 on:
   pull_request:
     branches: [main]
@@ -7,48 +7,37 @@ permissions:
   contents: read
 
 jobs:
-  b1-source-audio-check:
+  b1-release-audio-check:
     if: github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1' && github.event.pull_request.head.ref == 'feature/goethe-b1-content'
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
-      B1_AUDIO_HT3_URL: ${{ secrets.B1_AUDIO_HT3_URL }}
-      B1_AUDIO_HT4_URL: ${{ secrets.B1_AUDIO_HT4_URL }}
-      B1_AUDIO_ST3_URL: ${{ secrets.B1_AUDIO_ST3_URL }}
-      B1_AUDIO_REPO_TOKEN: ${{ secrets.B1_AUDIO_REPO_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Require one private archive access method
+      - name: Download three original ZIPs from OTTO B1 release
         shell: bash
         run: |
-          if [[ -z "$B1_AUDIO_REPO_TOKEN" && ( -z "$B1_AUDIO_HT3_URL" || -z "$B1_AUDIO_HT4_URL" || -z "$B1_AUDIO_ST3_URL" ) ]]; then
-            echo '::error::Set B1_AUDIO_REPO_TOKEN (private GitHub release), or all three protected B1_AUDIO_*_URL secrets.'
+          mkdir -p .b1-source-audio
+          if ! gh release view b1-audio-source --repo chistocrym-wq/otto-b1 >/dev/null 2>&1; then
+            echo '::error::Upload HT3.zip, HT4.zip and ST3.zip to release b1-audio-source in THIS otto-b1 repository.'
             exit 1
           fi
-      - name: Fetch original ZIPs from private GitHub release or protected HTTPS URLs
-        shell: bash
-        run: |
-          mkdir -p .b1-private-sources
-          if [[ -n "$B1_AUDIO_REPO_TOKEN" ]]; then
-            if [[ "$(GH_TOKEN="$B1_AUDIO_REPO_TOKEN" gh api repos/chistocrym-wq/otto-b1-audio --jq .private)" != "true" ]]; then
-              echo '::error::Audio repository must be private.'
-              exit 1
-            fi
-            GH_TOKEN="$B1_AUDIO_REPO_TOKEN" gh release download b1-audio-source \
-              --repo chistocrym-wq/otto-b1-audio \
-              --pattern 'HT3.zip' --pattern 'HT4.zip' --pattern 'ST3.zip' \
-              --dir .b1-private-sources
-          else
-            python3 scripts/download_b1_private_audio.py --out .b1-private-sources
-          fi
+          gh release download b1-audio-source \
+            --repo chistocrym-wq/otto-b1 \
+            --pattern 'HT3.zip' --pattern 'HT4.zip' --pattern 'ST3.zip' \
+            --dir .b1-source-audio
           for name in HT3.zip HT4.zip ST3.zip; do
-            test -s ".b1-private-sources/$name" || { echo "::error::Missing source $name"; exit 1; }
+            test -s ".b1-source-audio/$name" || { echo "::error::Source archive $name is missing"; exit 1; }
           done
-      - name: Assemble original 599 MP3 bundles without committing media
+      - name: Assemble and validate all 599 original B1 MP3
         shell: bash
         run: |
-          python3 scripts/build_b1_audio_packs.py             .b1-private-sources/HT3.zip             .b1-private-sources/HT4.zip             .b1-private-sources/ST3.zip
+          python3 scripts/build_b1_audio_packs.py \
+            .b1-source-audio/HT3.zip \
+            .b1-source-audio/HT4.zip \
+            .b1-source-audio/ST3.zip
           node --test tests/b1-audio.test.mjs
-      - name: Remove protected original ZIPs
+      - name: Remove temporary ZIP files
         if: always()
-        run: rm -rf .b1-private-sources
+        run: rm -rf .b1-source-audio
