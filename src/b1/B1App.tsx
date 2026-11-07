@@ -123,6 +123,14 @@ function preparedLines(lines:string[],reviewed:boolean,translated:boolean,transc
       if(translated)result.push({text,kind:'translation'});
       continue;
     }
+    // Some B1 originals put the correct answer directly after a statement.
+    // Preserve the statement for the exercise and expose the marked answer only after checking.
+    const inlineAnswer=text.match(/\((Richtig|Falsch|Ja|Nein|[a-j])\)\s*$/i);
+    if(inlineAnswer){
+      result.push({text:hideInlineAnswer(text),kind:'plain'});
+      if(reviewed) result.push({text:'Верный ответ: '+inlineAnswer[1],kind:'review'});
+      continue;
+    }
     if(/^(?:Aufgabe\s*\d+|Text\s*\d+|Folie\s*\d+|Frage\s*\d+|Teil\s*\d+|SITUATION\s*\(DE\))/i.test(text))
       result.push({text:hideInlineAnswer(text),kind:'heading'});
     else if(/^(?:[a-j][).]\s+|Richtig\s*\/\s*Falsch|Ja\s*\/\s*Nein)/i.test(text))
