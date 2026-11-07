@@ -1,74 +1,83 @@
-name: OTTO B1 Netlify non-production preview
+name: OTTO B1 isolated Netlify Preview
 on:
   pull_request:
     branches: [main]
-  workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   b1-netlify-preview:
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    if: github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
     env:
       NETLIFY_B1_AUTH_TOKEN: ${{ secrets.NETLIFY_B1_AUTH_TOKEN }}
       NETLIFY_B1_SITE_ID: ${{ secrets.NETLIFY_B1_SITE_ID }}
+      B1_AUDIO_HT3_URL: ${{ secrets.B1_AUDIO_HT3_URL }}
+      B1_AUDIO_HT4_URL: ${{ secrets.B1_AUDIO_HT4_URL }}
+      B1_AUDIO_ST3_URL: ${{ secrets.B1_AUDIO_ST3_URL }}
     steps:
-      - name: Checkout exact B1 branch
-        uses: actions/checkout@v4
-      - name: Setup Node 22
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
-      - name: Require dedicated B1 Netlify credentials
+      - name: Require independent B1 site and protected archive URLs
         shell: bash
         run: |
           if [[ -z "$NETLIFY_B1_AUTH_TOKEN" || -z "$NETLIFY_B1_SITE_ID" ]]; then
-            echo "::error::B1 Preview blocked: configure NETLIFY_B1_AUTH_TOKEN and NETLIFY_B1_SITE_ID for an independent OTTO B1 site."
+            echo '::error::Missing independent OTTO B1 Netlify credentials.'
             exit 1
           fi
-      - name: Verify site identity, never publish to A1
+          if [[ -z "$B1_AUDIO_HT3_URL" || -z "$B1_AUDIO_HT4_URL" || -z "$B1_AUDIO_ST3_URL" ]]; then
+            echo '::error::Missing private B1 ZIP URLs. Never use public GitHub Release.'
+            exit 1
+          fi
+      - name: Verify B1-only Netlify site before downloading audio
         shell: bash
         run: |
-          curl --fail --silent --show-error \
-            --header "Authorization: Bearer $NETLIFY_B1_AUTH_TOKEN" \
+          curl --fail --silent --show-error --max-time 45 \
+            -H "Authorization: Bearer $NETLIFY_B1_AUTH_TOKEN" \
             "https://api.netlify.com/api/v1/sites/$NETLIFY_B1_SITE_ID" |
-            node -e '
-              let s="";
-              process.stdin.on("data",x=>s+=x);
-              process.stdin.on("end",()=>{
-                const site=JSON.parse(s);
-                if(!/^otto-b1(?:-|$)/i.test(site.name||"")) {
-                  console.error("Site must have an otto-b1 name; refusing deploy to "+site.name);
-                  process.exit(1);
-                }
-                const linked=site.build_settings?.repo_url||"";
-                if(linked && !linked.includes("chistocrym-wq/otto-b1")) {
-                  console.error("Netlify site is linked to a different repository");
-                  process.exit(1);
-                }
-                console.log("Dedicated B1 site verified: "+site.name);
-              });
-            '
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-      - name: Validate content, types and full audio inventory
+          node -e '
+            let s="";process.stdin.on("data",b=>s+=b);
+            process.stdin.on("end",()=>{
+              const x=JSON.parse(s);
+              if(!/^otto-b1(?:-|$)/i.test(x.name||"")){
+                console.error("Refusing: not an OTTO B1 site");process.exit(1);
+              }
+              const repo=x.build_settings?.repo_url||"";
+              if(repo && !repo.includes("chistocrym-wq/otto-b1")){
+                console.error("Refusing: site linked to other repository");process.exit(1);
+              }
+              console.log("Verified isolated B1 site:",x.name);
+            });
+          '
+      - name: Retrieve protected original ZIPs
+        run: python3 scripts/download_b1_private_audio.py --out .b1-private-sources
+      - name: Build missing original audio packs
+        shell: bash
         run: |
+          python3 scripts/build_b1_audio_packs.py \
+            .b1-private-sources/HT3.zip \
+            .b1-private-sources/HT4.zip \
+            .b1-private-sources/ST3.zip
+      - name: Validate B1 and all 599 actual audio files
+        shell: bash
+        run: |
+          npm ci --no-audit --no-fund
           npm run typecheck
           npm run test:b1
           node --test tests/b1-audio.test.mjs
-      - name: Build independent B1 React app
-        run: npm run build
-      - name: Deploy B1 preview alias (never Production)
+          npm run build
+      - name: Remove private archives before deployment
+        run: rm -rf .b1-private-sources
+      - name: Deploy to non-production PR alias only
         shell: bash
         run: |
           npx --yes netlify-cli@latest deploy \
             --auth "$NETLIFY_B1_AUTH_TOKEN" \
             --site "$NETLIFY_B1_SITE_ID" \
             --dir dist \
-            --alias "pr-${{ github.event.pull_request.number || 'manual' }}" \
+            --alias "pr-${{ github.event.pull_request.number }}" \
             --json > /tmp/otto-b1-preview.json
-          node -e 'const x=require("/tmp/otto-b1-preview.json"); if(!x.deploy_url){console.error("No preview URL");process.exit(1)};console.log("OTTO B1 Preview: "+x.deploy_url)'
+          node -e 'const x=require("/tmp/otto-b1-preview.json");if(!/^https:\/\//.test(x.deploy_url||""))process.exit(1);console.log("OTTO B1 Preview:",x.deploy_url)'
