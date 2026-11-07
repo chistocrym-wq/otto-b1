@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import assert from 'node:assert/strict';
 
-const server=spawn('npx',['vite','preview','--host','127.0.0.1','--port','4175'],{stdio:'pipe'});
+const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port','4175'],{stdio:'pipe'});
 let output='';
 server.stderr.on('data',d=>output+=d.toString());
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
