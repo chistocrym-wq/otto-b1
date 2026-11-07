@@ -22,9 +22,18 @@ try{
  const errors=[];
  page.on('pageerror',error=>errors.push(String(error)));
  await page.goto('http://127.0.0.1:4175/',{waitUntil:'networkidle'});
- await page.getByRole('heading',{name:'OTTO B1'}).waitFor();
+ await page.getByRole('heading',{name:'Сегодня — ещё шаг к B1'}).waitFor();
+ await page.getByRole('navigation',{name:'Основная навигация'}).waitFor();
+ await page.getByRole('button',{name:'Начать тренировку'}).waitFor();
  await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByRole('heading',{name:/Lesen · Teil 1 · №1/}).waitFor();
+ await page.getByRole('button',{name:'Показать перевод'}).waitFor();
+ const beforeTranslation=await page.locator('.b1-reading-body .b1-line-translation').count();
+ assert.equal(beforeTranslation,0,'Translation must be hidden until requested');
+ await page.getByRole('button',{name:'Показать перевод'}).click();
+ assert.ok(await page.locator('.b1-reading-body .b1-line-translation').count()>0,'German exam must show existing Russian translations on demand');
+ await page.getByRole('button',{name:'Скрыть перевод'}).click();
+ assert.equal(await page.locator('.b1-reading-body .b1-line-translation').count(),0,'Hide translation must work');
  const responses=page.locator('select[aria-label^="Aufgabe"]');
  await responses.first().waitFor({timeout:10000});
  if(await responses.count()===0){
@@ -36,6 +45,7 @@ try{
  await responses.first().selectOption({index:1});
  await page.getByRole('button',{name:/Завершить попытку/}).click();
  await page.getByText(/Правильных ответов/).waitFor();
+ assert.ok(await page.locator('.b1-reading-body .b1-line-review').count()>0,'Finished attempt must show explanations');
  await page.reload();
  await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByText(/Правильных ответов/).waitFor();
