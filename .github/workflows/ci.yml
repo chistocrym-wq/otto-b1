@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: otto-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Commission accounting JS syntax
+        run: node --check netlify/lib/preview20-commission-accounting.js
+      - name: Payment backend tests
+        run: npm run test:payments
+      - name: Preview20 commission accounting regression
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 20
+        run: node --test tests/preview20-commission-accounting.test.mjs
+      - name: Preview25 commissionGate exact-origin and isolated Blob regressions
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 25
+        run: node --test tests/preview25-commission-gate.test.mjs
+      - name: Preview20 teacher/referral accounting regression
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 20
+        run: node --test tests/preview20-teachers.test.mjs
+      - name: Auth backend tests
+        run: npm run test:auth
+      - name: Actual Netlify Blobs 11.1.7 conditional HTTP security regression
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 25
+        env:
+          NODE_ENV: test
+        run: node --test tests/preview25-netlify-blobs-sdk.test.mjs
+      - name: Preview25 Email OTP sync recovery regression
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 25
+        run: node --experimental-vm-modules --test tests/preview25-email-sync-recovery.test.mjs
+      - name: Preview20 guest trial synthetic security tests
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 20
+        run: node --test tests/preview20-guest-trial.test.mjs
+      - name: PR35 existing access, guest and progress regression gates
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 35
+        run: |
+          node --test tests/preview20-production-gates.test.mjs
+          node --test tests/preview20-guest-trial.test.mjs
+          node --test tests/preview20-cutover-matrix.test.mjs
+      - name: Isolated admin state and exam access tests
+        run: node --test tests/admin-history-otto30-access.test.mjs
+      - name: Learning experience tests
+        run: npm run test:learning
+      - name: Preview25 guest isolation, authenticated continuation and CBR nominal tests
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 25
+        run: node --test tests/preview25-guest-fx.test.mjs
+      - name: Synthetic rollback preservation of v1 history (467 tasks)
+        run: node --test tests/rollback-v1-preservation.test.mjs
+      - name: Read-only bridge server GET recovery (isolated synthetic users)
+        run: node --test tests/preview13-state-sync-soft-release.test.mjs
+      - name: Build
+        run: npm run build
+      - name: Upload deploy bundle
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: otto-netlify-source
+          path: |
+            .
+            !node_modules
+            !.git
+          include-hidden-files: true
+          retention-days: 1
+
+
+  commission_postgres:
+    name: Isolated PostgreSQL 16 commissions
+    if: github.event_name == 'pull_request' && (github.event.pull_request.number == 20 || github.event.pull_request.number == 25)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: otto_pr20_isolated
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: isolated-only-pr20
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d otto_pr20_isolated"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: isolated-only-pr20
+      PGDATABASE: otto_pr20_isolated
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Install postgres client
+        run: |
+          if ! command -v psql >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y postgresql-client
+          fi
+      - name: Execute actual PostgreSQL migrations and concurrency tests
+        run: node --test tests/preview20-commission-postgres.test.mjs
+      - name: Real webhook and PostgreSQL RPC bridge, mocked provider and Blobs
+        run: |
+          npm install --no-audit --no-fund
+          node --test tests/preview20-webhook-postgres-bridge.test.mjs

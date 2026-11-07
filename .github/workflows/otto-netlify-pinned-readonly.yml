@@ -1,0 +1,159 @@
+# SECURITY-REVIEW CANDIDATE. Do not add to main until separately approved.
+# Proposed destination: .github/workflows/otto-netlify-pinned-readonly.yml
+name: OTTO Preview 13 - pinned Netlify read-only inventory
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_readonly:
+        description: 'Run reviewed read-only inventory of existing Preview 13 data?'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: otto-netlify-verified-inventory
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    if: ${{ github.repository == 'chistocrym-wq/otto-a1' && github.ref == 'refs/heads/main' && inputs.confirm_readonly == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: otto-netlify-audit
+      deployment: false
+    steps:
+      - name: Checkout immutable audited revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: 9873d84b202f299f884f1336e1de636b41c2320f
+          persist-credentials: false
+
+      - name: Verify audited revision and critical Git blobs (no secret)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "9873d84b202f299f884f1336e1de636b41c2320f"
+          test "$(git hash-object scripts/otto30-netlify-readonly-preflight.mjs)" = "87aa20f5a9565474470e90be325cfb2ee1e1e518"
+          test "$(git hash-object scripts/otto30-audio-archive-evidence.json)" = "933ab06fbd2b520b3ee8ea4596123b6f0cb3bfc1"
+          test "$(git hash-object netlify/lib/otto30-private.js)" = "d549666918a969576411ac69e50d9a1a8874a5f6"
+          test "$(git hash-object netlify/lib/otto30-key-fingerprints.js)" = "c917c56134e349b87bd81193e0f08788b5eacbeb"
+          test "$(git hash-object package-lock.json)" = "e6d0967172944c13f367a7f057a5fc68603e6e27"
+
+      - name: Use Node 22 (no secret)
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+
+      - name: Checkout isolated audit dependency manifest from dispatch commit (no secret)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          path: .otto-audit-dependency-source
+          persist-credentials: false
+
+      - name: Install verified isolated audit dependencies, no lifecycle scripts (no secret)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object .otto-audit-dependency-source/.otto-audit-deps/package.json)" = "43096a7c37bdce7aee25c412ca960e730c3842b2"
+          test "$(git hash-object .otto-audit-dependency-source/.otto-audit-deps/package-lock.json)" = "d61e87ddca25937cc2ddcc76921dbbe16c5b8be7"
+          mkdir -p .otto-audit-deps
+          cp .otto-audit-dependency-source/.otto-audit-deps/package.json .otto-audit-deps/package.json
+          cp .otto-audit-dependency-source/.otto-audit-deps/package-lock.json .otto-audit-deps/package-lock.json
+          npm ci --prefix .otto-audit-deps --ignore-scripts --no-audit --no-fund
+          test -d .otto-audit-deps/node_modules/@netlify/blobs
+          ln -s .otto-audit-deps/node_modules node_modules
+          node -e "import('@netlify/blobs').then(()=>console.log('Audit-only dependency import: OK'))"
+
+      - name: Corrected static security test (no secret)
+        shell: bash
+        run: |
+          node --check scripts/otto30-netlify-readonly-preflight.mjs
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          const src=readFileSync('scripts/otto30-netlify-readonly-preflight.mjs','utf8');
+          const evidence=JSON.parse(readFileSync('scripts/otto30-audio-archive-evidence.json','utf8'));
+          assert.match(src,/getStore\(\{name,siteID:SITE_ID,token/);
+          assert.match(src,/get\(key,\{type:'arrayBuffer'/);
+          // The original test incorrectly rejected the harmless examMap.set() Map call.
+          assert.doesNotMatch(src,/\b(?:candidateStore|keyStore|store)\s*\.\s*(?:set|setJSON|delete|deleteAll|put)\s*\(/);
+          assert.doesNotMatch(src,/method:\s*['"](?:POST|PUT|PATCH|DELETE)['"]/i);
+          assert.equal(Object.keys(evidence.audio).length,450);
+          assert.equal(new Set(Object.values(evidence.audio).map(x=>x.sha256)).size,450);
+          console.log('PASS: audited Blob reads only; 450 archived audio hashes');
+          JS
+
+      - name: Read existing Preview Blobs and verify rollback metadata
+        shell: bash
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          OTTO_NETLIFY_SITE_ID: '6cd5980e-1876-40f3-85e4-b227362b4d3d'
+          OTTO_SAFE_REPORT_FILE: ${{ runner.temp }}/otto-readonly-raw.json
+        run: |
+          set -euo pipefail
+          umask 077
+          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then
+            echo '::error::NETLIFY_AUTH_TOKEN is unavailable in approved environment'
+            exit 1
+          fi
+          node scripts/otto30-netlify-readonly-preflight.mjs
+
+      - name: Separate technical matching from editorial/release approval
+        if: always()
+        shell: bash
+        env:
+          OTTO_SAFE_REPORT_FILE: ${{ runner.temp }}/otto-readonly-raw.json
+          SAFE_SUMMARY_FILE: ${{ runner.temp }}/otto-readonly-summary.json
+        run: |
+          if [ ! -f "$OTTO_SAFE_REPORT_FILE" ]; then
+            echo 'No inventory results; audit did not run successfully.'
+            exit 0
+          fi
+          node --input-type=module <<'JS'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const r=JSON.parse(readFileSync(process.env.OTTO_SAFE_REPORT_FILE,'utf8'));
+          const a=r.audit||{};
+          const summary={
+            auditCommit:'9873d84b202f299f884f1336e1de636b41c2320f',
+            targetSite:'6cd5980e-1876-40f3-85e4-b227362b4d3d',
+            rollbackDeployExpected:'6acddaa9790643d38224f767',
+            rollbackDeployVerified:Boolean(r.deploy?.rollbackSHAConfirmed&&r.deploy?.rollbackExists),
+            technicalPreviewInventory:{
+              matchedPreviewManifest:Boolean(a.copyReady),
+              independentlyVerifiedEntireSourceArchive:false,
+              counts:a.counts,
+              archivedAudioHashesMatched:a.archiveAudioMatched,
+              discrepancies:a.discrepancies,
+              checkedAgainst:'Preview private manifest plus archived MP3 digests; NOT independently full archive'
+            },
+            privateKeys:{
+              existingPreviewKeysFound:a.counts?.keys??null,
+              structurallyCompatible:a.keyStats?.compatible??null,
+              differentE9R3RevisionMatches:a.keyStats?.pinnedE9R3Matches??null,
+              e9r3MatchRequired:false
+            },
+            editorialApproval:'NOT_CHECKED',
+            publicationAuthorized:false,
+            productionCopied:false,
+            personalDataBackedUp:false,
+            changesToNetlify:0
+          };
+          writeFileSync(process.env.SAFE_SUMMARY_FILE,JSON.stringify(summary,null,2)+'\n',{mode:0o600});
+          console.log('Technical match:',summary.technicalPreviewInventory.matchedPreviewManifest?'PASS':'NOT CONFIRMED');
+          console.log('Editorial approval: NOT CHECKED; publication authorization: NO');
+          JS
+
+      - name: Upload metadata-only summary, one-day retention
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: otto-netlify-readonly-summary
+          path: ${{ runner.temp }}/otto-readonly-summary.json
+          if-no-files-found: ignore
+          retention-days: 1

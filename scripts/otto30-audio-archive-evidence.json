@@ -1,0 +1,1807 @@
+{
+  "sourceArchive": "cfcd0da3-9ee8-45e8-8512-34dcf2e5628c.zip",
+  "sourceArchiveSha256": "33bbc4a25defc7935b83e00c8b806e14e9fc8d7fdb46fe8322427bfe95feb78a",
+  "kind": "audio-evidence-only-not-production-blobs",
+  "audio": {
+    "audio/exam_01/task_01.mp3": {
+      "sha256": "35d1e6d22150c66e1b33ff4b089a6cc9c9a24ea064516b614e0dfe5e3dd55064",
+      "bytes": 475821
+    },
+    "audio/exam_01/task_02.mp3": {
+      "sha256": "693486aba9d4d75d1e495e7fa32b0e5475e4c88c5e46d930419d1bd540047555",
+      "bytes": 535149
+    },
+    "audio/exam_01/task_03.mp3": {
+      "sha256": "4b43158e99bef6cbbe50b6186c982733e930d9832e31f37ecd67914efd866913",
+      "bytes": 506925
+    },
+    "audio/exam_01/task_04.mp3": {
+      "sha256": "0d0f6806858625ce7307fd27420fa7a8b30a8a014abfe9ce5f4085d965287109",
+      "bytes": 513261
+    },
+    "audio/exam_01/task_05.mp3": {
+      "sha256": "9696109a1a507dbd7e091320b4c2cbcc93371be1c4154da9eaf4715f35a0d621",
+      "bytes": 448749
+    },
+    "audio/exam_01/task_06.mp3": {
+      "sha256": "aedd9d15306d3a17501d523e2063b5b353b25750a5846da9353937497b7bb37c",
+      "bytes": 503469
+    },
+    "audio/exam_01/task_07.mp3": {
+      "sha256": "a6569eb5b88bb1302717ec99f0e8aa866d7ecdbef54521fcad51bf459db29a18",
+      "bytes": 288045
+    },
+    "audio/exam_01/task_08.mp3": {
+      "sha256": "4d718008d1408378d5870c2f86c6cb491bd679b2a702ca0424de0646c179edab",
+      "bytes": 365517
+    },
+    "audio/exam_01/task_09.mp3": {
+      "sha256": "eada2ef5629d96587508d76e2acf543740383e79d030094229d9b63f8898e77f",
+      "bytes": 340173
+    },
+    "audio/exam_01/task_10.mp3": {
+      "sha256": "8f8dae7ac05de0000bc08021a5c718629d6a596b17c3ca097f109a60590b3274",
+      "bytes": 343917
+    },
+    "audio/exam_01/task_11.mp3": {
+      "sha256": "a633c7ef5dfda704b6aa5adb1e30a658aa317ccf5dafe35b337663ed225155d8",
+      "bytes": 341325
+    },
+    "audio/exam_01/task_12.mp3": {
+      "sha256": "90d564ba88b862e7a67bdb34882067bba8bd503d28f672fbe2a609fe36272037",
+      "bytes": 347373
+    },
+    "audio/exam_01/task_13.mp3": {
+      "sha256": "da24cd4af15d974ca59b1be2d2654ea3e0a780c316351a79aaba694544c5cba8",
+      "bytes": 299853
+    },
+    "audio/exam_01/task_14.mp3": {
+      "sha256": "5e514a9bced48323479e44f9b09b96d3badf43c6b402ebb7ad42f699c400ed46",
+      "bytes": 290349
+    },
+    "audio/exam_01/task_15.mp3": {
+      "sha256": "e5e5b2af1440deb6f9e5b386bb946989fafc6bd7e8ae188b156b3e07ac57f018",
+      "bytes": 340461
+    },
+    "audio/exam_02/task_01.mp3": {
+      "sha256": "fded8768480fd7ac4bd7eb6ce2aae702592442316341077d0d19a75b71c1bc86",
+      "bytes": 491661
+    },
+    "audio/exam_02/task_02.mp3": {
+      "sha256": "7b8f05eddaa1d8140c588819af781561a5f62ec0ae5b7f7f21568349dd507c0c",
+      "bytes": 512685
+    },
+    "audio/exam_02/task_03.mp3": {
+      "sha256": "c17e0f10c9b5cd0741a0a58c7b49927e6d6c943fcd339c7bf2b1264d5502941b",
+      "bytes": 420237
+    },
+    "audio/exam_02/task_04.mp3": {
+      "sha256": "4ae179adb02fdd84167a722bb8925b09d2fa42596472beb5955c4057fc1010ef",
+      "bytes": 532557
+    },
+    "audio/exam_02/task_05.mp3": {
+      "sha256": "4f1f7fbdf8aa550e9f6df84f98d1f30f60ccbe8118a51ff3b25f6c8b099b1da8",
+      "bytes": 487917
+    },
+    "audio/exam_02/task_06.mp3": {
+      "sha256": "ca2d9748c165f94ca7bfbc3b2cac205c55f967f590c9e3859fd812fcd11da6af",
+      "bytes": 472653
+    },
+    "audio/exam_02/task_07.mp3": {
+      "sha256": "f3b20dbcb7bc2cc6262c58d588faf40dfbaf7837ddc75883cf13315041a6e1ae",
+      "bytes": 345645
+    },
+    "audio/exam_02/task_08.mp3": {
+      "sha256": "5bc2e1a88b8c9a98531e1db55712938df68468a74e0f5e6e13eebf3f307e974c",
+      "bytes": 375885
+    },
+    "audio/exam_02/task_09.mp3": {
+      "sha256": "6ef957b478f40a979defcd7b6acbad1d37fedde5f63176e5ef38b79194276b25",
+      "bytes": 321453
+    },
+    "audio/exam_02/task_10.mp3": {
+      "sha256": "8a5bd661bb79e38719f678a97d043fa8dc66d7681b7ff5212085aa853a2ed77d",
+      "bytes": 377901
+    },
+    "audio/exam_02/task_11.mp3": {
+      "sha256": "c46a5c6d78461a0eb6fb12d27cdca13fb38d18987a3d853069ecaba03b7152a3",
+      "bytes": 346221
+    },
+    "audio/exam_02/task_12.mp3": {
+      "sha256": "3ba2fbb96b7c137cb9153a36d8360afc4b3063cfa6ed2dfbb5969075fcdc62db",
+      "bytes": 346509
+    },
+    "audio/exam_02/task_13.mp3": {
+      "sha256": "8186ce885ee0f388dc8365fc9f8518a641de5536015be2bbedfd603f0c03fdb0",
+      "bytes": 334413
+    },
+    "audio/exam_02/task_14.mp3": {
+      "sha256": "de505c91e4cb0e08d39e94dc30c794b778da2e1f9e965f4f1934052f7fcd5a6d",
+      "bytes": 260109
+    },
+    "audio/exam_02/task_15.mp3": {
+      "sha256": "418b2f535111f5602e504e2202b7af568529f2e86c58069ff649032d91ce500e",
+      "bytes": 373869
+    },
+    "audio/exam_03/task_01.mp3": {
+      "sha256": "e5243e2718f6c9e4165eafc10ed5d1c58c3507c8e99437e69645240f0e73b2a3",
+      "bytes": 519021
+    },
+    "audio/exam_03/task_02.mp3": {
+      "sha256": "edd576c3f96eb556edaac11c33978b97d26034c415085cfa1da1fc2d8e5525c9",
+      "bytes": 489645
+    },
+    "audio/exam_03/task_03.mp3": {
+      "sha256": "8f1d678e074e617f69464659bbc3dbabbceda6b03784630a676c58ab24afcd30",
+      "bytes": 523917
+    },
+    "audio/exam_03/task_04.mp3": {
+      "sha256": "692ced46d6652154ce3f94c924b36e6d3e82f7235bf131d60695969d9170ee8f",
+      "bytes": 472653
+    },
+    "audio/exam_03/task_05.mp3": {
+      "sha256": "bc5a1e31de71e68adbb79717e9db087c23b7f199a19b6cb8e4e670a81afe527d",
+      "bytes": 442125
+    },
+    "audio/exam_03/task_06.mp3": {
+      "sha256": "288340b5e38315609853bdb7f871b76c60d8438532bd2b2095de20ae77b8c1b1",
+      "bytes": 477261
+    },
+    "audio/exam_03/task_07.mp3": {
+      "sha256": "db9ba4610a9ba2576fe1ed70bc76c136b0ead92e26eb1b5b865db381e287173b",
+      "bytes": 349101
+    },
+    "audio/exam_03/task_08.mp3": {
+      "sha256": "abcde33c53adb1fccb9cf99a3e16e7af6bb3053db0ba373de1d1f4a249390762",
+      "bytes": 339885
+    },
+    "audio/exam_03/task_09.mp3": {
+      "sha256": "b4f1145ec9624ecc881b21dcc6a8bf91d54645d504ea1211ebdcd4c4dde7e79d",
+      "bytes": 375309
+    },
+    "audio/exam_03/task_10.mp3": {
+      "sha256": "10bfecffaaa6d544b6da409a925d29ed5a5a1dc0ead524e4e83ebc801b5593e4",
+      "bytes": 373005
+    },
+    "audio/exam_03/task_11.mp3": {
+      "sha256": "a9e6d74e786160f4b76f4096b9ae5f5fd2874988d09600b8d48dd7c0c72b7598",
+      "bytes": 392301
+    },
+    "audio/exam_03/task_12.mp3": {
+      "sha256": "8a49a6bd8e8ceeb4744ab5e3c988f0e520ab165c1f66cf4022aa8ddb67c40fb6",
+      "bytes": 269613
+    },
+    "audio/exam_03/task_13.mp3": {
+      "sha256": "1e1800bfd1e01d97d3d76c392159d76b64d7b865d72c9da67b621a54b192e2f1",
+      "bytes": 328077
+    },
+    "audio/exam_03/task_14.mp3": {
+      "sha256": "c23acb5b69aada1d1c459d4d09728c9068d606e2ccf8ec39061fc3f0ddc858ff",
+      "bytes": 320301
+    },
+    "audio/exam_03/task_15.mp3": {
+      "sha256": "e163a76b63279f3b1da0bfc57edfc908ba40694ef0b47618b226841f24952526",
+      "bytes": 289773
+    },
+    "audio/exam_04/task_01.mp3": {
+      "sha256": "319af949061a9d5bbd78f2158602eecd3e27082cf372c424bd1ee4701946bf29",
+      "bytes": 495117
+    },
+    "audio/exam_04/task_02.mp3": {
+      "sha256": "ee2febd52e73b18b4bf42011b246a3ac404e6e9fa1ff11f68a71fe32c3283da9",
+      "bytes": 505197
+    },
+    "audio/exam_04/task_03.mp3": {
+      "sha256": "89a5ef43b000f6890c99cd349b36ee171c34cbe5d830f6d6a52afa12d7610fd1",
+      "bytes": 443277
+    },
+    "audio/exam_04/task_04.mp3": {
+      "sha256": "cb5ee966b1fd9937417a870b395b3929dc2e89b687304f3b91865144136527e9",
+      "bytes": 472653
+    },
+    "audio/exam_04/task_05.mp3": {
+      "sha256": "bbea4aa471e62b734fc803f1dbd0c17157e138927b559207106c3cb4c867bded",
+      "bytes": 493677
+    },
+    "audio/exam_04/task_06.mp3": {
+      "sha256": "3bab6005f47e6d47f408b4ca059d2cb6741f3d24398cbc01d546c24b9fa788d3",
+      "bytes": 437229
+    },
+    "audio/exam_04/task_07.mp3": {
+      "sha256": "8ba8f6400359782b1dcbd5e347ea5eb0a30e557188030c7e485c6080defa1531",
+      "bytes": 314829
+    },
+    "audio/exam_04/task_08.mp3": {
+      "sha256": "7831233d405a7194b85ff7fd73f4eee2a9a330e74d08e70dcd83420a921b8140",
+      "bytes": 387981
+    },
+    "audio/exam_04/task_09.mp3": {
+      "sha256": "069d3e6831c17da4d53fdf357662664f161d6e4546bf5f713fbb3e7056c200eb",
+      "bytes": 353421
+    },
+    "audio/exam_04/task_10.mp3": {
+      "sha256": "6eeac6626a10d5549ec3cf5b442caafc190831a3a4bcc30b787ac052796d1f3d",
+      "bytes": 332685
+    },
+    "audio/exam_04/task_11.mp3": {
+      "sha256": "2c38b2c3ed44317113e5030360d0142533cfd9499c2a9baee5b1fe0d4c2f1a63",
+      "bytes": 264429
+    },
+    "audio/exam_04/task_12.mp3": {
+      "sha256": "aa096e0f0534f377391de931ed533b12a8480a57763510f30cf2e048d3c91e51",
+      "bytes": 381933
+    },
+    "audio/exam_04/task_13.mp3": {
+      "sha256": "5f4e7d36e39bfc5e40ae8ce95c49ea7bddf74e9cfb3ec31bf08e1c32d50010a1",
+      "bytes": 315981
+    },
+    "audio/exam_04/task_14.mp3": {
+      "sha256": "f4964eed9dd21aa972f780d626befc3b5f0c99223ed0f8c4604abe775be4f54e",
+      "bytes": 360621
+    },
+    "audio/exam_04/task_15.mp3": {
+      "sha256": "5196397e7fe1f49b8535c2869ae84f994e57a701d787317625eb1feb37d8c1f1",
+      "bytes": 335565
+    },
+    "audio/exam_05/task_01.mp3": {
+      "sha256": "487a76b108ebcb0006c795815fa31d420d82122d989c5363d40373114db4b522",
+      "bytes": 498861
+    },
+    "audio/exam_05/task_02.mp3": {
+      "sha256": "f7b8abbb0574f5a961a20d942b8ad8c113e153b14703cbab0ac80d1f599a72fa",
+      "bytes": 517005
+    },
+    "audio/exam_05/task_03.mp3": {
+      "sha256": "0a01a6a643dc0ecc8805046f365ac33bd2dd5a7f67f323b44e02434ad5e9a9d8",
+      "bytes": 422541
+    },
+    "audio/exam_05/task_04.mp3": {
+      "sha256": "7dad4d2298537b640dd3d42dd7db17fd12d04f3c252475140999c65b7555bdfd",
+      "bytes": 496845
+    },
+    "audio/exam_05/task_05.mp3": {
+      "sha256": "c9a0a7b464d2750d76a22cfdb68e39f4ce94500f11a008a530bcdc7ace7ab0ce",
+      "bytes": 481293
+    },
+    "audio/exam_05/task_06.mp3": {
+      "sha256": "7a62f0dcb58df20223ad93026376298d9e3954adfc74be6a412153fe7ae7548e",
+      "bytes": 356013
+    },
+    "audio/exam_05/task_07.mp3": {
+      "sha256": "27674ffc8f7121abb47b48f3ff90d9d5e1ca28d11c56a726f790e8d721b46e3d",
+      "bytes": 380781
+    },
+    "audio/exam_05/task_08.mp3": {
+      "sha256": "ec43d3a74fa021b2d69b34e9d5778a98abd4cdd7ffe81b985f23e1e0b90efead",
+      "bytes": 375309
+    },
+    "audio/exam_05/task_09.mp3": {
+      "sha256": "adbc117e90bdd4ad262d380605a1c40bf7cd0be3a251d21b35c098b618405637",
+      "bytes": 310221
+    },
+    "audio/exam_05/task_10.mp3": {
+      "sha256": "1f94734b7b9050fb5a083e9779f3974f0fe05e24d075ffb398c6546327ca46d4",
+      "bytes": 311373
+    },
+    "audio/exam_05/task_11.mp3": {
+      "sha256": "1097d41b87c51c6101f4297684de895531bc931dd7c0c36f2dc16bf257115deb",
+      "bytes": 324333
+    },
+    "audio/exam_05/task_12.mp3": {
+      "sha256": "6dbbeb44472f87a5c3b565a5c4868f2e6447e99ce92a8a1a17af49b612aea282",
+      "bytes": 279693
+    },
+    "audio/exam_05/task_13.mp3": {
+      "sha256": "502c648e813f99c3fb907267a3abac6c58e8e3daafb56380c0a005d8ecac25f0",
+      "bytes": 268461
+    },
+    "audio/exam_05/task_14.mp3": {
+      "sha256": "733f2d59046175248821cfb9124393a91993c79282172ae1a097244de91895d2",
+      "bytes": 389133
+    },
+    "audio/exam_05/task_15.mp3": {
+      "sha256": "8625298c8e06e37be30f4aad158b4580121d8827c92faeb325229bb4bb14187b",
+      "bytes": 335277
+    },
+    "audio/exam_06/task_01.mp3": {
+      "sha256": "f24b53210042ac691b3be2219fca3ce65a33fc036bb9b2ef42698fa7ed04b72c",
+      "bytes": 438093
+    },
+    "audio/exam_06/task_02.mp3": {
+      "sha256": "1e7daed3dec87cf82fb3e402d53bad9cb0b49e2c8d465f054d4e02d637572339",
+      "bytes": 511821
+    },
+    "audio/exam_06/task_03.mp3": {
+      "sha256": "d9ddd501f414f4064c094b3df1a9f2b716cd7847e1ba1fafde88e4d8b9285b32",
+      "bytes": 516717
+    },
+    "audio/exam_06/task_04.mp3": {
+      "sha256": "6d9eb9820b3384a278ad835841bb844bab551a297b5844b139346924e671038d",
+      "bytes": 511245
+    },
+    "audio/exam_06/task_05.mp3": {
+      "sha256": "7f0dd92e162c7d5b645e22e13898f5c3c86447323a4c483f6fc2cf78360cbf26",
+      "bytes": 438381
+    },
+    "audio/exam_06/task_06.mp3": {
+      "sha256": "023eee041f0a8ee4d53858f766047ae3302a0d6f42153d90fb8cea3f22c1e9f5",
+      "bytes": 483021
+    },
+    "audio/exam_06/task_07.mp3": {
+      "sha256": "1b410825db364e4b3db1be669a3f1a54125a770fd13c30b30444f3f7595330db",
+      "bytes": 357741
+    },
+    "audio/exam_06/task_08.mp3": {
+      "sha256": "60a1d928b1855079d7a270a09531545ee41957e021aaf3b8edfa361c4a81a86e",
+      "bytes": 330381
+    },
+    "audio/exam_06/task_09.mp3": {
+      "sha256": "80ad1af5fd7a649f50bde3742d097ab930fe3709c89905ea2e5d0c88426a2566",
+      "bytes": 283725
+    },
+    "audio/exam_06/task_10.mp3": {
+      "sha256": "ba963f99c0924d336733cb60ce10448f2e630f916b451ff8a17b2b9ace26c625",
+      "bytes": 349677
+    },
+    "audio/exam_06/task_11.mp3": {
+      "sha256": "32440257c5dd98f1b36ebc7c2653219bed8a60d1e92ea87be991305a382455ba",
+      "bytes": 341613
+    },
+    "audio/exam_06/task_12.mp3": {
+      "sha256": "3eff1e82dc2ae4f917aa40de993826242f4c0bce594afe3aaaaa29a5a8bde1fd",
+      "bytes": 401805
+    },
+    "audio/exam_06/task_13.mp3": {
+      "sha256": "036c229bfbda13f989651e805d61458886628ccf29aa5ee1e7bc7000d3632cf1",
+      "bytes": 314541
+    },
+    "audio/exam_06/task_14.mp3": {
+      "sha256": "2d05b5bdfc1aca4ac257b49016113cbb34d86067d040741ec5e9e3425770a87b",
+      "bytes": 336717
+    },
+    "audio/exam_06/task_15.mp3": {
+      "sha256": "5586113cc714839e3d534a9b997a68f520d39a60f2e5bd71fe91ed58b8a09fc2",
+      "bytes": 407853
+    },
+    "audio/exam_07/task_01.mp3": {
+      "sha256": "73e1d9442aebd9f394355f4fdbae633a0e08b23d9c155bc805676c60facf7741",
+      "bytes": 499725
+    },
+    "audio/exam_07/task_02.mp3": {
+      "sha256": "90c85c2e50b86b901a76effd155fa1afbffd0baba55ce0e7308b710ead958883",
+      "bytes": 498861
+    },
+    "audio/exam_07/task_03.mp3": {
+      "sha256": "9cb56832ae82b9957ffdbb35acce8beb2b6b0b71e8a41a44944b68a01050e286",
+      "bytes": 413613
+    },
+    "audio/exam_07/task_04.mp3": {
+      "sha256": "fddb4c2b98da9ef5eefec4c8a75d8833cac7632bac5dbc8542316652a29eb8cc",
+      "bytes": 487917
+    },
+    "audio/exam_07/task_05.mp3": {
+      "sha256": "6e4f5d7643f6db8c643e4df7b3966f96e43ef6c6a2c097ad01a5f6e0abe6c256",
+      "bytes": 505773
+    },
+    "audio/exam_07/task_06.mp3": {
+      "sha256": "de3f04d2a43e3e5e0355114685be5dab6047d09930fa94371a1f70f61f0424d8",
+      "bytes": 484749
+    },
+    "audio/exam_07/task_07.mp3": {
+      "sha256": "8703b49bb0f3c82d83a15c864d19b69f615d1c76c105c277d4d9945dad1989fe",
+      "bytes": 306189
+    },
+    "audio/exam_07/task_08.mp3": {
+      "sha256": "367f153906077c7b16df48e77f3e0bb062a6a5eed82575dc5800945676003310",
+      "bytes": 302733
+    },
+    "audio/exam_07/task_09.mp3": {
+      "sha256": "446348ea1642b264cbc95c2b4e1681edb486853ea613ee784b7f30f453dcea41",
+      "bytes": 325485
+    },
+    "audio/exam_07/task_10.mp3": {
+      "sha256": "80b12a8c6dc0aae1e048cb65eacd6950811bc8ff0ff96ab14ce3a205b6af6d9b",
+      "bytes": 364077
+    },
+    "audio/exam_07/task_11.mp3": {
+      "sha256": "e8a4ed8d30dd7083945a25299ddaf03622c3694e749078c7d9af2d3a25376cc5",
+      "bytes": 399501
+    },
+    "audio/exam_07/task_12.mp3": {
+      "sha256": "f96487f4cfc1301200e9457039eb099ac16906fb5c5c6282f6bb31d73fce09fd",
+      "bytes": 342189
+    },
+    "audio/exam_07/task_13.mp3": {
+      "sha256": "4cedbc4cab5ec12415032ff0806f9937ef6f45a0dfa6c07f4a19c7e16a982fd3",
+      "bytes": 345357
+    },
+    "audio/exam_07/task_14.mp3": {
+      "sha256": "0c17dfda1d8f0a0ccf338e9c30ecb8fdeaa6083c67f52aedb6255d3aeae274a9",
+      "bytes": 268173
+    },
+    "audio/exam_07/task_15.mp3": {
+      "sha256": "ce8ab6050a80ce66d8f518fcc31eb648f5ceadb515533000cb9e62f76283c61c",
+      "bytes": 392013
+    },
+    "audio/exam_08/task_01.mp3": {
+      "sha256": "36595adc60fb6c42532afe70195b3b49928f486efdf6cafe13ce069c6313e4aa",
+      "bytes": 521037
+    },
+    "audio/exam_08/task_02.mp3": {
+      "sha256": "7fc26b82de351c4dff7d33c61fa62da3ad70a5298373932ded9646fe83af34a5",
+      "bytes": 487053
+    },
+    "audio/exam_08/task_03.mp3": {
+      "sha256": "909d8112054d34835bd1543db0dfde69adbda9bdf9d9fcaab6f15eedfe9b6d72",
+      "bytes": 507789
+    },
+    "audio/exam_08/task_04.mp3": {
+      "sha256": "e15ecf47be8d7c9a3eefc67cce61ec65573822d464c0fed05b137c7b912c75ca",
+      "bytes": 449325
+    },
+    "audio/exam_08/task_05.mp3": {
+      "sha256": "f97f29a7eccd1e94fc6e4d384af9302a0f62528df030ad412f23f61f37920c0e",
+      "bytes": 448173
+    },
+    "audio/exam_08/task_06.mp3": {
+      "sha256": "6448b9880599819adf181745209ebfea6861998808c6c5a235a2fdc2a053899b",
+      "bytes": 478701
+    },
+    "audio/exam_08/task_07.mp3": {
+      "sha256": "ff1b7ece075d9d0db93c1a50c0deb0fe0b76145e3c6f1268969bf85feb70a1da",
+      "bytes": 284877
+    },
+    "audio/exam_08/task_08.mp3": {
+      "sha256": "2cf765062b2e5d90a395dad11ce5fefaa423a7ad766f8cf5d3600471f7ff241e",
+      "bytes": 374157
+    },
+    "audio/exam_08/task_09.mp3": {
+      "sha256": "18f9c34e84dcdfd609ae9fda46446e7cb6ff2d98b51ec2019823824c1cb67647",
+      "bytes": 340461
+    },
+    "audio/exam_08/task_10.mp3": {
+      "sha256": "f406fd22857c7e3fac51d93c7696ae91be3374928035c79bbfbc87487f07b33f",
+      "bytes": 344493
+    },
+    "audio/exam_08/task_11.mp3": {
+      "sha256": "284c9fd3da2b75d10154de51be4658a48f081d3d701366ab063f22cf0fd54ea3",
+      "bytes": 394029
+    },
+    "audio/exam_08/task_12.mp3": {
+      "sha256": "3cc9fb0bda15b17e78e7929e3f65c95043a33b5ca25380fe693f5ff505ee240d",
+      "bytes": 262413
+    },
+    "audio/exam_08/task_13.mp3": {
+      "sha256": "4fa695bda7b475d47c1902f515e271ee80943fc9a6f30e29df5e4fdf9658638c",
+      "bytes": 341037
+    },
+    "audio/exam_08/task_14.mp3": {
+      "sha256": "aec906a188731784943fb9d3fbcad05b8ccb1e3fb7e8eda2e395b31b081747bf",
+      "bytes": 325197
+    },
+    "audio/exam_08/task_15.mp3": {
+      "sha256": "26bd6a48752f5effc14c201a4727c9e39cf5bdd987345b9e7445a14d31b86f86",
+      "bytes": 288333
+    },
+    "audio/exam_09/task_01.mp3": {
+      "sha256": "c335ce1a0116e76203e6a415c141ead4a918b2a25aaaf1a9b0244dd01454c5cb",
+      "bytes": 554157
+    },
+    "audio/exam_09/task_02.mp3": {
+      "sha256": "2cb5a3b389d1fef318966128331a80dd37a21c56502478a1ca440755bf67d2ad",
+      "bytes": 540909
+    },
+    "audio/exam_09/task_03.mp3": {
+      "sha256": "884853169e57a6d701a6f24917080a88cf2c0bc0105b5f982d93c7cad59d6e4d",
+      "bytes": 448461
+    },
+    "audio/exam_09/task_04.mp3": {
+      "sha256": "e6fb2f7f3fc15b47eb47bfd5eb8ad7dc3045c54a5f0236fb000bcc4c9fbb06d6",
+      "bytes": 452781
+    },
+    "audio/exam_09/task_05.mp3": {
+      "sha256": "bef52dc86fecd999f950e5e6606ff81d771f55e19986bb43e977e41ff28f39ba",
+      "bytes": 496269
+    },
+    "audio/exam_09/task_06.mp3": {
+      "sha256": "2367051b14c3adca0c456806ad0f2ed7842bc56fe99e3c3ac37aba73f39da03b",
+      "bytes": 436941
+    },
+    "audio/exam_09/task_07.mp3": {
+      "sha256": "72f1cdf133b2b6e4e7fe41fc1aedddaaef54854fc9722f84f26116470b515cd2",
+      "bytes": 350541
+    },
+    "audio/exam_09/task_08.mp3": {
+      "sha256": "9c75726192d81ed6059a814c659ce999d9dc65bb061b6ce41213cbbf11b2ce2d",
+      "bytes": 363501
+    },
+    "audio/exam_09/task_09.mp3": {
+      "sha256": "97ae99c1006e142e5ad18ddbb871b07b68a7e3871f1d1e6f9c27db36bcd5226e",
+      "bytes": 317709
+    },
+    "audio/exam_09/task_10.mp3": {
+      "sha256": "154a4901e628773e6abf191761063bb8fa7bd5a45fb93b987ce8290565c41721",
+      "bytes": 384525
+    },
+    "audio/exam_09/task_11.mp3": {
+      "sha256": "028327f6cea6f1c8835b3718664197928cce570c7a7350a8468d9f8188882ecd",
+      "bytes": 342477
+    },
+    "audio/exam_09/task_12.mp3": {
+      "sha256": "fdb7c08d55922a06315b0ed107e496b773f633c4cb78752ed648f82e6f4ba65f",
+      "bytes": 348525
+    },
+    "audio/exam_09/task_13.mp3": {
+      "sha256": "6d5bafa64c75cc7d2a0439b9c97a36912bdcb0606f7f85ad0dd75776d8d28a06",
+      "bytes": 299565
+    },
+    "audio/exam_09/task_14.mp3": {
+      "sha256": "4d5d9f8c9d81a3186d26ef05a6f2134720e4857d8907a7f4771670da9d2b6f00",
+      "bytes": 343629
+    },
+    "audio/exam_09/task_15.mp3": {
+      "sha256": "9ad2f8f4a54aa6f2784e54a1565719f5d344bf9ae682e39c832577cad9339bc0",
+      "bytes": 351117
+    },
+    "audio/exam_10/task_01.mp3": {
+      "sha256": "8be43c6894f051b5eb53bc1b43bb1ac68e3d044b3c14a3c88127c41cba8f7010",
+      "bytes": 511821
+    },
+    "audio/exam_10/task_02.mp3": {
+      "sha256": "d18f8308093c7e80311e5755366477e62c2e2ffc7f01d4daf5ca80167c8e66cf",
+      "bytes": 515853
+    },
+    "audio/exam_10/task_03.mp3": {
+      "sha256": "bad0422844133f01e3d501a5a4f491647084674f7aa954d12b0ea74b264c277f",
+      "bytes": 419085
+    },
+    "audio/exam_10/task_04.mp3": {
+      "sha256": "e936dec3b9225c459db7b877fe84292c6e8aa02fcc952822eb3ddd6b2a9170e6",
+      "bytes": 479565
+    },
+    "audio/exam_10/task_05.mp3": {
+      "sha256": "5875f2ce7e47a71d5257b96d4ca0791ba423777154b6d808f12e49e34e00bf23",
+      "bytes": 464877
+    },
+    "audio/exam_10/task_06.mp3": {
+      "sha256": "2ac92826219c69153be50732508c8d78d0311929b9c3da8bd7b63c7cda68cc59",
+      "bytes": 351693
+    },
+    "audio/exam_10/task_07.mp3": {
+      "sha256": "bf64440c3654cb13e2f3a3ce992bc4c28e0adb93d0a9b75d6963d88559f56826",
+      "bytes": 296685
+    },
+    "audio/exam_10/task_08.mp3": {
+      "sha256": "6b23422fca85323dee6f8a77017e236844f53476067194f7365dc199e80eb5a6",
+      "bytes": 290349
+    },
+    "audio/exam_10/task_09.mp3": {
+      "sha256": "0052c3fe043899fe1d9cb841eb0a10f7f64adee78ee0e174b39cbc89ae915264",
+      "bytes": 373293
+    },
+    "audio/exam_10/task_10.mp3": {
+      "sha256": "bc5d42c7c30b4c4b366161c7a0bfbca2dc889214ea916e4284a539f8f35e05e8",
+      "bytes": 373581
+    },
+    "audio/exam_10/task_11.mp3": {
+      "sha256": "373b057a28b4e46a7d32df2e7082a7f47f8a2b53b5554890631ebebbecea936f",
+      "bytes": 318285
+    },
+    "audio/exam_10/task_12.mp3": {
+      "sha256": "013a9b26910e0961be0de500e1781519abc1d98d3baea1b013ef3eda87a1eba7",
+      "bytes": 348525
+    },
+    "audio/exam_10/task_13.mp3": {
+      "sha256": "a8e761c01bebd39905fe83a1c0f20151e0b67c083672e763af81150b5a35a473",
+      "bytes": 282861
+    },
+    "audio/exam_10/task_14.mp3": {
+      "sha256": "140facd3abcdb8ad09f7cdf95e7d6929303ecf421a4a5b185d72bd57fa6d5695",
+      "bytes": 395181
+    },
+    "audio/exam_10/task_15.mp3": {
+      "sha256": "1be507944dfb5b68edd2d483b9415c78b837f0d72d41d2badeb92652366ce29a",
+      "bytes": 334989
+    },
+    "audio/exam_11/task_01.mp3": {
+      "sha256": "04702572f23ab1c8da59cdfa4b2b90a36a413ca7ccbaf1a8d18516226b8a98cb",
+      "bytes": 482445
+    },
+    "audio/exam_11/task_02.mp3": {
+      "sha256": "d89ed652cd7c7e0e075ea1a25d25f3d3033cb95ddbb48d6b6dafd3146376b8b9",
+      "bytes": 514701
+    },
+    "audio/exam_11/task_03.mp3": {
+      "sha256": "10dbb20e5749074c03a648401a83ba573fa62ecd69b8dbc771bc8adc003a2ed5",
+      "bytes": 456525
+    },
+    "audio/exam_11/task_04.mp3": {
+      "sha256": "88643fbdaf1c09877de6aa0bb098928850395c78bbd53f726cf32dfe1d6267c3",
+      "bytes": 518445
+    },
+    "audio/exam_11/task_05.mp3": {
+      "sha256": "f0ddde90054946f9803f80df0595923da9cf0cbb7e79ef219f5ee882cb75f13e",
+      "bytes": 437805
+    },
+    "audio/exam_11/task_06.mp3": {
+      "sha256": "84b772e240a52ac5d24206f50e849426d60b80ce39e00565dcd0c76b4582fa74",
+      "bytes": 520173
+    },
+    "audio/exam_11/task_07.mp3": {
+      "sha256": "4bf77f325879fc87dfc39c09fdb058200a5f79b3ab20e3f2ea92d8a673f1b658",
+      "bytes": 293229
+    },
+    "audio/exam_11/task_08.mp3": {
+      "sha256": "e9498abc7068455464735a60b693b85ab6b7a935ea85b7e78a7996a96f18ad3f",
+      "bytes": 331533
+    },
+    "audio/exam_11/task_09.mp3": {
+      "sha256": "1ebdaaffd2e0102398fdb68ed4fff237cdf969c26cdd3bb49904ec16e99dd7fd",
+      "bytes": 360045
+    },
+    "audio/exam_11/task_10.mp3": {
+      "sha256": "7046b028dd3b47a4d095465127eeb6786373a57bf5535640151e5f9867c38de7",
+      "bytes": 327789
+    },
+    "audio/exam_11/task_11.mp3": {
+      "sha256": "e591e28cbaeb47862bbd85a7035213f40877839d6c4b775700a422685f6507fb",
+      "bytes": 341901
+    },
+    "audio/exam_11/task_12.mp3": {
+      "sha256": "dd40bcf8ecfc07a874e47f6e5741d03cd9f12464f84700613dda9d545e09e3bc",
+      "bytes": 397485
+    },
+    "audio/exam_11/task_13.mp3": {
+      "sha256": "17209f208bdfa873788393d2819888586250c85f05671dc043ab387204c52377",
+      "bytes": 321453
+    },
+    "audio/exam_11/task_14.mp3": {
+      "sha256": "0aaef94c68f77e46ed1d285fc851b27d0466d988aabc0219bc0ad816b18fc513",
+      "bytes": 330093
+    },
+    "audio/exam_11/task_15.mp3": {
+      "sha256": "f5f34e11ef70eec3cd7d0644aa3ed8bbbcd7fdd6cd2e874c90b6cad2b5ddebc2",
+      "bytes": 364941
+    },
+    "audio/exam_12/task_01.mp3": {
+      "sha256": "04b6f3c7f88d38eb6530fc80c776fc99910470e23aafcdcba2a600606b38f9ee",
+      "bytes": 428301
+    },
+    "audio/exam_12/task_02.mp3": {
+      "sha256": "fb027e1df94cc03e33e86507201cb51064a9d079e8e14eec19db17ef6f72cb81",
+      "bytes": 514413
+    },
+    "audio/exam_12/task_03.mp3": {
+      "sha256": "512f030a5fc2c19578d0a5578ad809b68aea7ab9f9892133762d4fd40c284558",
+      "bytes": 389997
+    },
+    "audio/exam_12/task_04.mp3": {
+      "sha256": "35d14a8789109a7419b0b9d53ef1b3f1f046daba6d64b04af8021230202dfe6f",
+      "bytes": 502605
+    },
+    "audio/exam_12/task_05.mp3": {
+      "sha256": "1b742b4a8c663ca0f2ab83feb1a5a311e09ed3574f60a07ffcf39699c9dbe9cb",
+      "bytes": 527085
+    },
+    "audio/exam_12/task_06.mp3": {
+      "sha256": "543617c767da4814f5dd608e9f90562820ea9538edc79a7b70bae0d28d3e0303",
+      "bytes": 474957
+    },
+    "audio/exam_12/task_07.mp3": {
+      "sha256": "3c2d5a449e8dc84d33e7f1d16d893571ce503dc83cf24347aec4e0abaf50fe7a",
+      "bytes": 341037
+    },
+    "audio/exam_12/task_08.mp3": {
+      "sha256": "0c8dbaa30ebfee0e8f129b2927305465bde0ca46cf131c175f7d031fd445155b",
+      "bytes": 346509
+    },
+    "audio/exam_12/task_09.mp3": {
+      "sha256": "6eefb0ee85be6d6d5b74cc5776811d16e27cbaa29955b2ccd708db3777739ab0",
+      "bytes": 310221
+    },
+    "audio/exam_12/task_10.mp3": {
+      "sha256": "f71b4eb715601d6e6212701873e4ff3b48c16544e278ed1459a72322316a92a2",
+      "bytes": 308781
+    },
+    "audio/exam_12/task_11.mp3": {
+      "sha256": "21cd23eacc5756293814ad776cef8f8f437ff3ab7852962ed3f1e79e566ef294",
+      "bytes": 392013
+    },
+    "audio/exam_12/task_12.mp3": {
+      "sha256": "c4acd13c5af70d945d07f5fd305c39645c80e3360f80ed27297dddb09e5ef811",
+      "bytes": 362061
+    },
+    "audio/exam_12/task_13.mp3": {
+      "sha256": "085736f12c61b04dc5a6b77b611b7e8515ce313125dbe4a5c8567049a97816f8",
+      "bytes": 338157
+    },
+    "audio/exam_12/task_14.mp3": {
+      "sha256": "f411ee40bf1634d0a75ecc707acdf961d76e10abbcbbe0766f63cc296ebe2e08",
+      "bytes": 265293
+    },
+    "audio/exam_12/task_15.mp3": {
+      "sha256": "8f561de2321e3ac1a9b6a368dd2d25404d98ab68bb58ebb227477ed4cd8c9054",
+      "bytes": 339309
+    },
+    "audio/exam_13/task_01.mp3": {
+      "sha256": "43d8e9814d268cf883f215a5123d641f0cb2e8a51b063c3b361606447551e7f1",
+      "bytes": 521901
+    },
+    "audio/exam_13/task_02.mp3": {
+      "sha256": "e222ba05eeafbc67a0ff86b03a1ac8e836a85ad9b8c74e47238a3e694f6f9dc9",
+      "bytes": 502029
+    },
+    "audio/exam_13/task_03.mp3": {
+      "sha256": "56ce2d76c773d2caa456ec8e9ce22753c31c7551558746f0edcc1781297e3e09",
+      "bytes": 505773
+    },
+    "audio/exam_13/task_04.mp3": {
+      "sha256": "b65bf9494220a0e8de0a25f748ef7f826c452ab0ba8d4e53f8959547365fd75e",
+      "bytes": 467757
+    },
+    "audio/exam_13/task_05.mp3": {
+      "sha256": "0971ab05f8bb31af56615c6d79d24b4dbfbdfa158fd5b86a9070f5e07ad66767",
+      "bytes": 451629
+    },
+    "audio/exam_13/task_06.mp3": {
+      "sha256": "d7bbbfdb861989179c5da6158dac72fb05b9a611c6c131a0beb1ec0f5dc05f58",
+      "bytes": 456237
+    },
+    "audio/exam_13/task_07.mp3": {
+      "sha256": "9d8bcd628b35fabc851e48ac8c1986982d07c17ac96fed5a8a56cbf3b3c10b38",
+      "bytes": 271341
+    },
+    "audio/exam_13/task_08.mp3": {
+      "sha256": "06d25145b91f8bbfcf86fe0881d041ceab07a2decacb0d8202ed6ec726b79cd1",
+      "bytes": 330669
+    },
+    "audio/exam_13/task_09.mp3": {
+      "sha256": "bad8cb266b6ec5888c436f1b8aab54805e6a486ed9563edb595675ee6046753f",
+      "bytes": 285165
+    },
+    "audio/exam_13/task_10.mp3": {
+      "sha256": "49c8e4bb8b3d81e3cbce0dbfb7388632170a3ac3223ead251ce764aa5678b592",
+      "bytes": 366381
+    },
+    "audio/exam_13/task_11.mp3": {
+      "sha256": "0bf7b35e64d8976c78e52c2ad3b91894314f482d5e6fdaea027e46ddcd01e733",
+      "bytes": 397773
+    },
+    "audio/exam_13/task_12.mp3": {
+      "sha256": "95090edbdbe2f0a479935d4ce0b72ef1a2095c0fb784c1281dbc5808d8e45fa8",
+      "bytes": 267885
+    },
+    "audio/exam_13/task_13.mp3": {
+      "sha256": "55a1718b54c25882da6ef96b84df6b35ea5eb6dc7b8879b7e37f7a15dac68950",
+      "bytes": 336141
+    },
+    "audio/exam_13/task_14.mp3": {
+      "sha256": "e072680dc72d661572000bb96e5eb84a0538cb1f960f13553fe8121d745dcf0b",
+      "bytes": 315981
+    },
+    "audio/exam_13/task_15.mp3": {
+      "sha256": "e28436bfb50948e5b4a8f9b2e5a5a05b49098a48b7c87e39549944e4e2c564aa",
+      "bytes": 338157
+    },
+    "audio/exam_14/task_01.mp3": {
+      "sha256": "bffd9ef9dec6109a28ed072b11da5f0e3f9d2e5dce3e25dbf52009312cad14cb",
+      "bytes": 514701
+    },
+    "audio/exam_14/task_02.mp3": {
+      "sha256": "ad19dd54e1bc90d8338a072bee8b57521ae27e9a5be08aa60deb7beb6aa39b96",
+      "bytes": 494253
+    },
+    "audio/exam_14/task_03.mp3": {
+      "sha256": "dc8bb01cace308085832aca3dd906cf757b8c443af20484fe6b0547323566977",
+      "bytes": 421101
+    },
+    "audio/exam_14/task_04.mp3": {
+      "sha256": "6b938124486a153c646fc484ae97b6ef3f83432d8419f56173da31ad51eec3c5",
+      "bytes": 467757
+    },
+    "audio/exam_14/task_05.mp3": {
+      "sha256": "7c5200a7f82df631ffa5f57e7aac3de830ead6291311525fd85d84c221a75353",
+      "bytes": 394893
+    },
+    "audio/exam_14/task_06.mp3": {
+      "sha256": "7a251d95e958fa183939d5be3967e8bd70465c2556edf137c9643544e6711d66",
+      "bytes": 438381
+    },
+    "audio/exam_14/task_07.mp3": {
+      "sha256": "60a48419651c18816a6a1f8eb9009752c91fc3316f970f6245bdc5096aa144d3",
+      "bytes": 310797
+    },
+    "audio/exam_14/task_08.mp3": {
+      "sha256": "ba171586fb542ffff7d45631de7cd06067d8fc7ec95b33b8bf027f3199dbb8a0",
+      "bytes": 310221
+    },
+    "audio/exam_14/task_09.mp3": {
+      "sha256": "f604f3341ad1a43704d0143f0786a45ec92b0de0803eb8d9f33c8013181866ab",
+      "bytes": 364941
+    },
+    "audio/exam_14/task_10.mp3": {
+      "sha256": "cee1e3e4181ee5f324d3771a0a8770068df3d1d73c5df27b0486ed008cdd93bd",
+      "bytes": 319437
+    },
+    "audio/exam_14/task_11.mp3": {
+      "sha256": "7b3f60f9350162c96f10a927ef5f7c4ceb0fb93563e2c9ab6b6309ac1492e128",
+      "bytes": 351117
+    },
+    "audio/exam_14/task_12.mp3": {
+      "sha256": "f0c2923b000e1850a5ffe053aa79f2098cc67db3a69799089d18259ad729935d",
+      "bytes": 419085
+    },
+    "audio/exam_14/task_13.mp3": {
+      "sha256": "ea5224d3570589a9968d35e9127cff6bb3ce2b014c79bfe1b61348f3130b67ce",
+      "bytes": 316269
+    },
+    "audio/exam_14/task_14.mp3": {
+      "sha256": "905c2c6423854549c7274f75efa8eb0a682b05ac3611616169bf8ab2e2a91580",
+      "bytes": 344205
+    },
+    "audio/exam_14/task_15.mp3": {
+      "sha256": "12e416f9c72b29d127deeb8ba6ecebe19875fd33566fe7a424d1688cf95408f5",
+      "bytes": 339597
+    },
+    "audio/exam_15/task_01.mp3": {
+      "sha256": "a43956cb6cc6b3e1ff940a04fdbc9c1140286e66f7e92969036f02ff63275683",
+      "bytes": 513549
+    },
+    "audio/exam_15/task_02.mp3": {
+      "sha256": "20ed292a5c1bd30054f4927d25b05d2376aaa2cee7b876e8f532f63a055447d8",
+      "bytes": 520461
+    },
+    "audio/exam_15/task_03.mp3": {
+      "sha256": "c0c4412de0a50a728a035141a25a56abc7228a7cfa2c5662d03708418b58fb70",
+      "bytes": 361197
+    },
+    "audio/exam_15/task_04.mp3": {
+      "sha256": "2c3b31e082960bed78e0569b1a86ae2708db733f9f30f3e3577601f3cf58dfa5",
+      "bytes": 426861
+    },
+    "audio/exam_15/task_05.mp3": {
+      "sha256": "ae13f39978ac373fe0a97f991e2d5ca7d1317372a35197cb8788daf35b3bfa50",
+      "bytes": 445869
+    },
+    "audio/exam_15/task_06.mp3": {
+      "sha256": "4120f15c12785198362d838cab6e9a472751816405ea2ef1e6c1b3f4de7f739d",
+      "bytes": 448749
+    },
+    "audio/exam_15/task_07.mp3": {
+      "sha256": "6be1015509138ee42a7801cac92d315c50f5f3ff8de27133d703e4f28fe9cdde",
+      "bytes": 284013
+    },
+    "audio/exam_15/task_08.mp3": {
+      "sha256": "90935231e946b4b38436f983976c4514b568dfdce8b3f463bd695b37c0625efc",
+      "bytes": 312237
+    },
+    "audio/exam_15/task_09.mp3": {
+      "sha256": "7f82645cc48d71e028c159082cf34d0221b31f3ab69332c0963a239f3981c7db",
+      "bytes": 327789
+    },
+    "audio/exam_15/task_10.mp3": {
+      "sha256": "1acefe55d3eb73bf4f7b357d2602cea1cca4056314ba312fef3b175d3d094b44",
+      "bytes": 337869
+    },
+    "audio/exam_15/task_11.mp3": {
+      "sha256": "74faef7ea83677de294580d845f91230c0e81c8beebace761985763877f41b12",
+      "bytes": 322317
+    },
+    "audio/exam_15/task_12.mp3": {
+      "sha256": "339aead49f0d3a767a20b39ea2ac5024a72cf88d9ea3d716401d653e16049800",
+      "bytes": 337293
+    },
+    "audio/exam_15/task_13.mp3": {
+      "sha256": "66f5dfd99e39767804b5c0c44f656bb23c9fdfb62574a84e5342234a58667467",
+      "bytes": 285741
+    },
+    "audio/exam_15/task_14.mp3": {
+      "sha256": "7bda767ed57041cbaf8fe8093c784049afe6239a72b6250b29c0b75468b804a4",
+      "bytes": 398349
+    },
+    "audio/exam_15/task_15.mp3": {
+      "sha256": "104185288dfb37f046f88433bd6e917e6d0a3d9dbd58ddd50b45973e588ea58c",
+      "bytes": 327501
+    },
+    "audio/exam_16/task_01.mp3": {
+      "sha256": "1b2a3374ffca4aff31b92126cd67fbf30d25fc87ae1067b2e48d5093627b2343",
+      "bytes": 443277
+    },
+    "audio/exam_16/task_02.mp3": {
+      "sha256": "0c8d4db7c36b20874ae87c88a675911db801be3c6c71da690e0b7a7485cca1d3",
+      "bytes": 478413
+    },
+    "audio/exam_16/task_03.mp3": {
+      "sha256": "7b6a28e9d56bd3df279b5defc655ade9ce776bdf434a55ab64ffab1af220de3e",
+      "bytes": 532557
+    },
+    "audio/exam_16/task_04.mp3": {
+      "sha256": "c401cf3aacd5ab85e6716596b11b4e9897ba3b8fb5569dcb81dde0f9e2911fc8",
+      "bytes": 514701
+    },
+    "audio/exam_16/task_05.mp3": {
+      "sha256": "82fbcd0051bb2375e2a03616b6162f9f138b4d3fe6a88013012a5e2f9add5078",
+      "bytes": 443853
+    },
+    "audio/exam_16/task_06.mp3": {
+      "sha256": "91e1349e0a530059b56e6cc611e9c951d4998a109058fde80c6e3980918b126b",
+      "bytes": 496269
+    },
+    "audio/exam_16/task_07.mp3": {
+      "sha256": "2af601ff80032185a5ae4caf427de836ef339498c07f0f3965188a1c13cdc718",
+      "bytes": 351693
+    },
+    "audio/exam_16/task_08.mp3": {
+      "sha256": "0ad273b3e46d6d5e21c349f24434c233d697cb42924c36e7576a5baa4e15f6d4",
+      "bytes": 368109
+    },
+    "audio/exam_16/task_09.mp3": {
+      "sha256": "d78ef2d2714099401be6a6090a182a4743a1d1f0c95517fe4dffd6b3ccf1064f",
+      "bytes": 314253
+    },
+    "audio/exam_16/task_10.mp3": {
+      "sha256": "772ed15954dca00234b173e49632651548158317ce835417787c71cf70118a16",
+      "bytes": 293517
+    },
+    "audio/exam_16/task_11.mp3": {
+      "sha256": "4352dc5024379f0d0042ebf3b03c604241918b19b600b453ef2e00772d3e654e",
+      "bytes": 345645
+    },
+    "audio/exam_16/task_12.mp3": {
+      "sha256": "e292c4aa03ebcc2f87bc5d675642537b90698bbf0450e0b95ffd3058d7e127f6",
+      "bytes": 400365
+    },
+    "audio/exam_16/task_13.mp3": {
+      "sha256": "344e93f507b1b02c590d440675e26086cec34a65a1dbe5d355a6cdeb0ad45bae",
+      "bytes": 299853
+    },
+    "audio/exam_16/task_14.mp3": {
+      "sha256": "d0df8867ba923f5f21275956dc8152f279df2d04ad891ce3ff26fba697753b9c",
+      "bytes": 345933
+    },
+    "audio/exam_16/task_15.mp3": {
+      "sha256": "664bb2f4a7410d79945a98d39e2e1d568a03c3fcddd41136ec80b6961190cc94",
+      "bytes": 403533
+    },
+    "audio/exam_17/task_01.mp3": {
+      "sha256": "fb59de039b75837c4e05352a144a51c2e10e20152d9c282c768362f5a791d257",
+      "bytes": 418797
+    },
+    "audio/exam_17/task_02.mp3": {
+      "sha256": "392cfa3f969465959827896a60fb5b6edefafc97bfb706711707c5f6925b9ed9",
+      "bytes": 504045
+    },
+    "audio/exam_17/task_03.mp3": {
+      "sha256": "72f0af5d2d1a271f69566271ea1a40f48163dc5d453118ebcae8358f702266dd",
+      "bytes": 383373
+    },
+    "audio/exam_17/task_04.mp3": {
+      "sha256": "10e16b4a90ac60ef32fa61849cf2d92ea9e2300a0fa37441a76cfa6a52b2966e",
+      "bytes": 535149
+    },
+    "audio/exam_17/task_05.mp3": {
+      "sha256": "7f82dba7fc186ed86b59eab909e33fa359a868f41a8aedb910a5ddbd16cba6c8",
+      "bytes": 508653
+    },
+    "audio/exam_17/task_06.mp3": {
+      "sha256": "bb5805a14e0b27ff662c6f36abda622f2950e58535f16b8797688dab064717ab",
+      "bytes": 419085
+    },
+    "audio/exam_17/task_07.mp3": {
+      "sha256": "ef592169dfdb585b6d71859167df11f0d0574f9bc04ee7d95f1a17c9de21180d",
+      "bytes": 342477
+    },
+    "audio/exam_17/task_08.mp3": {
+      "sha256": "01e16ea1a791626da08342c9cd43d54acb585bf0aedbaa59fc57f973f0b7436c",
+      "bytes": 346221
+    },
+    "audio/exam_17/task_09.mp3": {
+      "sha256": "e7ebf37e5fea2473c8081087f6585a692f5d9e41c39fba32cc708bca3fe28436",
+      "bytes": 296685
+    },
+    "audio/exam_17/task_10.mp3": {
+      "sha256": "ecf6ade10272e6650d61e9363598fed5f7f9ddc24e88277faf417c9cea94c083",
+      "bytes": 285165
+    },
+    "audio/exam_17/task_11.mp3": {
+      "sha256": "1bc602775e40841aa63d140a0c187d6b0605227bdf5b7036c25a9b800975f9a6",
+      "bytes": 391149
+    },
+    "audio/exam_17/task_12.mp3": {
+      "sha256": "047481e36048be66df6ca8a3b00c9d4e17b6b7527d0e015bbf00f581a284b938",
+      "bytes": 341901
+    },
+    "audio/exam_17/task_13.mp3": {
+      "sha256": "f4ad19ea3a050ba1ff56363db91bcbbb1dd48d04d47b43c00d7db4b611c6f0c4",
+      "bytes": 340461
+    },
+    "audio/exam_17/task_14.mp3": {
+      "sha256": "ceefcf14543a4b523f485c1d49031769a263c69fb8c7225dbea22854e0d43e47",
+      "bytes": 342765
+    },
+    "audio/exam_17/task_15.mp3": {
+      "sha256": "27432aadd857720fdbb9a5e58ff575f78d2b9b28cfa8a60d922f5fcff34dfda0",
+      "bytes": 407565
+    },
+    "audio/exam_18/task_01.mp3": {
+      "sha256": "56d216079173c9f096f238b0b01730cede867484635f38f5e2dbf663d57a567d",
+      "bytes": 524205
+    },
+    "audio/exam_18/task_02.mp3": {
+      "sha256": "0a0d199a5af264cc4b9708a0be9cf28da01905e8aedd897789dbd87af8ad41b0",
+      "bytes": 507501
+    },
+    "audio/exam_18/task_03.mp3": {
+      "sha256": "448aef08893b3a6aec040d9296cfb379af1d7780a591a608416b04008742eb6d",
+      "bytes": 504909
+    },
+    "audio/exam_18/task_04.mp3": {
+      "sha256": "10b10897da42332eac9607a5db0748966b5fcbc49e0963dad21d4b237ecadd47",
+      "bytes": 445869
+    },
+    "audio/exam_18/task_05.mp3": {
+      "sha256": "1e7f77d9825a3f90d60ff4770ca516a5ccea781bf787ae682bb67e19230081e3",
+      "bytes": 447597
+    },
+    "audio/exam_18/task_06.mp3": {
+      "sha256": "4a92ddc2433d8723671898980606281f1989bd2f57d9da584cc0aa5a9d9cada0",
+      "bytes": 578925
+    },
+    "audio/exam_18/task_07.mp3": {
+      "sha256": "b093639e89b9b41a5f7aeac4b05750dcf5379fabd54431a1830c168b77f946ba",
+      "bytes": 313389
+    },
+    "audio/exam_18/task_08.mp3": {
+      "sha256": "a4e931a04cf4f4cdd36ddda26f32fb5a810c0651d2ba4d128806626721a5acc5",
+      "bytes": 297837
+    },
+    "audio/exam_18/task_09.mp3": {
+      "sha256": "43aecd53eecc06d8ed2c181438190336420400ff0339c326b89601196cc8d236",
+      "bytes": 361485
+    },
+    "audio/exam_18/task_10.mp3": {
+      "sha256": "48cda52bf0522308b1563957cae560cd8689a36636cf7ccf3cbf7daee74f8186",
+      "bytes": 330093
+    },
+    "audio/exam_18/task_11.mp3": {
+      "sha256": "1af8bafe2591e6013e6c8ead506cd3c2e5cf885a8d097aac18db76845c1a05c6",
+      "bytes": 396909
+    },
+    "audio/exam_18/task_12.mp3": {
+      "sha256": "2a257e9f79dd00127ea637f0670ae8ad675f91774ebd4eb8c1c38e0022d0aed0",
+      "bytes": 270189
+    },
+    "audio/exam_18/task_13.mp3": {
+      "sha256": "f130beefe9d1bbdc50c2515c9af1785df23978aa635c19f43b53bb8efcff41e3",
+      "bytes": 334701
+    },
+    "audio/exam_18/task_14.mp3": {
+      "sha256": "a8022c837fb8d49ad12cb769d5a9f5378e83cfc18e4ac0b6cc15abc0fa60ae0d",
+      "bytes": 318861
+    },
+    "audio/exam_18/task_15.mp3": {
+      "sha256": "a0b26922bdd621d607bccece64f09d94a6ae66831dd501464987284563438b5d",
+      "bytes": 269037
+    },
+    "audio/exam_19/task_01.mp3": {
+      "sha256": "ead7f5e981d7231b71687fcaa9c7590263a65c2c771b74735966e8750f33afd5",
+      "bytes": 527085
+    },
+    "audio/exam_19/task_02.mp3": {
+      "sha256": "794d10c175fb87abf47c28f40bb09097adc848ff6f3ba22ea93fe05c7fac7083",
+      "bytes": 487053
+    },
+    "audio/exam_19/task_03.mp3": {
+      "sha256": "a842493f54a17d81075c54d3e8ffb97d55c55a012886512dbc4bb9a1dd475130",
+      "bytes": 470637
+    },
+    "audio/exam_19/task_04.mp3": {
+      "sha256": "0fb8a656c6f98baf0419d4dd900d2817cf43d7c27e8ffc2ca641b762a9a0f935",
+      "bytes": 449613
+    },
+    "audio/exam_19/task_05.mp3": {
+      "sha256": "432f577e8c980eaa36fcf058ce2012a059b48de3f3207e3fb4282b28c4cf9426",
+      "bytes": 423981
+    },
+    "audio/exam_19/task_06.mp3": {
+      "sha256": "58f5867ed4c81a0be479353fab9d04fb9baee54b2024e98ed4b110dd4fd164d9",
+      "bytes": 449325
+    },
+    "audio/exam_19/task_07.mp3": {
+      "sha256": "3172e73965476073b9eb608eb57c70c7e6219d91f18379d625e8eeec59364971",
+      "bytes": 340461
+    },
+    "audio/exam_19/task_08.mp3": {
+      "sha256": "ab7bf0514ff2d26b8b4d93b28632b64e2332beafb7f757a896d6f7a715d93dc9",
+      "bytes": 377037
+    },
+    "audio/exam_19/task_09.mp3": {
+      "sha256": "e54732085a6c9a97ad51c80f481a3ee4a588d5ac218e5adb32a9e6f016cb7787",
+      "bytes": 306477
+    },
+    "audio/exam_19/task_10.mp3": {
+      "sha256": "060325cad5f48bcc14842cd2edeb8f849160287dfbde9b127f66ad0d684feffa",
+      "bytes": 301869
+    },
+    "audio/exam_19/task_11.mp3": {
+      "sha256": "e87365831d7176da538e203f754511342942aadc389ef28c4f57d3e3cd9f6729",
+      "bytes": 350541
+    },
+    "audio/exam_19/task_12.mp3": {
+      "sha256": "aa4d1d273890cea38d87e47876a4985fde4af8c612ea507b57e667a6b67db8bb",
+      "bytes": 347661
+    },
+    "audio/exam_19/task_13.mp3": {
+      "sha256": "88c9e968499ec0e07e1b94e0360e7c543baea1db23c28b94ee13bbf50b5752b2",
+      "bytes": 316269
+    },
+    "audio/exam_19/task_14.mp3": {
+      "sha256": "2195f73e293fb92da81f2befa2b132423b74b7ee8a43f76c35322e9d1fcf4dfe",
+      "bytes": 341613
+    },
+    "audio/exam_19/task_15.mp3": {
+      "sha256": "f6521ba06ad74c71045e6b6ae1c829e8eb8b5140d5ce839a61f9b5fe533ed75e",
+      "bytes": 255501
+    },
+    "audio/exam_20/task_01.mp3": {
+      "sha256": "da2181a8e53cd4690d6949bbb605b71600c0220cab170b121ae027ebac33f7c5",
+      "bytes": 502893
+    },
+    "audio/exam_20/task_02.mp3": {
+      "sha256": "32f34fb7282d4e5205ac4600428311f33e39faa61838953578f5e33cf3936fa4",
+      "bytes": 521613
+    },
+    "audio/exam_20/task_03.mp3": {
+      "sha256": "e3d9d1f96b5279bfb28e80082eb2f8cb9e2b6267c6f6aaeb1ec5cb2d43513157",
+      "bytes": 563085
+    },
+    "audio/exam_20/task_04.mp3": {
+      "sha256": "2aa20a8498a47e29fdb1c1659bf18d8b24b95a26220ac0c945f4f86d56c8c627",
+      "bytes": 451629
+    },
+    "audio/exam_20/task_05.mp3": {
+      "sha256": "759e71b4f5a0d3e1cf632c0e3ef9e116424d422f024e664d1c927492ec45cf43",
+      "bytes": 512685
+    },
+    "audio/exam_20/task_06.mp3": {
+      "sha256": "f600f74ff0c6df2392bff4162a5ed49df87f289a7ba7b9437d614ed62b007801",
+      "bytes": 350829
+    },
+    "audio/exam_20/task_07.mp3": {
+      "sha256": "328ba534ea0f93c45b44a1cdba9539fb1b078d1536dba2f8fe55a6b59f03b319",
+      "bytes": 365517
+    },
+    "audio/exam_20/task_08.mp3": {
+      "sha256": "6e6a930f7bec0af7d742ddcd3c25b2261b75536cbd38ac0b53bd93833291ae42",
+      "bytes": 325197
+    },
+    "audio/exam_20/task_09.mp3": {
+      "sha256": "5e4cb6c3c34571a1bdd98096af1b62411a95bfb5709532c8c84458a3457f2020",
+      "bytes": 282573
+    },
+    "audio/exam_20/task_10.mp3": {
+      "sha256": "0931efe7c561395dc10b4b88041635584541636c115c3bc1dc02709c5e6177cc",
+      "bytes": 365805
+    },
+    "audio/exam_20/task_11.mp3": {
+      "sha256": "91c0249aff988893c4b84f7ab56ab7bd153ccac4854ac7d50a8eddbdc8b7a381",
+      "bytes": 324909
+    },
+    "audio/exam_20/task_12.mp3": {
+      "sha256": "447571647eb152e30c7afc726f755dc77abe161f6c64e2a0fdcc0b5fb650ffd4",
+      "bytes": 332973
+    },
+    "audio/exam_20/task_13.mp3": {
+      "sha256": "f27f13c8b096b22bb87d18f9c7004711744544bbffd977f6ea2d66fe2f112021",
+      "bytes": 288333
+    },
+    "audio/exam_20/task_14.mp3": {
+      "sha256": "ad15da08f720420a833a25ab5eff90c978e876abb83b2d59994b86d03ba861e1",
+      "bytes": 400941
+    },
+    "audio/exam_20/task_15.mp3": {
+      "sha256": "839d173c6567065500795ab2b498ed3482719f6939282078d3f992bfcd6a2e82",
+      "bytes": 328077
+    },
+    "audio/exam_21/task_01.mp3": {
+      "sha256": "1d53f8900192a9147c6337680343940537ae8f9950e893c9b0f64516cba4663e",
+      "bytes": 420813
+    },
+    "audio/exam_21/task_02.mp3": {
+      "sha256": "fb6a8229476ee1d7acb90a19cf4de3130f13bedea1cfb3b091ae6891b2a20c19",
+      "bytes": 528237
+    },
+    "audio/exam_21/task_03.mp3": {
+      "sha256": "28f48f182b590a0fc76930fc5b743e3040596ae7cc2339293280c9c32ff39dee",
+      "bytes": 534573
+    },
+    "audio/exam_21/task_04.mp3": {
+      "sha256": "42b77fdfe500966d5ccc6a2d50f7e9eec124f7430d824ab998b2ad519cae34ec",
+      "bytes": 507789
+    },
+    "audio/exam_21/task_05.mp3": {
+      "sha256": "7ef813363e201224218979d1e08b824b52c6919d866c6838c11ebf2cb96d9239",
+      "bytes": 445869
+    },
+    "audio/exam_21/task_06.mp3": {
+      "sha256": "7caffbb9005039719c89b18fc1fc0d8b56df2f50e2f3953721a0ac32cdfe1cf2",
+      "bytes": 500013
+    },
+    "audio/exam_21/task_07.mp3": {
+      "sha256": "054e8f0fbe367efcb2c90b68556bdcb4d60a42f87581964cd7cc724f6f5712a4",
+      "bytes": 310221
+    },
+    "audio/exam_21/task_08.mp3": {
+      "sha256": "7d747f4101752d6b55ff75774856731110c5c45136ef15435d9a2d0f927bad6a",
+      "bytes": 305901
+    },
+    "audio/exam_21/task_09.mp3": {
+      "sha256": "a2dd7d29f35706a9b80780b67fcf2edd8c823208a642235177fed391a1e1f70d",
+      "bytes": 343341
+    },
+    "audio/exam_21/task_10.mp3": {
+      "sha256": "8075c9a483c8d56b3b77896ef72d5a95c6954118e2b7b7eb1eba33fa51046d45",
+      "bytes": 297261
+    },
+    "audio/exam_21/task_11.mp3": {
+      "sha256": "58f251cc20be212c18bdc887c69f4c932033a46c46cb03721a45f7f662b9a7c6",
+      "bytes": 345645
+    },
+    "audio/exam_21/task_12.mp3": {
+      "sha256": "1627f891d851421bad6a102f727e1f6ac423687742b14de762d585a02ec38788",
+      "bytes": 402957
+    },
+    "audio/exam_21/task_13.mp3": {
+      "sha256": "5ea73158e76691ff00cc2c795715ad10493c4cf7553ffcd7ef8cbf37c13deeb9",
+      "bytes": 314541
+    },
+    "audio/exam_21/task_14.mp3": {
+      "sha256": "f0f47ac70bc9e8df27f0826f27ec9c6c7c2a736fc94c33d3359dd9d05bd3eaf3",
+      "bytes": 332685
+    },
+    "audio/exam_21/task_15.mp3": {
+      "sha256": "203c0d7a60d8e4e7a68f9d26911542b723ed6d52a11c082bdd8807d56f327256",
+      "bytes": 354285
+    },
+    "audio/exam_22/task_01.mp3": {
+      "sha256": "a67de26097135cf5ec28434f711ac3e431ef3183efefe1ea5f6892434d88a67f",
+      "bytes": 390861
+    },
+    "audio/exam_22/task_02.mp3": {
+      "sha256": "2c0efa1305d72d4199840b1ce224bc5807345298029eb05fd7520a2401cd2790",
+      "bytes": 496845
+    },
+    "audio/exam_22/task_03.mp3": {
+      "sha256": "976ebc4e8974f5609572862fedbeaecc7f11d4d91fe08d35e174ee1b63c4b70f",
+      "bytes": 387981
+    },
+    "audio/exam_22/task_04.mp3": {
+      "sha256": "e94d9e267b223217f32587ab1e1c67e642f98934e9ec1c0c71af4eca82e6e483",
+      "bytes": 531981
+    },
+    "audio/exam_22/task_05.mp3": {
+      "sha256": "d9ef267f29bb5916622bf292ffc3c7bf17d83f82de7517ebf4067ca35c4b7dfe",
+      "bytes": 487053
+    },
+    "audio/exam_22/task_06.mp3": {
+      "sha256": "a5374d2096506f839e842ce5db43a94e03be3a5ad92cc5c94e1a300c0bec29c3",
+      "bytes": 441549
+    },
+    "audio/exam_22/task_07.mp3": {
+      "sha256": "453264aed46b0e7cf9b586a6972054a252ca8da30b6e45a46e5d8a437faac5b4",
+      "bytes": 286893
+    },
+    "audio/exam_22/task_08.mp3": {
+      "sha256": "188578662e25adca7188dfd0b8996f8e93f1d8d1f438db640c21ff51f9cfa66c",
+      "bytes": 362925
+    },
+    "audio/exam_22/task_09.mp3": {
+      "sha256": "a048bbab5da48a79f4eba0176f6da1da825e533e315c4ec5cb81b348b965583a",
+      "bytes": 350541
+    },
+    "audio/exam_22/task_10.mp3": {
+      "sha256": "7e333cfbf6d83acc2ef965a1619db7553d3daab09fcb0599edf313126d6b3b46",
+      "bytes": 326349
+    },
+    "audio/exam_22/task_11.mp3": {
+      "sha256": "337da04787dbde3fa1b84ecbb95077776f7d7848e644791e6e918f0ed514c4fd",
+      "bytes": 401229
+    },
+    "audio/exam_22/task_12.mp3": {
+      "sha256": "b660eb240671c1ede287d39e7241acbe14ed450b2563f37644417650a372fcdc",
+      "bytes": 356301
+    },
+    "audio/exam_22/task_13.mp3": {
+      "sha256": "07d2d302ee698c572c5d30e18c9849f6f923907f55b8afbb31244de47a72f719",
+      "bytes": 330669
+    },
+    "audio/exam_22/task_14.mp3": {
+      "sha256": "68693ee6673cc979fc2e1d3e0825db7b56676b35f3c46204661d050fdf4b2956",
+      "bytes": 348525
+    },
+    "audio/exam_22/task_15.mp3": {
+      "sha256": "360ba400423d7153ee3e5bd8752a0cafe460d5fc04b853a4456dd88482738b1c",
+      "bytes": 342765
+    },
+    "audio/exam_23/task_01.mp3": {
+      "sha256": "8e23f9265e84a24edb65d3b503fabd7f438bf16460f88546f267526f680157c3",
+      "bytes": 513549
+    },
+    "audio/exam_23/task_02.mp3": {
+      "sha256": "dcd0d77c71bee640b67d171347c17ac0030ac6709dffaa08799d4e443e5fcb01",
+      "bytes": 519309
+    },
+    "audio/exam_23/task_03.mp3": {
+      "sha256": "aa84e106ce7d1bcca31838dc2bc09ad5acfd8e80bfd27902ebc763cba7705199",
+      "bytes": 512109
+    },
+    "audio/exam_23/task_04.mp3": {
+      "sha256": "bde8b5ca50fc4466daf203673816f1bab7c35043429b2d8df967354fd4a8b219",
+      "bytes": 389133
+    },
+    "audio/exam_23/task_05.mp3": {
+      "sha256": "91fcfb0b63ce29f0cc7316d6ce8269afcf230d44e6ca431852cfcfb306db0d93",
+      "bytes": 412173
+    },
+    "audio/exam_23/task_06.mp3": {
+      "sha256": "1bc251037c321b13eb08eaac8db57d09d922ed5906d79f1d80986ff2d94b5db4",
+      "bytes": 559629
+    },
+    "audio/exam_23/task_07.mp3": {
+      "sha256": "a40be58bd69187b8e13442f357dc31d1dd15cd003745893d457853424d08c65e",
+      "bytes": 343341
+    },
+    "audio/exam_23/task_08.mp3": {
+      "sha256": "9d308f843a7a41780d90bca73a41e444c65867fcfa8a0e7c6a7ebd9dd956a601",
+      "bytes": 379629
+    },
+    "audio/exam_23/task_09.mp3": {
+      "sha256": "fd6120a47b5795c78b42319528a6b39d0cb362f3b04519919641e73c9481f164",
+      "bytes": 320589
+    },
+    "audio/exam_23/task_10.mp3": {
+      "sha256": "87df3f3c7fcdbfbad7705f2f7d63ac3eb82f41873d6329b81a70f617f73b7b53",
+      "bytes": 350253
+    },
+    "audio/exam_23/task_11.mp3": {
+      "sha256": "1f8a7e19d81b60cae77e69e84dfa16f14055c9cab3bfeac1d2c657c5ccede983",
+      "bytes": 387693
+    },
+    "audio/exam_23/task_12.mp3": {
+      "sha256": "e7914b83144d0411e1b2dae4325e8523cbac10fd73cf6e6667f9c172b3340cb0",
+      "bytes": 344205
+    },
+    "audio/exam_23/task_13.mp3": {
+      "sha256": "53cc77c66d0d8c290c061f29abc64fdf3434b0f9108feb845a2daed6058bad04",
+      "bytes": 335565
+    },
+    "audio/exam_23/task_14.mp3": {
+      "sha256": "16f448c9654c0f47f8e0245afa4e608c0f764307cc5cba72d54acdb1a9cb05f1",
+      "bytes": 325197
+    },
+    "audio/exam_23/task_15.mp3": {
+      "sha256": "cec25d683afa2ebae6f695bb3b9169f32528fc1e73c6b8b0e0d6123bf8f2f37f",
+      "bytes": 329805
+    },
+    "audio/exam_24/task_01.mp3": {
+      "sha256": "8043662574724a24d7229dbf849e6118753a43d4438ecc0d690f6d908ce479fc",
+      "bytes": 476109
+    },
+    "audio/exam_24/task_02.mp3": {
+      "sha256": "1252708aa65ed5f067a193ba615d980aec0975d6d461987742834d52e9698f99",
+      "bytes": 528525
+    },
+    "audio/exam_24/task_03.mp3": {
+      "sha256": "da11319614cf9abbf3d6959a904450741905b59d1380f4d3ca7f2b655ff0fd24",
+      "bytes": 443853
+    },
+    "audio/exam_24/task_04.mp3": {
+      "sha256": "ea06eb4b4f26ea0c7d2096bd0d1ad477259058c7cda9e6b2134e310a7ab52f13",
+      "bytes": 475245
+    },
+    "audio/exam_24/task_05.mp3": {
+      "sha256": "8e46770288ec3007c1511ac240f05574e51bbbe02fd26c40078d178a9f58cde2",
+      "bytes": 422253
+    },
+    "audio/exam_24/task_06.mp3": {
+      "sha256": "0d41aaf92b5e43adcebc91e5f241555a879a8c43cc46b67bc3da897179ea289f",
+      "bytes": 444429
+    },
+    "audio/exam_24/task_07.mp3": {
+      "sha256": "60b0c21c2f98f92c74e316bf5f4016187bde1d169b26c6caf7f3c29db6b9e420",
+      "bytes": 337581
+    },
+    "audio/exam_24/task_08.mp3": {
+      "sha256": "0058fed04bd948b3a583db482f683155f7bc7f452d4b75c288fbd70e32f2beec",
+      "bytes": 344781
+    },
+    "audio/exam_24/task_09.mp3": {
+      "sha256": "1b5b164cc50b80db7f9b91c968300356fed227c882cf9e0957acd3e7dfb62007",
+      "bytes": 277389
+    },
+    "audio/exam_24/task_10.mp3": {
+      "sha256": "fec9818fc1c73a73605e3dbcf8ece640c1bce842c17b53573815d03207b181ba",
+      "bytes": 297549
+    },
+    "audio/exam_24/task_11.mp3": {
+      "sha256": "49caf2f1f2e073bbf325df04ba2cdd50957ae155a8bec918223d5a31d2b4218e",
+      "bytes": 263277
+    },
+    "audio/exam_24/task_12.mp3": {
+      "sha256": "fd3698a128a0095231deb698900fe1affc0348c07dad87d64490fa2998dbe9e2",
+      "bytes": 363213
+    },
+    "audio/exam_24/task_13.mp3": {
+      "sha256": "de741f25c46cc95c0e6166a8cd240a00fdd6eae23951ee6cddfd6f8ece9ae8d3",
+      "bytes": 302157
+    },
+    "audio/exam_24/task_14.mp3": {
+      "sha256": "e09355e1e93c072ecbea1ac080443d182ba1b0674bc54a6577816184b9802ea3",
+      "bytes": 344205
+    },
+    "audio/exam_24/task_15.mp3": {
+      "sha256": "943a3fe776426c4362725b9531e47ba8dccdd49dcad411e9717cee6add4a2754",
+      "bytes": 345645
+    },
+    "audio/exam_25/task_01.mp3": {
+      "sha256": "d42f085eca46b32ff5e661196bc3140914b509e9fb45ec4c38600c0f35a0101b",
+      "bytes": 527373
+    },
+    "audio/exam_25/task_02.mp3": {
+      "sha256": "61af99dcd4632419e22b7c0bb6c06beea053c0492033fdf4903345553d6f60b6",
+      "bytes": 494253
+    },
+    "audio/exam_25/task_03.mp3": {
+      "sha256": "e0e7f10f06bd5c936fce8130b9add5b9748678f65f1a70cc701a30fe69616766",
+      "bytes": 416781
+    },
+    "audio/exam_25/task_04.mp3": {
+      "sha256": "6a59e7ac39d7438d3d880fb7ade6fdfe45113580010bcb372153a355501549fa",
+      "bytes": 452781
+    },
+    "audio/exam_25/task_05.mp3": {
+      "sha256": "16d7ca2583118abca0fa0f6166f0870609780cf3820bb0c748e531ff2f53c5ac",
+      "bytes": 517005
+    },
+    "audio/exam_25/task_06.mp3": {
+      "sha256": "660024e3e23a7a64719845ecf0f910a54d935fb376d8727093c40ad1394acb68",
+      "bytes": 351405
+    },
+    "audio/exam_25/task_07.mp3": {
+      "sha256": "9f722427e0ef13c443e6832de1ec6677c0396fa7d16d4554a763fbd8c673b355",
+      "bytes": 290061
+    },
+    "audio/exam_25/task_08.mp3": {
+      "sha256": "8ad6a142a08ec3db072beec656c7cea353d031b88679095db1c56efa3c68b65b",
+      "bytes": 356877
+    },
+    "audio/exam_25/task_09.mp3": {
+      "sha256": "26b8809a8e1b03b7286451dbfe4ddd0c357af7fbd1c2d8aafaa0198a5a008910",
+      "bytes": 354285
+    },
+    "audio/exam_25/task_10.mp3": {
+      "sha256": "1c70c8a1609e29521b4e5ddbbce9fc96680535cc933c8ace11748229761d8ea8",
+      "bytes": 332397
+    },
+    "audio/exam_25/task_11.mp3": {
+      "sha256": "3c873cf236e82c588367b7d7601179117ce3b17bdc4ef5cfe2645aac6264932a",
+      "bytes": 335277
+    },
+    "audio/exam_25/task_12.mp3": {
+      "sha256": "6465bd4dea99f2474a8131d94c8ec282b25144205a437968fa5167d942a58cdc",
+      "bytes": 317709
+    },
+    "audio/exam_25/task_13.mp3": {
+      "sha256": "cb47fc0e7cb4ae9172554a4d67021494da869510a9c9a7910a94054906191cca",
+      "bytes": 342189
+    },
+    "audio/exam_25/task_14.mp3": {
+      "sha256": "f56147231155a3f6df6067e419a2f4dc14aba7360db66cc1353afd09b25b4f69",
+      "bytes": 345357
+    },
+    "audio/exam_25/task_15.mp3": {
+      "sha256": "0595a06afb99ccf69ec76a8d59cd354e5ade00ef55799c7cdd224261a1922e13",
+      "bytes": 381357
+    },
+    "audio/exam_26/task_01.mp3": {
+      "sha256": "6d940097e0ff3f5d4ee8c5e8701ea37ee02ea8a24f9e77b1700385fbad7f9c30",
+      "bytes": 509517
+    },
+    "audio/exam_26/task_02.mp3": {
+      "sha256": "5065fd0c2fb63a1ef55c56233b9fa12abc27178e2116a6b6c9a6b8c078fa89c4",
+      "bytes": 449325
+    },
+    "audio/exam_26/task_03.mp3": {
+      "sha256": "1d2fa2de7a96a6a6e494f248e8802fac2b91da930af37f14ecd5e768bb33f235",
+      "bytes": 513549
+    },
+    "audio/exam_26/task_04.mp3": {
+      "sha256": "27756f06fcec5d6d8cba6fb361cd1a61529709bc4a3c20c393ccca953ea5d645",
+      "bytes": 509805
+    },
+    "audio/exam_26/task_05.mp3": {
+      "sha256": "659e1802a0eef246322f2a38300ee573fa93d4eb435d69341d88d82e076dde39",
+      "bytes": 413901
+    },
+    "audio/exam_26/task_06.mp3": {
+      "sha256": "e8a34a288adbafbc0e2a286f19e14b5917f01bb699000bf03280e01493935c68",
+      "bytes": 459693
+    },
+    "audio/exam_26/task_07.mp3": {
+      "sha256": "1545419ba0e6dd53e4a5270dcec5b81555b8855a54fb39f1298ff164d69740d2",
+      "bytes": 350253
+    },
+    "audio/exam_26/task_08.mp3": {
+      "sha256": "3cd8975dbfcb2e1a52f550172e9d331266669e63b87ea2e5615d4268cde956b2",
+      "bytes": 376749
+    },
+    "audio/exam_26/task_09.mp3": {
+      "sha256": "9c6c6d7ef588d812f7b49f4fe8e05bc1d413a671070a8560061f51f8d3312801",
+      "bytes": 311373
+    },
+    "audio/exam_26/task_10.mp3": {
+      "sha256": "a5332fd697e775b0afadd581e1561d00652cd4dd18da7b6f022abd0830788400",
+      "bytes": 309645
+    },
+    "audio/exam_26/task_11.mp3": {
+      "sha256": "8807cb43e15b6c86e7ac521a2a47c721637faf3e289d9d3bfabe4f6fb54e56d4",
+      "bytes": 342477
+    },
+    "audio/exam_26/task_12.mp3": {
+      "sha256": "9750110a6cbc70d8ce21499d5acb715837095273ae8915d362033b897298a3a1",
+      "bytes": 344781
+    },
+    "audio/exam_26/task_13.mp3": {
+      "sha256": "1b56fa0d2c844a628e4f020fc12b3771d5edb588f012e6431c56f639a7510a79",
+      "bytes": 341325
+    },
+    "audio/exam_26/task_14.mp3": {
+      "sha256": "0b629a77b0992b4620c32341bdddf96e936668904a32cddf6c9f2ac85da77914",
+      "bytes": 382797
+    },
+    "audio/exam_26/task_15.mp3": {
+      "sha256": "e3175b11ac6b4a6f5b6ad3e4e60ca12a9d17ee93fffc1136b9bd38ffb69cd7aa",
+      "bytes": 346797
+    },
+    "audio/exam_27/task_01.mp3": {
+      "sha256": "396249e0d9e476a40a82ded16498578bee602130a11e5d7e040c0879cac7ce3a",
+      "bytes": 451341
+    },
+    "audio/exam_27/task_02.mp3": {
+      "sha256": "22a69ab21832b3ef822237db1e4f4f10c5305be12c80710291d9e8e906e687e4",
+      "bytes": 511821
+    },
+    "audio/exam_27/task_03.mp3": {
+      "sha256": "ee7a3f41215ede443ed011f27467ad836b0825928b1dcc61660cbca4f8db25d0",
+      "bytes": 447597
+    },
+    "audio/exam_27/task_04.mp3": {
+      "sha256": "2a5db79172bd93869c3f767939b4b398913e8e99c5f7db653d466934da716090",
+      "bytes": 505485
+    },
+    "audio/exam_27/task_05.mp3": {
+      "sha256": "6df134b64849bf672386f73bc9c5a6b5c14c8963a761460c0b823b08e23fa28d",
+      "bytes": 585261
+    },
+    "audio/exam_27/task_06.mp3": {
+      "sha256": "2e5454d0c87490f126aad3707dc7c1092c825da8f6b4919a5bb45dce4d46bbe2",
+      "bytes": 426285
+    },
+    "audio/exam_27/task_07.mp3": {
+      "sha256": "f10fd75bae8fbac8a93167dd7a88707a41a984b9dc25a9ccdb836c7eb263d7d4",
+      "bytes": 299277
+    },
+    "audio/exam_27/task_08.mp3": {
+      "sha256": "e11e0292ab4aab3c4669aab7ea38f0f21399ad92ed1e298a1a24d58dc3db76ac",
+      "bytes": 330957
+    },
+    "audio/exam_27/task_09.mp3": {
+      "sha256": "6c44bd39c0bb9f81fa2e4cb693bc75f18a938c242d34029cf518dc93439366be",
+      "bytes": 287469
+    },
+    "audio/exam_27/task_10.mp3": {
+      "sha256": "06a48f9ea5efc9be5638858f1d2e80cf27946f5931b40a9291c0ecb0e0e47643",
+      "bytes": 373005
+    },
+    "audio/exam_27/task_11.mp3": {
+      "sha256": "38586c57abd1f5a4e9824d5b1ab76dc2e0e3eed2064d7a017e51226943b325d9",
+      "bytes": 336717
+    },
+    "audio/exam_27/task_12.mp3": {
+      "sha256": "ab7e1de7c7336d95557c387161988f4668d14f7106b1d14ffebaa2e973417941",
+      "bytes": 391149
+    },
+    "audio/exam_27/task_13.mp3": {
+      "sha256": "6d53bd09e264fba95743e39cd946b170be0cf21dbea8242c7e4ebd9df0191977",
+      "bytes": 319725
+    },
+    "audio/exam_27/task_14.mp3": {
+      "sha256": "88480f6de852e7f9ec8269760030517686d63e62687e5fd56316f13f2ed1f47b",
+      "bytes": 332973
+    },
+    "audio/exam_27/task_15.mp3": {
+      "sha256": "7d5dce2094e44012f7d4a4611ac0d5d18fabf60c7c2e2737f442f047b0937cad",
+      "bytes": 356877
+    },
+    "audio/exam_28/task_01.mp3": {
+      "sha256": "7eeec0375ec90638e3449f06648305bbbdbe47971befe3cb87fe821b3773c96c",
+      "bytes": 535725
+    },
+    "audio/exam_28/task_02.mp3": {
+      "sha256": "b582c64c1df3668b66558617f025d5c800a4ccaaaadad3816b05131c3398ae9f",
+      "bytes": 480717
+    },
+    "audio/exam_28/task_03.mp3": {
+      "sha256": "506bba4bf863eb79659b7c955b9f752b1b05c898762c0f2c71ca249807eb20c6",
+      "bytes": 472653
+    },
+    "audio/exam_28/task_04.mp3": {
+      "sha256": "553356a804f5e8b567c75781c4c82c5f47e668099e37aa42585f81fe7ed7787f",
+      "bytes": 485037
+    },
+    "audio/exam_28/task_05.mp3": {
+      "sha256": "d1a0e2c785880bd101d95d603228d16f96c2b783860a9bdadf3f0d1b57c03383",
+      "bytes": 432909
+    },
+    "audio/exam_28/task_06.mp3": {
+      "sha256": "73c721da09aebc967d73b275ae52508c815a97bd31e36eb2e704cb8ed525fc7a",
+      "bytes": 401517
+    },
+    "audio/exam_28/task_07.mp3": {
+      "sha256": "47a4493bdf4064fccbd8c57de81902a6a3419529382dde907b52946a9658c9c3",
+      "bytes": 305613
+    },
+    "audio/exam_28/task_08.mp3": {
+      "sha256": "9ddb92dce5b3702f4de8ed54c34beb461bad59d10e59e1d75b9c9097af73d45a",
+      "bytes": 300429
+    },
+    "audio/exam_28/task_09.mp3": {
+      "sha256": "7bca1ab4dd58d4b94cf9b66c1d6c79557479340de988c902290a042feae60122",
+      "bytes": 345645
+    },
+    "audio/exam_28/task_10.mp3": {
+      "sha256": "2929d6af2350e47a691e6c545c1b65e69f2ea6891b0735273d335cf08e383044",
+      "bytes": 317997
+    },
+    "audio/exam_28/task_11.mp3": {
+      "sha256": "4d73143c5db036b3dc44e831817070ec5a3ee9402b1a3a1cfd3574d7061c91d4",
+      "bytes": 341325
+    },
+    "audio/exam_28/task_12.mp3": {
+      "sha256": "5f673a08e46b14f5bce534849e80d7e7774f5b39dafeb77304ad451271762cf8",
+      "bytes": 333837
+    },
+    "audio/exam_28/task_13.mp3": {
+      "sha256": "9a19868e04acee8f0f86bf59332245ffcf752da7e4a1066d213a36e054ea45cc",
+      "bytes": 343341
+    },
+    "audio/exam_28/task_14.mp3": {
+      "sha256": "db9178b65eebc22c3cca721eedf6cdc1424f3da6f369338d772fc02cb4745a79",
+      "bytes": 372429
+    },
+    "audio/exam_28/task_15.mp3": {
+      "sha256": "9e57565e949659dbeaf020b690bac29cd59f3606826c96e8da23223280cd6e7c",
+      "bytes": 318573
+    },
+    "audio/exam_29/task_01.mp3": {
+      "sha256": "1e5c6aa459b8fcdc1fed17757d443f249264361627290dec51a52c32851124fa",
+      "bytes": 500589
+    },
+    "audio/exam_29/task_02.mp3": {
+      "sha256": "e0c57819de51c683c44b2b4dd3d7f929cdf30f781b78fd99b010d56c03a5b3d1",
+      "bytes": 411309
+    },
+    "audio/exam_29/task_03.mp3": {
+      "sha256": "a27a2ae5e3cabae955aa0b70cbce60c649987d92e732f85992184da80b10da3b",
+      "bytes": 447885
+    },
+    "audio/exam_29/task_04.mp3": {
+      "sha256": "a21720e0708eb7a0e3e71b57f86d5075de9d1c0d6fc83e2d7e8caa28508c14ed",
+      "bytes": 507501
+    },
+    "audio/exam_29/task_05.mp3": {
+      "sha256": "1851c550089c8a3146387fd1f95611d41d693cd06960b34aabcdc43763401834",
+      "bytes": 386541
+    },
+    "audio/exam_29/task_06.mp3": {
+      "sha256": "69f53de5d19df726d7368b25a7aae913d8b5b0ae3f744f0832fc461d51f14522",
+      "bytes": 538029
+    },
+    "audio/exam_29/task_07.mp3": {
+      "sha256": "9de96f00f76f0e51b52e532f790e532b040d6c822f014837a2a17ab1d84bfd90",
+      "bytes": 284013
+    },
+    "audio/exam_29/task_08.mp3": {
+      "sha256": "47783c92eab852d897d144dd520043348b89e694157ee8f4c868fbea1a2ba4f3",
+      "bytes": 354285
+    },
+    "audio/exam_29/task_09.mp3": {
+      "sha256": "40f7f51ea795d31632c118b8e17bce70cd20ea8f360c2fb6b622bf553300a6b9",
+      "bytes": 296109
+    },
+    "audio/exam_29/task_10.mp3": {
+      "sha256": "a90bd2211e71a8204b16c5e2656e368d316e777729048d089923fd17996223fe",
+      "bytes": 317421
+    },
+    "audio/exam_29/task_11.mp3": {
+      "sha256": "9af6aca56bca08c95c03d84c735247539a44dc680ee7d04b33df0bc819b8df99",
+      "bytes": 331533
+    },
+    "audio/exam_29/task_12.mp3": {
+      "sha256": "64ae1be145680276a2708c086d43727249103ffe4f7944e7a4d28526abf1df94",
+      "bytes": 355725
+    },
+    "audio/exam_29/task_13.mp3": {
+      "sha256": "3a9694ddb8f6b558b0077abb2efcd7c014446f1fb3d059a8c56eb2d375e06cbd",
+      "bytes": 387693
+    },
+    "audio/exam_29/task_14.mp3": {
+      "sha256": "43089d9e4df63a8a69c94a47714a54435817b76850d0f656950dd8c03ff210e5",
+      "bytes": 352845
+    },
+    "audio/exam_29/task_15.mp3": {
+      "sha256": "1332b10f425528ad4da9ef9eba3fa32296e85cd8eebf3861f4c8c8ef9b2a45fd",
+      "bytes": 332109
+    },
+    "audio/exam_30/task_01.mp3": {
+      "sha256": "9188b09fde45d0cb5517c6f2ec5a000287afa24a140d14fb7f6fdbd9453bd63d",
+      "bytes": 548397
+    },
+    "audio/exam_30/task_02.mp3": {
+      "sha256": "325ef45221857ec0e23448f00450562338b275d7339b98851cf062af677e058a",
+      "bytes": 478989
+    },
+    "audio/exam_30/task_03.mp3": {
+      "sha256": "bc31d800c379b1e1e9104cad1d065e538b675f1f0021ad3a36c48f6e3a31c2bc",
+      "bytes": 405261
+    },
+    "audio/exam_30/task_04.mp3": {
+      "sha256": "668a9ac0ae242180d6bcdddbc8bc2c02ab4d9571c85829c686bd48a3ce74d817",
+      "bytes": 468045
+    },
+    "audio/exam_30/task_05.mp3": {
+      "sha256": "daaffc2c44a5a033ebd7aee206b303a21b487d0d517c04717764534aa59f4581",
+      "bytes": 490797
+    },
+    "audio/exam_30/task_06.mp3": {
+      "sha256": "7c30db2c307e161ef922b2b45a1fc6f72f9733fc394ff82ff6dc7cbfddd8057c",
+      "bytes": 445293
+    },
+    "audio/exam_30/task_07.mp3": {
+      "sha256": "fdb87d636dc0e00cc4ae4724cb90913752a543fb0d74bc5c1740a77b60fa3670",
+      "bytes": 322605
+    },
+    "audio/exam_30/task_08.mp3": {
+      "sha256": "141ac463532868303de3d690b225a3fedb3234681c7003c0abfb30e7d3f43ca0",
+      "bytes": 369837
+    },
+    "audio/exam_30/task_09.mp3": {
+      "sha256": "039fae2b5a9cff6ba75fcf64c6c351300c169f75244654749a7f1a7d27673937",
+      "bytes": 290349
+    },
+    "audio/exam_30/task_10.mp3": {
+      "sha256": "1239efa3572e54d7359c4954a7cbe940604f12891721eeb5801e8062784f055a",
+      "bytes": 356589
+    },
+    "audio/exam_30/task_11.mp3": {
+      "sha256": "edb6f6b20ae3a2e6a67ff045999c3f52e7bcb15f9807dc9764bae73f45684697",
+      "bytes": 333837
+    },
+    "audio/exam_30/task_12.mp3": {
+      "sha256": "a3f92881352e0de496fc83bcb9663df379301f9d5a98a9052d95b9659535b17a",
+      "bytes": 316845
+    },
+    "audio/exam_30/task_13.mp3": {
+      "sha256": "5aabae2a21aaffbdf90ee51ab863150fb5137ff2d6c93e5a94fc5c8914ae7568",
+      "bytes": 332397
+    },
+    "audio/exam_30/task_14.mp3": {
+      "sha256": "bd8aa6b61994955e7004c2432113c370d8425c2a48d1a7de76f18c6020c069f8",
+      "bytes": 345645
+    },
+    "audio/exam_30/task_15.mp3": {
+      "sha256": "cdec260a140df23558b4d77117c097c5d23cd2ef08ba40ad13b9b4d33640ac41",
+      "bytes": 400365
+    }
+  }
+}

@@ -1,0 +1,51 @@
+name: Restore supplied reference images in Preview 13
+on:
+  push:
+    branches:
+      - preview/task-linked-learning
+    paths:
+      - 'public/reference-source/exam/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: otto-preview-13-reference-images
+  cancel-in-progress: false
+jobs:
+  restore:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview/task-linked-learning
+          persist-credentials: true
+      - name: Download the exact eleven user-provided PNG images
+        run: |
+          python3 - <<'PY'
+          import hashlib, pathlib, urllib.request
+          BASE='https://d2ol7oe51mr4n9.cloudfront.net/user_3JrTUgjXOm1gtSR81UvAw22LaI1/'
+          IMAGES=[["w_horen1","7f514562-ba10-448e-9adb-00b90f995900","2a42d82bded8f89127c736bbab62443641b1bcc9"],["w_horen2","b93a2ccc-891b-4ed9-9ba7-9c73cf533773","6fe3e725f9be5ad375f60ada3788e50f486a8660"],["w_horen3","1817c138-6c76-4b79-82e1-4b88cfd841d1","e4c9e0d721d343c90bea6e1fbdc17a06b0428aa9"],["w_lesen1","349febe7-16cc-4698-84cf-e148423c9731","ca2f2c2f34a7b69d5b4cafe560841127640e4941"],["w_lesen2","1698e7f1-3723-47ca-bf2d-f54789d4800d","16b5e4b0141d4b6d16d4ca9972ebdba616ccd899"],["w_lesen3","7be99341-a37e-451b-bc4b-0a250d7e2a9e","bf56384b890971b7cce52e312036a9c24450e369"],["w_schreiben1","ea83bb5a-eb48-4949-8667-ec6ba0c59a4a","1770706309cb3e9239d3a3854655e62b165eba02"],["w_schreiben1_answers","2286d24f-5019-4382-aff0-0838a43c1a9a","6fd7db04c8fe6c489c830a7f1397a66adb049bed"],["o_teil1","29992640-aee2-4c4c-a805-d32dbbdc85a7","cccf13895abc924f991b9f276eba8129b079d129"],["o_teil2","572a3f81-4045-4ea6-a707-a500d040c309","1de4538facdc6b30a53d113548aa919ca3785334"],["o_teil3","d4fc76ef-9fcf-4e1c-a2c7-af3483ccdf57","4f80ce59ad24296577711831fb2925f842c39fe3"]]
+          for name,media_id,sha in IMAGES:
+              url=BASE+media_id+'.png'
+              with urllib.request.urlopen(url,timeout=45) as response: content=response.read()
+              actual=hashlib.sha1(('blob '+str(len(content))+'\0').encode()+content).hexdigest()
+              if actual!=sha: raise RuntimeError(f'Source image mismatch: {name}: {actual} != {sha}')
+              if content[:8]!=b'\x89PNG\r\n\x1a\n': raise RuntimeError('Not PNG: '+name)
+              path=pathlib.Path('public/reference-source/exam')/(name+'.png')
+              path.parent.mkdir(parents=True,exist_ok=True)
+              path.write_bytes(content)
+              print(name,len(content),actual)
+          PY
+      - name: Commit only the reference images to Preview 13
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/reference-source/exam/*.png
+          if git diff --cached --quiet; then
+            echo 'Reference images already present'
+          else
+            git commit -m 'Preview 13: restore 11 original reference illustration files'
+            git push origin HEAD:preview/task-linked-learning
+          fi

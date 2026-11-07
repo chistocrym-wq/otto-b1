@@ -1,0 +1,88 @@
+/* Preview 13: standalone welcome only; no changes to trainer typography. */
+.otto-reference-entry-welcome {
+  box-sizing: border-box; height: 100dvh; width: 100%;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: max(12px, env(safe-area-inset-top, 0px)) 12px max(18px, env(safe-area-inset-bottom, 0px));
+  background: var(--otto-bg); color: var(--otto-ink);
+}
+.otto-reference-entry-container {
+  box-sizing: border-box; display: flex; min-height: 100%; max-width: 900px;
+  margin: 0 auto; align-items: center;
+}
+.otto-reference-entry-panel {
+  box-sizing: border-box; width: 100%; min-width: 0; padding: clamp(16px, 3.5vw, 30px);
+  border: 1px solid var(--otto-line); border-radius: 26px;
+  background: var(--otto-surface); box-shadow: var(--otto-shadow-md);
+}
+.otto-reference-entry-hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(72px, 112px);
+  align-items: center; gap: 12px;
+}
+.otto-reference-entry-copy { min-width: 0; }
+.otto-reference-entry-title {
+  margin-top: 6px; font-size: clamp(24px, 4.6vw, 38px) !important;
+  line-height: 1.12 !important; letter-spacing: -.025em; font-weight: 900;
+  hyphens: none !important; word-break: normal !important; overflow-wrap: normal !important;
+}
+.otto-reference-entry-subtitle {
+  margin-top: 10px; font-size: clamp(14px, 2.8vw, 18px) !important;
+  line-height: 1.35 !important; font-weight: 700; color: var(--otto-petrol-dark);
+}
+.otto-reference-entry-illustration { width: 100%; height: clamp(92px, 19vw, 150px); }
+.otto-reference-entry-description {
+  margin-top: 14px; font-size: 16px !important; line-height: 1.55 !important;
+  color: var(--otto-muted); hyphens: none !important; word-break: normal !important;
+}
+.otto-reference-entry-tip {
+  display: flex; align-items: flex-start; gap: 12px; margin-top: 16px;
+  padding: 13px; border: 1px solid var(--otto-line);
+  border-radius: 18px; background: var(--otto-bg-soft);
+}
+.otto-reference-entry-tip-icon {
+  display: grid; width: 42px; height: 42px; flex: 0 0 42px;
+  place-items: center; border-radius: 14px;
+  background: var(--otto-surface); color: var(--otto-petrol);
+}
+.otto-reference-entry-tip strong { display: block; font-size: 16px; line-height: 1.3; color: var(--otto-ink); }
+.otto-reference-entry-tip p {
+  margin-top: 4px; font-size: 14px !important; line-height: 1.5 !important;
+  color: var(--otto-muted); hyphens: none !important; word-break: normal !important;
+}
+.otto-reference-entry-continue {
+  display: flex; width: 100%; min-height: 52px; align-items: center;
+  justify-content: center; gap: 10px; margin-top: 16px; padding: 10px 16px;
+  border-radius: 14px; background: var(--otto-cta); color: #fff;
+  font-size: 17px !important; line-height: 1.3 !important; font-weight: 800;
+}
+.otto-reference-entry-continue:hover { background: var(--otto-cta-hover); }
+.otto-reference-entry-continue:focus-visible { outline: 3px solid var(--otto-petrol); outline-offset: 3px; }
+@media (max-width: 360px) {
+  .otto-reference-entry-welcome { padding-inline: 9px; }
+  .otto-reference-entry-panel { padding: 14px; border-radius: 22px; }
+  .otto-reference-entry-hero { grid-template-columns: minmax(0, 1fr) 74px; gap: 8px; }
+  .otto-reference-entry-title { font-size: 23px !important; }
+  .otto-reference-entry-illustration { height: 94px; }
+  .otto-reference-entry-tip { padding: 10px; }
+}
+@media (max-height: 650px) {
+  .otto-reference-entry-container { align-items: flex-start; }
+  .otto-reference-entry-description { margin-top: 9px; }
+  .otto-reference-entry-tip { margin-top: 10px; }
+  .otto-reference-entry-continue { margin-top: 12px; }
+}
+
+
+/* Choice after selecting learning mode: either open Reference or begin Schreiben. */
+.otto-reference-entry-actions { display: grid; gap: 10px; margin-top: 16px; }
+.otto-reference-entry-actions .otto-reference-entry-continue { margin-top: 0; }
+.otto-reference-entry-later {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; min-height: 52px; padding: 10px 16px;
+  border: 1px solid var(--otto-line); border-radius: 14px;
+  background: var(--otto-surface); color: var(--otto-petrol-dark);
+  font-size: 16px; line-height: 1.3; font-weight: 800;
+}
+@media (max-width: 640px) and (min-height: 760px) {
+  .otto-reference-entry-container { align-items: center; }
+}

@@ -1,0 +1,54 @@
+name: Preview 13 learning acceptance
+on:
+  push:
+    branches: [preview/task-linked-learning]
+    paths:
+      - 'scripts/preview-learning-acceptance.mjs'
+      - '.github/workflows/preview-learning-acceptance.yml'
+      - 'src/preview/TwoModeLearningPreview.tsx'
+      - 'src/components/DraggableModeAction.tsx'
+      - 'src/App.tsx'
+      - 'tests/preview-learning-static.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      - name: Diagnose published build
+        run: |
+          npm run typecheck
+          npm run build
+      - run: npm install --no-save playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - name: Wait for exact Preview 13 deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 50); do
+            state=$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/status" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s).statuses.find(x=>x.context==='netlify/otto-a1/deploy-preview')?.state||'pending'))")
+            echo "Preview 13: $state"
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" = failure ] || [ "$state" = error ]; then exit 1; fi
+            sleep 8
+          done
+          exit 1
+      - name: Browser screenshots of modified learning screens
+        run: node scripts/preview-learning-acceptance.mjs
+      - name: Preserve modified-screen screenshots and findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview13-learning-acceptance
+          path: acceptance-artifacts/
+          if-no-files-found: ignore
+          retention-days: 4

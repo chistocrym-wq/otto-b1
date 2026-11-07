@@ -1,0 +1,72 @@
+name: Preview 13 reference mobile visual QA
+on:
+  push:
+    branches:
+      - preview/task-linked-learning
+    paths:
+      - 'scripts/preview-reference-mobile-visual.mjs'
+      - '.github/workflows/preview-reference-mobile-visual.yml'
+  workflow_dispatch:
+concurrency:
+  group: otto-preview-reference-visual-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: read
+jobs:
+  reference-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Playwright Chromium downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium-1.48.2
+      - name: Diagnose Preview 13 production build before browser QA
+        run: |
+          npm install --no-audit --no-fund
+          npm run typecheck
+          npm run build
+      - name: Install Chromium for real screenshots
+        run: |
+          npm install
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Wait for exact Preview 13 deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 75); do
+            state=$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/status" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{let x=JSON.parse(s);console.log((x.statuses||[]).find(v=>v.context==='netlify/otto-a1/deploy-preview')?.state||'pending')})")
+            echo "Preview 13 state: $state"
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" = failure ] || [ "$state" = error ]; then exit 1; fi
+            sleep 8
+          done
+          exit 1
+      - name: Visual layout metrics and reference screenshots
+        env:
+          PREVIEW_REFERENCE_BASE: http://127.0.0.1:4173/
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/otto-reference-preview.log 2>&1 &
+          for i in $(seq 1 25); do
+            if curl -fsS http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/preview-reference-mobile-visual.mjs
+      - name: Preserve screenshots
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: reference-mobile-visual
+          path: reference-visual-artifacts/*.jpg
+          if-no-files-found: ignore
+          retention-days: 3

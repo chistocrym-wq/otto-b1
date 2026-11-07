@@ -1,0 +1,47 @@
+name: Preview browser route test
+
+on:
+  push:
+    branches:
+      - preview/task-linked-learning
+    paths:
+      - 'src/**/*.ts'
+      - 'src/**/*.tsx'
+      - 'netlify/**'
+      - 'netlify.toml'
+      - 'index.html'
+      - 'scripts/preview_route_e2e.py'
+  workflow_dispatch:
+
+concurrency:
+  group: otto-preview-route-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: read
+
+jobs:
+  browser-route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: python -m pip install --disable-pip-version-check selenium requests
+      - name: Run real Deploy Preview route
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/preview_route_e2e.py
+
+      - name: Preserve failing browser DOM and screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-route-diagnostics
+          path: browser-route-diagnostics/
+          if-no-files-found: ignore
+          retention-days: 5

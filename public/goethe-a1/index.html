@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="description" content="OTTO A1 — подготовка к Goethe A1 на русском: 31 пробный экзамен, ИИ-проверка письма по тексту и фото, оценка устной речи, справочник, карточки и разбор ошибок.">
+  <title>Goethe A1 на русском — онлайн-тренажёр OTTO A1 и 31 пробный экзамен</title>
+  <link rel="canonical" href="https://otto-a1.netlify.app/goethe-a1/">
+  <link rel="icon" type="image/png" href="/otto-icon-192.png">
+  <meta name="theme-color" content="#f7f1e8">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="OTTO A1">
+  <meta property="og:title" content="Goethe A1 на русском — тренируйтесь с OTTO A1">
+  <meta property="og:description" content="В OTTO A1: 31 пробный экзамен, проверка Schreiben и Sprechen с ИИ, фото рукописного письма, учебная база, умные карточки и разбор ошибок.">
+  <meta property="og:url" content="https://otto-a1.netlify.app/goethe-a1/">
+  <meta property="og:image" content="https://otto-a1.netlify.app/otto/otto-home.webp">
+  <style>
+    :root{color-scheme:light;--ink:#243a37;--green:#176554;--muted:#5d7169;--cream:#f7f1e8;--line:#dce3d8;--soft:#e8f1e7}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+    a{color:var(--green)}a:focus-visible{outline:3px solid #d9a940;outline-offset:4px}
+    .container{max-width:1120px;margin:0 auto;padding:0 24px}
+    .site-head{background:rgba(255,255,255,.72);border-bottom:1px solid var(--line)}
+    .head-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:74px}
+    .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-weight:900;letter-spacing:.02em;color:var(--ink);font-size:1.25rem}
+    .brand img{width:38px;height:38px;object-fit:contain}
+    nav{display:flex;align-items:center;gap:21px;flex-wrap:wrap}
+    nav a{text-decoration:none;font-size:.94rem;font-weight:650}
+    .hero{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(245px,.78fr);align-items:center;gap:44px;padding-top:70px;padding-bottom:72px}
+    .eyebrow{display:inline-block;margin:0 0 16px;border-radius:999px;padding:6px 13px;background:#e4ede6;color:var(--green);font-size:.83rem;font-weight:850;letter-spacing:.02em}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em;line-height:1.17}
+    h1{font-size:clamp(2.2rem,5vw,4rem);margin:0 0 23px}
+    h2{font-size:clamp(1.75rem,3.1vw,2.65rem);margin:0 0 18px}
+    h3{font-size:1.43rem;margin:0 0 10px}
+    p{margin:0 0 17px}
+    .lead{font-size:1.13rem;line-height:1.75;color:#405c53;max-width:690px}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:11px 22px;border-radius:14px;font-weight:750;text-decoration:none}
+    .button.primary{color:#fff;background:var(--green)}
+    .button.secondary{border:1px solid #aac4b7;background:#fff}
+    .hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:355px;padding:18px;border:1px solid #d8e6d6;border-radius:34px;background:linear-gradient(160deg,#d6eddf,#f1f5df 70%,#fff5d9)}
+    .hero-art img{width:min(100%,350px);height:auto;max-height:380px;object-fit:contain}
+    .section{padding:56px 0}
+    .section-intro{max-width:790px;color:var(--muted);font-size:1.04rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:27px}
+    .card{padding:27px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 9px 30px rgba(25,74,60,.035)}
+    .card p{color:#4e655c;margin:0}
+    .marker{display:inline-block;margin:0 0 13px;padding:3px 11px;background:var(--soft);border-radius:999px;color:var(--green);font-size:.81rem;font-weight:800}
+    .feature{padding:32px 35px;background:#e9f1e8;border:1px solid #d7e6d7;border-radius:26px}
+    .feature p{max-width:840px;color:#415b52}
+    .feedback-example{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .feedback-pill{display:inline-flex;align-items:center;padding:8px 13px;border-radius:12px;font-size:.92rem;font-weight:800}
+    .feedback-pill.good{background:#e0f3e7;color:#1b6848}
+    .feedback-pill.retry{background:#fce9e4;color:#9a4638}
+    .reference-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;list-style:none;margin:22px 0 18px;padding:0}
+    .reference-points li{padding:11px 15px;background:rgba(255,255,255,.88);border:1px solid #d3e2d6;border-radius:13px;font-weight:650}
+
+    .quick-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:-30px;margin-bottom:12px}
+    .quick-fact{display:flex;align-items:center;gap:15px;padding:20px 22px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 30px rgba(24,70,57,.045)}
+    .quick-fact strong{font:800 clamp(1.8rem,3.2vw,2.55rem)/1.05 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--green);letter-spacing:-.045em}
+    .quick-fact span{font-size:.89rem;line-height:1.45;font-weight:650;color:#486457}
+    .adv-intro{max-width:820px}
+    .adv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px}
+    .adv-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding:25px 25px 23px;border-radius:23px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 24px rgba(22,74,58,.035)}
+    .adv-card--featured{grid-column:span 2;background:linear-gradient(125deg,#e5f0e7 0%,#f9faf0 100%);border-color:#c6ddd0}
+    .adv-card .adv-label{display:inline-flex;font-size:.74rem;letter-spacing:.055em;text-transform:uppercase;font-weight:850;color:#176554;background:#eaf2eb;border-radius:999px;padding:6px 11px;margin-bottom:18px}
+    .adv-card--featured .adv-label{background:#fff}
+    .adv-card h3{font-size:clamp(1.22rem,1.75vw,1.55rem);line-height:1.23;margin-bottom:12px}
+    .adv-card p{margin:0 0 18px;color:#486358;line-height:1.66}
+    .adv-card a{font-size:.89rem;line-height:1.45;font-weight:800;margin-top:auto;text-underline-offset:4px}
+    .adv-after{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:24px;padding:18px 21px;background:#eaf1e8;border:1px solid #d1e1d3;border-radius:17px}
+    .adv-after p{margin:0;max-width:740px;font-size:.93rem;color:#426255}
+    .adv-after a{white-space:nowrap;font-weight:800}
+    @media(max-width:980px){.adv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-fact{padding:15px;gap:10px}}
+    @media(max-width:760px){.quick-facts{margin-top:0;grid-template-columns:1fr;gap:9px}.quick-fact{padding:14px 17px}.quick-fact strong{min-width:80px}.adv-grid{grid-template-columns:1fr;gap:12px}.adv-card--featured{grid-column:auto}.adv-card{padding:22px}.adv-after{align-items:flex-start}}
+
+    .pricing{display:grid;grid-template-columns:1fr 1fr;gap:21px;margin-top:25px}
+    .price-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px}
+    .price-card.emphasis{border:2px solid #78b49d}
+    .price{display:block;margin:12px 0;font-size:2.2rem;font-weight:850;color:var(--green);line-height:1.15}
+    .price small{font-size:1rem;font-weight:550;color:var(--muted)}
+    .price-card p{color:#4f655b}
+    .note{font-size:.9rem;color:var(--muted)}
+    .bottom-cta{margin-top:30px;padding:32px;border-radius:24px;background:#174f44;color:#fff}
+    .bottom-cta h2{margin-bottom:11px}
+    .bottom-cta p{color:#e4f1e9}
+    .bottom-cta .button{background:#fff;color:#174f44}
+    footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0 42px;color:#5d7169;font-size:.91rem}
+    footer p{margin-bottom:7px}
+    @media(max-width:760px){
+      .container{padding:0 18px}
+      .head-inner{min-height:66px}
+      nav{gap:12px}nav a{font-size:.85rem}
+      .hero{grid-template-columns:1fr;gap:28px;padding-top:42px;padding-bottom:42px}
+      .hero-art{min-height:260px;max-height:330px}
+      .hero-art img{max-height:300px}
+      .section{padding:40px 0}
+      .grid,.pricing,.reference-points{grid-template-columns:1fr}
+      .card,.price-card{padding:24px}
+      .feature{padding:25px}
+      .bottom-cta{padding:27px 23px}
+    }
+    @media(max-width:410px){nav a:first-child{display:none}.buttons{display:grid}.button{width:100%}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header class="site-head">
+    <div class="container head-inner">
+      <a class="brand" href="/" aria-label="OTTO A1 — главная страница"><img src="/otto-icon-192.png" alt="" width="38" height="38">OTTO A1</a>
+      <nav aria-label="Навигация по странице">
+        <a href="#advantages">Преимущества</a>
+        <a href="#exams">Экзамены</a>
+        <a href="#guides">Материалы</a>
+        <a href="#price">Стоимость</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="container hero" aria-labelledby="main-title">
+      <div>
+        <p class="eyebrow">Немецкий язык · Goethe-Zertifikat A1 · на русском</p>
+        <h1 id="main-title">Подготовка к Goethe A1 с тренажёром OTTO</h1>
+        <p class="lead">OTTO A1 — онлайн-тренажёр подготовки к Goethe-Zertifikat A1 на русском языке. <strong>В тренировочных заданиях OTTO сразу показывает, правильно вы ответили или нет, и помогает разобраться в ошибке простыми объяснениями.</strong></p>
+        <p>Начинаете с нуля? В справочнике OTTO — <strong>без лишней теории</strong>: от немецкого алфавита и основных слов до готовых конструкций писем и вежливых просьб. Для практики доступны <strong>31 пробный экзамен</strong> и упражнения по всем четырём частям A1.</p>
+        <div class="buttons">
+          <a class="button primary" href="/">Начать заниматься с OTTO</a>
+          <a class="button secondary" href="#modules">Посмотреть задания</a>
+        </div>
+      </div>
+      <div class="hero-art"><img src="/otto/otto-home.webp" width="350" height="350" alt="OTTO — учебный помощник с усами и очками"></div>
+    </section>
+
+    <section class="container" aria-label="Коротко о тренажёре">
+      <div class="quick-facts">
+        <div class="quick-fact"><strong>31</strong><span>учебный пробный экзамен Goethe A1</span></div>
+        <div class="quick-fact"><strong>4</strong><span>части экзамена: Hören, Lesen, Schreiben и Sprechen</span></div>
+        <div class="quick-fact"><strong>72 ч</strong><span>пробного доступа для зарегистрированных пользователей</span></div>
+      </div>
+    </section>
+    <section class="container section" id="advantages" aria-labelledby="advantages-title">
+      <p class="eyebrow">Возможности OTTO · учитесь по делу</p>
+      <h2 id="advantages-title">Всё для подготовки к Goethe A1 — от первых слов до разбора ошибок</h2>
+      <p class="section-intro adv-intro">OTTO не просто задаёт вопросы. Вы тренируетесь, получаете обратную связь, разбираете ошибки и повторяете то, что пока не получилось. Вот какие инструменты уже есть в тренажёре.</p>
+      <div class="adv-grid">
+      <article class="adv-card">
+        <span class="adv-label">Доступ</span>
+        <h3>Занимайтесь прямо в браузере</h3>
+        <p>OTTO открывается на телефоне и компьютере. Для первого знакомства есть гостевые задания без регистрации — без установки отдельной программы.</p>
+        <a href="/">Открыть OTTO</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Пробные варианты</span>
+        <h3>31 экзамен для практики A1</h3>
+        <p>Учебные варианты по Hören, Lesen, Schreiben и Sprechen помогают освоить формат Goethe A1 и проверить себя после подготовки.</p>
+        <a href="/goethe-a1/31-ekzamen/">Как устроены экзамены</a>
+      </article>
+      <article class="adv-card adv-card--featured">
+        <span class="adv-label">ИИ · Schreiben</span>
+        <h3>Письмо: не только оценка, но и разбор</h3>
+        <p>Напишите ответ на три пункта задания. OTTO проверит содержание и оформление, покажет учебные баллы по шкале 10 и объяснит, что исправить.</p>
+        <a href="/goethe-a1/schreiben/">Подробнее о Schreiben</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Schreiben</span>
+        <h3>Написали от руки? Пришлите фото</h3>
+        <p>Сфотографируйте своё письмо и отправьте на распознавание и ИИ-проверку. Так можно тренироваться на бумаге, как перед настоящим экзаменом.</p>
+        <a href="/goethe-a1/ai-proverka/">О проверке письма</a>
+      </article>
+      <article class="adv-card adv-card--featured">
+        <span class="adv-label">ИИ · Sprechen</span>
+        <h3>Произнесите ответ — OTTO разберёт</h3>
+        <p>Запишите ответ на немецком. ИИ оценивает выполнение задания и понятность речи, показывает распознанный текст, удачные моменты и ошибки для повторения. Это проверка записи, а не живой диалог.</p>
+        <a href="/goethe-a1/sprechen/">Подробнее о Sprechen</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Hören</span>
+        <h3>Аудирование с текстом и разбором</h3>
+        <p>Слушайте короткие разговоры и объявления, выбирайте ответ и разбирайтесь в ошибках. В учебных упражнениях можно открыть текст аудио и запросить русский перевод.</p>
+        <a href="/goethe-a1/hoeren/">Как готовиться к Hören</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Lesen</span>
+        <h3>Учитесь находить ответы в тексте</h3>
+        <p>Работайте с короткими сообщениями, объявлениями и заданиями по частям. После проверки возвращайтесь к темам, где чаще ошибаетесь.</p>
+        <a href="/goethe-a1/lesen/">Как готовиться к Lesen</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Schreiben</span>
+        <h3>Три способа научиться писать</h3>
+        <p>Сначала можно разобрать образец, затем писать с короткими подсказками OTTO, а когда появится уверенность — выполнять письмо самостоятельно.</p>
+        <a href="/goethe-a1/schreiben/">Разобрать пример</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Учебная база</span>
+        <h3>Справочник без воды — от самого начала</h3>
+        <p>Алфавит, произношение, числа, базовая грамматика, полезные фразы, заполнение формуляров и шаблоны писем собраны рядом с тренировками.</p>
+        <a href="/goethe-a1/s-nulya/">С чего начать</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Smart Cards</span>
+        <h3>Сохраняйте полезные карточки</h3>
+        <p>Отмечайте нужные материалы в учебной базе и возвращайтесь к ним для повторения перед упражнениями или пробным экзаменом.</p>
+        <a href="/">Открыть карточки</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Мои ошибки</span>
+        <h3>Разбирайте именно свои слабые места</h3>
+        <p>Результаты занятий помогают увидеть повторяющиеся ошибки и понять, какому навыку сейчас стоит уделить больше внимания.</p>
+        <a href="/">Перейти к тренировкам</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Мой путь к A1</span>
+        <h3>Готовность к экзамену — по вашим результатам</h3>
+        <p>OTTO показывает учебную оценку готовности в процентах по четырём модулям, отмечает слабые навыки и предлагает следующий шаг. Это не прогноз официального балла.</p>
+        <a href="/">Посмотреть свой прогресс</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Небольшими шагами</span>
+        <h3>На занятия найдётся 5, 15 или 30 минут</h3>
+        <p>Выбирайте удобную продолжительность тренировки на сегодня. Не обязательно проходить весь пробный экзамен за один подход.</p>
+        <a href="/">Начать короткое занятие</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Личный кабинет</span>
+        <h3>Результаты связаны с вашим аккаунтом</h3>
+        <p>После регистрации основные результаты занятий и доступ к подписке привязаны к аккаунту. Можно возвращаться к подготовке с другого устройства.</p>
+        <a href="/">Войти в OTTO</a>
+      </article>
+      <article class="adv-card">
+        <span class="adv-label">Русский + немецкий</span>
+        <h3>Инструкции понятны с первого занятия</h3>
+        <p>Задания на немецком сопровождаются русскими пояснениями и подсказками. Это особенно полезно, когда вы только начинаете готовиться к A1.</p>
+        <a href="/goethe-a1/struktura/">Посмотреть структуру A1</a>
+      </article>
+      </div>
+      <div class="adv-after">
+        <p><strong>Важно:</strong> OTTO — независимый учебный тренажёр, а не официальный экзаменатор Goethe-Institut. ИИ-проверка помогает заниматься, но её результат не гарантирует экзаменационный балл. Гостевой и пробный режимы имеют ограничения.</p>
+        <a href="/goethe-a1/ai-proverka/">Как устроена ИИ-проверка</a>
+      </div>
+    </section>
+    <section class="container section" id="feedback" aria-labelledby="feedback-title">
+      <p class="eyebrow">Сразу видите результат · понимаете ошибку</p>
+      <h2 id="feedback-title">OTTO проверяет ответы и объясняет понятным языком</h2>
+      <p class="section-intro">В тренировках по немецкому вы не остаётесь один на один с неправильным ответом. Сначала выполняете задание, затем видите результат проверки и разбираете ошибки.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Правильно или неверно — сразу после проверки</h3>
+          <p>Выберите ответ и нажмите «Проверить». В заданиях с автоматической проверкой OTTO показывает результат сразу, а не только в конце занятия.</p>
+          <div class="feedback-example" aria-label="Примеры обозначений результата">
+            <span class="feedback-pill good">✓ Правильно</span>
+            <span class="feedback-pill retry">× Неверно</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Не просто оценка, а разбор ошибки</h3>
+          <p>В заданиях с объяснениями OTTO показывает верный вариант и помогает понять, почему ваш ответ не подошёл. Разборы на русском языке позволяют учиться на ошибках.</p>
+          <p class="note" style="margin-top:12px">Письмо и устная речь имеют свои форматы практики и проверки; мгновенная оценка относится к заданиям с автоматической проверкой.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section" id="reference" aria-labelledby="reference-title">
+      <div class="feature">
+        <span class="marker">С нуля · по делу · для Goethe A1</span>
+        <h2 id="reference-title">Справочник без воды — от алфавита до шаблонов писем и просьб</h2>
+        <p>Если немецкий пока совсем незнаком, начните со справочника OTTO. Здесь собраны короткие объяснения и готовые конструкции, которые пригодятся при подготовке к экзамену, без длинных отвлечённых лекций.</p>
+        <ul class="reference-points">
+          <li>Алфавит и произношение букв</li>
+          <li>Базовые слова, числа и вопросительные слова</li>
+          <li>Грамматика-минимум для A1</li>
+          <li>Формуляры и шаблоны коротких писем</li>
+          <li>Вопросы и вежливые просьбы для Sprechen</li>
+          <li>Подсказки по всем четырём частям экзамена</li>
+        </ul>
+        <p><strong>Цель справочника:</strong> помочь разобраться ровно в том, что нужно для практики Hören, Lesen, Schreiben и Sprechen, и быстрее перейти к заданиям.</p>
+        <a class="button secondary" href="/">Открыть OTTO и справочник</a>
+      </div>
+    </section>
+
+    <section class="container section" id="modules" aria-labelledby="modules-title">
+      <h2 id="modules-title">Четыре части Goethe A1 в одном тренажёре</h2>
+      <p class="section-intro">Задания и пояснения помогают познакомиться с форматом экзамена и последовательно тренировать нужные навыки.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="marker">Hören · Аудирование</span>
+          <h3>Учитесь понимать немецкую речь на слух</h3>
+          <p>Слушайте аудиозадания, выбирайте ответы и тренируйте понимание коротких сообщений и диалогов.</p>
+        </article>
+        <article class="card">
+          <span class="marker">Lesen · Чтение</span>
+          <h3>Читайте тексты и находите нужную информацию</h3>
+          <p>Работайте с объявлениями, сообщениями и другими короткими текстами, похожими по типу на задания уровня A1.</p>
+        </article>
+        <article class="card">
+          <span class="marker">Schreiben · Письмо</span>
+          <h3>Тренируйте формуляры и короткие письма</h3>
+          <p>Учитесь заполнять формуляры, понимать условия письменных заданий и составлять простые письма на немецком.</p>
+        </article>
+        <article class="card">
+          <span class="marker">Sprechen · Говорение</span>
+          <h3>Готовьтесь к устной части</h3>
+          <p>Повторяйте типовые ситуации устного экзамена, отрабатывайте вопросы и ответы и практикуйтесь с записью речи.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section" id="exams" aria-labelledby="exams-title">
+      <div class="feature">
+        <h2 id="exams-title">31 пробный экзамен для практики</h2>
+        <p>В OTTO A1 собраны 31 тренировочный вариант с заданиями по Hören, Lesen, Schreiben и Sprechen. Их можно использовать для регулярной самостоятельной практики и знакомства с последовательностью экзаменационных частей.</p>
+        <p><strong>Важно:</strong> это учебные пробные варианты OTTO, а не официальные экзаменационные материалы Goethe-Institut. Тренажёр не гарантирует сдачу экзамена.</p>
+      </div>
+    </section>
+
+    <section class="container section" id="guides" aria-labelledby="guides-title">
+  <p class="eyebrow">Открытые материалы · без регистрации</p>
+  <h2 id="guides-title">Как подготовиться к Goethe A1: разбор каждой части</h2>
+  <p class="section-intro">Полезные объяснения о формате экзамена, примеры заданий, советы для начинающих и описание ИИ-проверки. Страницы доступны всем — даже без регистрации в тренажёре.</p>
+  <div class="grid">
+    <article class="card"><h3><a href="/goethe-a1/struktura/">Структура и баллы</a></h3><p>Как проходит Goethe-Zertifikat A1 Start Deutsch 1: Hören, Lesen, Schreiben, Sprechen, время по частям, 60 баллов для сдачи и советы по подготовке.</p></article>
+<article class="card"><h3><a href="/goethe-a1/schreiben/">Schreiben: письмо</a></h3><p>Подготовка Schreiben Goethe A1 на русском: формуляр, образец короткого письма, три обязательных пункта, ИИ-проверка OTTO и разбор ошибок.</p></article>
+<article class="card"><h3><a href="/goethe-a1/sprechen/">Sprechen: речь</a></h3><p>Устная часть Goethe A1 на русском: Teil 1 Vorstellung, Teil 2 вопросы, Teil 3 просьбы, немецкие примеры и ИИ-проверка произношения в OTTO.</p></article>
+<article class="card"><h3><a href="/goethe-a1/hoeren/">Hören: аудирование</a></h3><p>Аудирование Goethe A1: короткие разговоры, объявления, числа и время. Как тренироваться с Hören в OTTO и разбирать ошибки перед экзаменом.</p></article>
+<article class="card"><h3><a href="/goethe-a1/lesen/">Lesen: чтение</a></h3><p>Чтение Goethe A1: объявления, сообщения, таблички и задания richtig/falsch. Советы, оригинальный пример и тренировки Lesen в OTTO A1.</p></article>
+<article class="card"><h3><a href="/goethe-a1/s-nulya/">Немецкий с нуля</a></h3><p>Как начать немецкий язык с нуля для Goethe A1: алфавит, числа, базовые фразы, грамматика, аудирование, письма и устная практика в OTTO.</p></article>
+<article class="card"><h3><a href="/goethe-a1/31-ekzamen/">31 пробный экзамен</a></h3><p>31 учебный вариант Goethe A1 в OTTO: Hören, Lesen, Schreiben и Sprechen. Как устроены пробные экзамены, кому доступен гостевой и пробный режим.</p></article>
+<article class="card"><h3><a href="/goethe-a1/ai-proverka/">ИИ-проверка</a></h3><p>Как OTTO проверяет Schreiben и Sprechen: оценка письма по пунктам, фото рукописного текста, голосовой ответ, пояснения ошибок на русском.</p></article>
+  </div>
+</section>
+<section class="container section" id="price" aria-labelledby="price-title">
+      <h2 id="price-title">Пробный доступ и стоимость OTTO A1</h2>
+      <p class="section-intro">Можно познакомиться с тренажёром до покупки подписки. Для длительной практики доступен платный полный доступ.</p>
+      <div class="pricing">
+        <div class="price-card">
+          <h3>Пробный доступ</h3>
+          <span class="price">3 дня <small>(72 часа)</small></span>
+          <p>Период для знакомства с возможностями OTTO. Гостевой режим без регистрации имеет ограничения по количеству доступных заданий.</p>
+        </div>
+        <div class="price-card emphasis">
+          <h3>Полный доступ OTTO A1</h3>
+          <span class="price">1 500 ₽ <small>/ 30 дней</small></span>
+          <p>Доступ к занятиям и пробным экзаменам в течение оплаченного периода. Оплата оформляется внутри приложения OTTO.</p>
+        </div>
+      </div>
+      <p class="note">Условия доступа и цена указаны для OTTO A1. При оформлении оплаты ориентируйтесь на стоимость, показанную на экране оплаты.</p>
+      <div class="bottom-cta">
+        <h2>Начните готовиться к A1 с OTTO</h2>
+        <p>Занимайтесь на русском языке и постепенно переходите к заданиям экзамена на немецком.</p>
+        <a class="button" href="/">Открыть тренажёр OTTO A1</a>
+      </div>
+    </section>
+  </main>
+  <footer class="otto-footer"><div class="container"><p><strong>OTTO A1</strong> — независимый сервис подготовки к Goethe A1.</p><nav aria-label="Юридические документы" style="display:flex;flex-wrap:wrap;gap:14px;margin:16px 0"><a href="/legal/privacy/">Политика конфиденциальности</a><a href="/legal/agreement/">Пользовательское соглашение</a><a href="/legal/consent/">Согласие на обработку данных</a><a href="/legal/payment/">Оплата и возврат</a><a href="/legal/contacts/">Контакты и реквизиты</a><a href="/">Открыть тренажёр</a></nav><div style="padding:16px;background:#edf3eb;border-radius:16px;line-height:1.8"><strong>Владелец: ИП Катаускайте Юлия Альгисовна</strong><div>ИНН: 291501105552 · ОГРНИП: 326762700007621</div><div>Адрес: 150000, г. Ярославль, 2-я Бутырская, д. 79</div><div>Контакты: <a href="mailto:otto.nash@mail.ru">otto.nash@mail.ru</a> · +7 960 253-79-79</div></div><p style="margin-top:16px">© 2026 OTTO A1. Не является официальным продуктом Goethe-Institut.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,328 @@
+/* Page-level polish built on the tokens from ottoVisualSystem.css. */
+
+.otto-skin [class~="border-slate-200"] {
+  border-color: var(--otto-line) !important;
+}
+
+.otto-skin [class~="bg-slate-50"],
+.otto-skin [class~="bg-slate-100"] {
+  background-color: #f2f1eb !important;
+}
+
+.otto-skin [class~="text-slate-950"],
+.otto-skin [class~="text-slate-900"] {
+  color: var(--otto-ink) !important;
+}
+
+.otto-skin [class~="text-slate-700"],
+.otto-skin [class~="text-slate-600"],
+.otto-skin [class~="text-slate-500"] {
+  color: var(--otto-muted) !important;
+}
+
+.otto-skin [class~="bg-slate-950"] {
+  background: linear-gradient(145deg, #365c5a, var(--otto-petrol-dark)) !important;
+}
+
+.otto-skin section[class~="bg-slate-950"] strong,
+.otto-skin section[class~="bg-slate-950"] h1,
+.otto-skin section[class~="bg-slate-950"] h2,
+.otto-skin section[class~="bg-slate-950"] p {
+  color: #fff !important;
+}
+
+.otto-skin section[class~="bg-slate-950"] p {
+  color: rgba(255,255,255,.74) !important;
+}
+
+.otto-skin button[class~="bg-amber-900"] {
+  border-color: var(--otto-terracotta) !important;
+  background: var(--otto-terracotta) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 22px rgba(141,73,53,.14) !important;
+}
+
+/* Top-level page hero */
+.otto-hub-screen {
+  gap: 10px !important;
+}
+
+.otto-page-hero {
+  border-color: rgba(66,111,109,.11) !important;
+  background:
+    radial-gradient(circle at 88% 15%, rgba(168,186,170,.24), transparent 30%),
+    linear-gradient(135deg, #fffdf9 0 58%, #eef2eb 100%) !important;
+  box-shadow: var(--otto-shadow-sm) !important;
+}
+
+.otto-page-hero h1 {
+  color: var(--otto-ink) !important;
+  font-weight: 840 !important;
+  letter-spacing: -.04em !important;
+}
+
+.otto-kicker {
+  color: var(--otto-petrol-dark) !important;
+  font-weight: 820 !important;
+  letter-spacing: .11em !important;
+}
+
+.otto-page-hero-character {
+  opacity: .96;
+}
+
+.otto-page-hero-scene {
+  filter: saturate(.93) contrast(1.01) drop-shadow(0 13px 17px rgba(43,54,54,.11)) !important;
+}
+
+/* Modules */
+.otto-module-list {
+  gap: 8px !important;
+}
+
+.otto-module-row {
+  border-color: var(--otto-line) !important;
+  background: rgba(255,253,249,.94) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+.otto-module-row-icon,
+.otto-setting-icon {
+  background: var(--otto-petrol-soft) !important;
+  color: var(--otto-petrol-dark) !important;
+  box-shadow: none !important;
+}
+
+.otto-module-row-icon svg,
+.otto-setting-icon svg {
+  stroke-width: 2 !important;
+}
+
+.otto-module-row strong {
+  color: var(--otto-ink) !important;
+  font-weight: 820 !important;
+}
+
+.otto-module-row small,
+.otto-module-row-desc {
+  color: var(--otto-muted) !important;
+}
+
+/* Readiness */
+.otto-readiness-screen {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.otto-readiness-hero {
+  border: 1px solid rgba(255,255,255,.22);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255,255,255,.10), transparent 31%),
+    linear-gradient(145deg, #426f6d, #315957) !important;
+  box-shadow: 0 18px 42px rgba(43,54,54,.11) !important;
+}
+
+.otto-readiness-hero > div:first-child > svg {
+  color: #d8e6dd !important;
+}
+
+.otto-readiness-hero [class~="bg-teal-400"] {
+  background: #d1dfd5 !important;
+}
+
+.otto-readiness-screen > section:not(.otto-readiness-hero) {
+  scroll-margin-top: 76px;
+}
+
+.otto-readiness-path > div > div {
+  position: relative;
+  border: 1px solid var(--otto-line);
+  background: rgba(255,253,249,.90) !important;
+  box-shadow: var(--otto-shadow-xs);
+}
+
+.otto-readiness-path > div > div > span:first-child {
+  background: var(--otto-petrol-soft) !important;
+  color: var(--otto-petrol-dark) !important;
+}
+
+/* Account */
+.otto-account-card {
+  border: 1px solid var(--otto-line) !important;
+  background: rgba(255,253,249,.92) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+.otto-account-stat {
+  border: 1px solid rgba(66,111,109,.09) !important;
+  background: #f7f5ef !important;
+}
+
+.otto-account-stat > span {
+  background: var(--otto-petrol-soft) !important;
+  color: var(--otto-petrol-dark) !important;
+}
+
+.otto-account-stat strong {
+  color: var(--otto-ink) !important;
+}
+
+.otto-account-stat small {
+  color: var(--otto-muted) !important;
+}
+
+.otto-account-summary {
+  border-color: var(--otto-line) !important;
+  background: rgba(255,253,249,.95) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+/* Settings */
+.otto-settings-screen {
+  overflow-y: auto !important;
+  scrollbar-width: none;
+}
+
+.otto-settings-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.otto-voice-settings {
+  border: 1px solid var(--otto-line) !important;
+  background: rgba(255,253,249,.94) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+.otto-voice-heading-row h2 {
+  color: var(--otto-ink) !important;
+  font-weight: 820 !important;
+}
+
+.otto-voice-copy,
+.otto-voice-disclosure {
+  color: var(--otto-muted) !important;
+}
+
+.otto-voice-mode {
+  border: 1px solid rgba(66,111,109,.10) !important;
+  background: #efeee8 !important;
+}
+
+.otto-voice-mode button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #707a77 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.otto-voice-mode button svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2;
+}
+
+.otto-voice-mode button.is-active {
+  background: #fff !important;
+  color: var(--otto-petrol-dark) !important;
+  box-shadow: 0 3px 10px rgba(43,54,54,.07) !important;
+}
+
+.otto-voice-test {
+  border-color: var(--otto-terracotta) !important;
+  background: var(--otto-terracotta) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 22px rgba(141,73,53,.14) !important;
+}
+
+.otto-setting-row {
+  border-color: var(--otto-line) !important;
+  background: rgba(255,253,249,.94) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+.otto-setting-row.is-open {
+  border-color: rgba(66,111,109,.23) !important;
+  background: #f7f6f0 !important;
+}
+
+.otto-setting-copy strong {
+  color: var(--otto-ink) !important;
+  font-weight: 810 !important;
+}
+
+.otto-setting-copy small,
+.otto-setting-details {
+  color: var(--otto-muted) !important;
+}
+
+.otto-setting-chevron {
+  color: #8b9490 !important;
+}
+
+/* Compact, calm cards on exercise pages without touching correct/error semantics. */
+.otto-inner-screen [class*="rounded-"][class*="border"][class*="bg-white"] {
+  border-color: var(--otto-line) !important;
+  background-color: rgba(255,253,249,.96) !important;
+}
+
+.otto-inner-screen [class~="bg-amber-50"] {
+  background-color: #f6efe2 !important;
+}
+
+.otto-inner-screen [class~="bg-teal-50"] {
+  background-color: var(--otto-petrol-soft) !important;
+}
+
+@media (max-width: 640px) {
+  .otto-page-hero {
+    border-radius: 21px !important;
+  }
+
+  .otto-page-hero h1 {
+    font-size: clamp(20px, 6vw, 27px) !important;
+  }
+
+  .otto-module-row {
+    border-radius: 17px !important;
+  }
+
+  .otto-readiness-screen {
+    padding-inline: 1px;
+  }
+
+  .otto-readiness-hero {
+    border-radius: 22px !important;
+  }
+
+  .otto-readiness-screen section[class*="grid-cols-2"] {
+    gap: 8px !important;
+  }
+
+  .otto-account-card {
+    gap: 6px !important;
+  }
+
+  .otto-settings-screen {
+    padding-bottom: 8px;
+  }
+}
+
+@media (min-width: 760px) {
+  .otto-hub-screen {
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .otto-module-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .otto-settings-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none !important;
+  }
+}

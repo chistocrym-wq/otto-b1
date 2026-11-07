@@ -1,0 +1,521 @@
+/* Full-width approved mobile canvas. */
+.telegram-app.otto-view-home {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Approved mobile home — native React/CSS implementation.
+   The 941x1672 approved mockup is the sole visual reference.
+   No screenshot-image UI: text, cards, buttons and icons remain native. */
+
+.otto-view-home .otto-app-content {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 0 !important;
+  background: #f1fbfb !important;
+  scrollbar-width: none;
+}
+.otto-view-home .otto-app-content::-webkit-scrollbar { display: none; }
+.otto-view-home .otto-home-screen { min-height: 100%; height: auto !important; overflow: visible !important; padding: 0 !important; }
+.otto-view-home > .otto-bottom-nav,
+.otto-view-home .otto-bottom-nav { display: none !important; }
+
+.otto-real-home {
+  --otto-ink: #071b43;
+  --otto-teal: #08a7ad;
+  --otto-teal-dark: #087f8e;
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg,#f2fcfc 0%,#f8fdfd 61%,#eefbfb 100%);
+  color: var(--otto-ink);
+  container-type: inline-size;
+  font-family: Inter, Roboto, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+.otto-real-home *, .otto-real-home *::before, .otto-real-home *::after { box-sizing: border-box; }
+.otto-real-home button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* HERO — 0..539 px in the 941px reference width. */
+.otto-real-hero {
+  position: relative;
+  width: 100%;
+  height: 57.28cqw;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(75% 86% at 104% 31%, rgba(76,220,230,.30) 0 46%, transparent 47%),
+    radial-gradient(86% 105% at 113% 58%, rgba(98,226,229,.24) 0 48%, transparent 49%),
+    radial-gradient(64% 90% at -5% 47%, rgba(255,255,255,.76) 0 58%, transparent 59%),
+    linear-gradient(135deg,#d9f9fb 0%,#eafcf9 43%,#c9f3f2 100%);
+}
+.otto-real-hero::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(128deg, transparent 0 49%, rgba(44,211,224,.11) 49.3% 60%, transparent 60.4%),
+    linear-gradient(146deg, transparent 0 63%, rgba(53,211,220,.12) 63.3% 76%, transparent 76.4%);
+}
+.otto-real-hero-copy {
+  position: absolute;
+  z-index: 5;
+  left: 6.65cqw;
+  top: 5.55cqw;
+  width: 39.8cqw;
+  padding: 0;
+}
+.otto-real-brand {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: max-content;
+  font-weight: 950;
+  line-height: .88;
+  letter-spacing: -.052em;
+}
+.otto-real-brand-small {
+  display: block;
+  font-size: 6.15cqw;
+  line-height: .93;
+}
+.otto-real-brand-big {
+  display: block;
+  margin-top: .6cqw;
+  font-size: 10.55cqw;
+  line-height: .88;
+  letter-spacing: -.06em;
+}
+.otto-real-brand-line {
+  display: block;
+  width: 30.3cqw;
+  height: 1.45cqw;
+  margin-top: 1.25cqw;
+  border-top: .72cqw solid #0a9ca7;
+  border-radius: 50%;
+  transform: rotate(-1deg);
+}
+.otto-real-hero h1 {
+  margin: 1.25cqw 0 0;
+  color: var(--otto-ink);
+  font-size: 4.55cqw;
+  font-weight: 900;
+  letter-spacing: -.025em;
+  line-height: 1;
+}
+.otto-real-hero p {
+  margin: .72cqw 0 0;
+  color: #14284b;
+  font-size: 2.2cqw;
+  font-weight: 560;
+  letter-spacing: -.015em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+.otto-real-note {
+  position: absolute;
+  left: 1.8cqw;
+  top: 34.6cqw;
+  margin: 0;
+  color: #087b87;
+  font-family: "Segoe Print", "Comic Sans MS", cursive;
+  font-size: 4.15cqw;
+  font-weight: 760;
+  letter-spacing: -.04em;
+  line-height: .98;
+  transform: rotate(-5deg);
+  white-space: nowrap;
+}
+.otto-real-hero-otto {
+  position: absolute;
+  z-index: 4;
+  top: 1.45cqw;
+  right: -10.55cqw;
+  width: auto;
+  height: 107.1cqw;
+  max-width: none;
+  object-fit: contain;
+  object-position: top center;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: auto;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 1.2cqw 1.8cqw rgba(25,66,70,.07));
+}
+
+/* PROGRESS — y 539..709. */
+.otto-real-progress {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  width: calc(100% - 5.4cqw);
+  height: 18.1cqw;
+  min-height: 18.1cqw;
+  align-items: center;
+  gap: 2.5cqw;
+  margin: 0 2.7cqw;
+  border: 1px solid rgba(224,244,244,.95);
+  border-radius: 2.9cqw;
+  background: rgba(255,255,255,.98);
+  padding: 2.2cqw 2.7cqw;
+  text-align: left;
+  box-shadow: 0 .8cqw 2.4cqw rgba(32,102,105,.07);
+}
+.otto-real-progress-icon {
+  display: grid;
+  width: 11.55cqw;
+  height: 11.55cqw;
+  flex: 0 0 11.55cqw;
+  place-items: center;
+  border-radius: 50%;
+  background: #ddf8f6;
+  color: #08a7ad;
+}
+.otto-real-progress-icon svg { width: 7.5cqw; height: 7.5cqw; }
+.otto-real-progress-main { display: block; min-width: 0; flex: 1; }
+.otto-real-progress-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2cqw;
+}
+.otto-real-progress-top strong {
+  color: var(--otto-ink);
+  font-size: 4.0cqw;
+  font-weight: 920;
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+.otto-real-progress-top b {
+  color: #08a9ae;
+  font-size: 3.75cqw;
+  font-weight: 900;
+  line-height: 1;
+}
+.otto-real-progress-track {
+  display: block;
+  height: 2.45cqw;
+  margin-top: 1.35cqw;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dceff0;
+}
+.otto-real-progress-track i {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#13b7b7,#08a3aa);
+}
+.otto-real-progress-meta {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  align-items: center;
+  gap: 1.5cqw;
+  margin-top: 1.25cqw;
+  color: #243d5e;
+  font-size: 2.45cqw;
+  font-weight: 520;
+  letter-spacing: -.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.otto-real-progress-meta > span:not(.otto-real-progress-divider) {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.0cqw;
+  min-width: 0;
+}
+.otto-real-progress-meta > span:last-child { justify-self: end; }
+.otto-real-progress-meta svg {
+  width: 3.35cqw;
+  height: 3.35cqw;
+  flex: 0 0 3.35cqw;
+  color: #08a8ad;
+}
+.otto-real-progress-divider {
+  display: block;
+  width: 1px;
+  height: 3.6cqw;
+  background: #cce6e9;
+}
+
+/* MODULES — y 731 heading, cards y 788..1077. */
+.otto-real-section {
+  margin-right: 3.1cqw;
+  margin-left: 3.1cqw;
+}
+.otto-real-modules-section { margin-top: 2.3cqw; }
+.otto-real-section h2 {
+  height: 4.6cqw;
+  margin: 0 0 1.5cqw .1cqw;
+  color: var(--otto-ink);
+  font-size: 4.25cqw;
+  font-weight: 920;
+  letter-spacing: -.04em;
+  line-height: 1.08;
+}
+.otto-real-modules {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.49cqw 1.5cqw;
+}
+.otto-real-module {
+  display: grid;
+  grid-template-columns: 10.7cqw minmax(0,1fr) 3.5cqw;
+  height: 14.56cqw;
+  min-height: 14.56cqw;
+  align-items: center;
+  gap: 1.3cqw;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 2.45cqw;
+  padding: 1.7cqw 2.35cqw;
+  color: var(--otto-ink);
+  text-align: left;
+  box-shadow: 0 .4cqw 1.2cqw rgba(42,83,93,.035);
+}
+.otto-real-module.is-peach { background: linear-gradient(135deg,#fff7f3 0%,#fde8e0 100%); }
+.otto-real-module.is-mint { background: linear-gradient(135deg,#effff9 0%,#dff8ef 100%); }
+.otto-real-module.is-cream { background: linear-gradient(135deg,#fffdf3 0%,#fbf0d5 100%); }
+.otto-real-module.is-lavender { background: linear-gradient(135deg,#f8f7ff 0%,#e7e5fb 100%); }
+.otto-real-module-icon {
+  display: grid;
+  width: 10.7cqw;
+  height: 10.7cqw;
+  place-items: center;
+  color: #078494;
+}
+.otto-real-module-icon svg { width: 100%; height: 100%; }
+.otto-real-module-copy { display: block; min-width: 0; }
+.otto-real-module-copy strong {
+  display: block;
+  color: var(--otto-ink);
+  font-size: 3.85cqw;
+  font-weight: 910;
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+.otto-real-module-copy small {
+  display: block;
+  margin-top: 1.0cqw;
+  color: #078c99;
+  font-size: 2.75cqw;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.otto-real-chevron {
+  width: 3.5cqw;
+  height: 3.5cqw;
+  color: #078794;
+}
+
+/* MOCK EXAM — y 1093..1253. */
+.otto-real-exam {
+  display: grid;
+  grid-template-columns: 10.9cqw minmax(0,1fr) 26.6cqw;
+  height: 16.9cqw;
+  min-height: 16.9cqw;
+  align-items: center;
+  gap: 2.0cqw;
+  margin: 1.8cqw 3.1cqw 0;
+  border: 1px solid #d8f3f3;
+  border-radius: 2.55cqw;
+  background: linear-gradient(90deg,#e5fbfb 0%,#d9f7f8 100%);
+  padding: 1.6cqw 2.7cqw;
+  box-shadow: 0 .45cqw 1.3cqw rgba(28,105,107,.04);
+}
+.otto-real-exam-icon {
+  display: grid;
+  width: 10.0cqw;
+  height: 10.0cqw;
+  place-items: center;
+  color: #08a7ad;
+}
+.otto-real-exam-icon svg { width: 100%; height: 100%; }
+.otto-real-exam-copy { display: block; min-width: 0; }
+.otto-real-exam-copy strong {
+  display: block;
+  color: var(--otto-ink);
+  font-size: 4.05cqw;
+  font-weight: 920;
+  letter-spacing: -.035em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.otto-real-exam-copy small {
+  display: block;
+  margin-top: 1.0cqw;
+  color: #0796a4;
+  font-size: 2.7cqw;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.08;
+}
+.otto-real-exam > button {
+  display: inline-flex;
+  width: 100%;
+  height: 9.0cqw;
+  align-items: center;
+  justify-content: center;
+  gap: 1.7cqw;
+  border: 0;
+  border-radius: 2.55cqw;
+  background: linear-gradient(135deg,#119ba7,#087e8c);
+  color: #fff;
+  padding: 0 2cqw;
+  font-size: 3.75cqw;
+  font-weight: 760;
+  line-height: 1;
+  box-shadow: 0 .65cqw 1.6cqw rgba(4,126,133,.12);
+}
+.otto-real-exam > button svg { width: 3.8cqw; height: 3.8cqw; }
+
+/* MATERIALS — heading y 1275; cards y 1326..1500. */
+.otto-real-materials-section { margin-top: 2.4cqw; }
+.otto-real-materials-section h2 { margin-bottom: .8cqw; }
+.otto-real-materials {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1.4cqw;
+}
+.otto-real-materials > button {
+  display: flex;
+  height: 18.5cqw;
+  min-height: 18.5cqw;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eaf3f4;
+  border-radius: 2.55cqw;
+  background: rgba(255,255,255,.985);
+  padding: 1.25cqw .9cqw;
+  color: var(--otto-ink);
+  text-align: center;
+  box-shadow: 0 .45cqw 1.3cqw rgba(39,80,88,.04);
+}
+.otto-real-materials svg {
+  width: 6.5cqw;
+  height: 6.5cqw;
+  color: #087f8c;
+}
+.otto-real-materials strong {
+  display: block;
+  margin-top: .95cqw;
+  color: var(--otto-ink);
+  font-size: 2.95cqw;
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.otto-real-materials small {
+  display: block;
+  margin-top: .85cqw;
+  color: #435c91;
+  font-size: 2.35cqw;
+  font-weight: 450;
+  letter-spacing: -.025em;
+  line-height: 1.08;
+}
+
+/* BOTTOM NAV — fixed to the bottom, 5 approved items only. */
+.otto-real-home-nav {
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  width: 100%;
+  height: 17.95cqw;
+  min-height: 72px;
+  align-items: center;
+  padding: 1.8cqw 1.0cqw calc(1.2cqw + env(safe-area-inset-bottom));
+  border: 1px solid rgba(230,240,242,.95);
+  border-bottom: 0;
+  border-radius: 4.5cqw 4.5cqw 0 0;
+  background: rgba(255,255,255,.985);
+  box-shadow: 0 -.7cqw 2.2cqw rgba(24,73,81,.055);
+  backdrop-filter: blur(10px);
+}
+.otto-real-home-nav button {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .9cqw;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #425b7b;
+  font-size: 2.5cqw;
+  font-weight: 450;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.otto-real-home-nav button svg {
+  width: 5.7cqw;
+  height: 5.7cqw;
+  color: currentColor;
+}
+.otto-real-home-nav button.is-active {
+  color: #078f98;
+  font-weight: 740;
+}
+.otto-real-home-nav button.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -.45cqw;
+  width: 10.7cqw;
+  height: .8cqw;
+  border-radius: 999px;
+  background: #0bb3b4;
+}
+
+/* The approved reference is a 9:16 phone composition. On unusually short
+   viewports we keep the geometry intact and allow the app content to scroll
+   behind the fixed bottom navigation instead of shrinking or blurring it. */
+.otto-real-home { padding-bottom: 18.3cqw; }
+
+@media (max-width: 350px) {
+  .otto-real-progress-meta { font-size: 2.25cqw; gap: 1.0cqw; }
+  .otto-real-module { padding-right: 1.8cqw; padding-left: 1.8cqw; }
+  .otto-real-module-copy strong { font-size: 3.7cqw; }
+  .otto-real-exam-copy strong { font-size: 3.8cqw; }
+  .otto-real-exam-copy small { font-size: 2.5cqw; }
+}
+
+@media (min-width: 1000px) {
+  .otto-real-home {
+    width: 760px;
+    max-width: 760px;
+    margin: 0 auto;
+    box-shadow: 0 0 34px rgba(20,80,86,.07);
+  }
+  .otto-real-home-nav {
+    left: 50%;
+    right: auto;
+    width: 760px;
+    transform: translateX(-50%);
+  }
+}

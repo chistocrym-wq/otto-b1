@@ -1,0 +1,20 @@
+name: Preview20 Schreiben corrections
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  schreiben:
+    if: github.event.pull_request.number == 20 && github.head_ref == 'preview/admin-journey-analytics-20261020'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/preview20-schreiben-corrections.test.mjs

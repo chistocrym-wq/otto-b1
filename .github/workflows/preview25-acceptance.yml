@@ -1,0 +1,69 @@
+name: Preview25 isolated browser acceptance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: preview25-acceptance-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    if: github.event.pull_request.number == 25 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install Chromium and project
+        run: |
+          npm install --no-audit --no-fund
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Build, typecheck, currency and guest isolation
+        run: |
+          npm run typecheck
+          npm run build
+          node --test tests/preview25-guest-fx.test.mjs
+      - name: Run existing guest/teacher/email browser acceptance on Preview25 build
+        run: |
+          mkdir -p artifacts/preview25
+          set -o pipefail
+          sed 's/deploy-preview-20--otto-a1/deploy-preview-25--otto-a1/g' tests/preview20-guest-browser.mjs > tests/preview25-guest-compat-browser.mjs
+          sed 's/deploy-preview-20--otto-a1/deploy-preview-25--otto-a1/g' tests/preview20-teacher-browser.mjs > tests/preview25-teacher-compat-browser.mjs
+          sed 's/deploy-preview-20--otto-a1/deploy-preview-25--otto-a1/g' tests/preview20-existing-email-recovery-browser.mjs > tests/preview25-email-compat-browser.mjs
+          # Consent may already be resolved on this Preview; click only when shown.
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tests/preview25-guest-compat-browser.mjs')
+          s=p.read_text()
+          old="await page.getByRole('button',{name:'Только необходимое'}).click();"
+          assert old in s
+          s=s.replace(old,"if(await page.getByRole('button',{name:'Только необходимое'}).isVisible().catch(()=>false))await page.getByRole('button',{name:'Только необходимое'}).click();")
+          p.write_text(s)
+          PY
+          node tests/preview25-task-limits-browser.mjs 2>&1 | tee artifacts/preview25/task-limits.log
+          node tests/preview25-guest-compat-browser.mjs 2>&1 | tee artifacts/preview25/guest.log
+          node tests/preview25-teacher-compat-browser.mjs 2>&1 | tee artifacts/preview25/teacher.log
+          node tests/preview25-email-compat-browser.mjs 2>&1 | tee artifacts/preview25/email.log
+          node tests/preview25-teacher-isolation-browser.mjs 2>&1 | tee artifacts/preview25/country.log
+
+      - name: Upload results (even failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview25-acceptance-${{ github.run_id }}
+          path: |
+            artifacts/preview25/
+            artifacts/guest-browser/
+            artifacts/teacher-browser/
+            artifacts/recovery-browser/
+          if-no-files-found: warn
+          retention-days: 5

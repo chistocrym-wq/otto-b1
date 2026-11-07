@@ -1,0 +1,374 @@
+/* Final conflict fixes for the unified inner-page layer. */
+.telegram-app:not(.otto-view-home) .otto-settings-list {
+  display: grid !important;
+  min-height: 0;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px !important;
+  overflow: hidden;
+  padding: 1px;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-row {
+  height: 100% !important;
+  min-height: 0 !important;
+  grid-template-columns: 54px minmax(0, 1fr) 24px !important;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 18px !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-row.is-open {
+  align-content: center;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-row > .otto-setting-copy {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  place-items: initial !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  text-align: left;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-copy strong {
+  font-size: 18px !important;
+  line-height: 1.1;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-copy small {
+  margin-top: 6px !important;
+  font-size: 13px !important;
+  line-height: 1.35;
+}
+
+.telegram-app:not(.otto-view-home) .otto-setting-details {
+  display: block;
+  max-width: 100%;
+  margin-top: 13px;
+  color: #38516d;
+  font-size: 13px;
+  line-height: 1.48;
+}
+
+/* The older crop rules in index.css were still cutting almost all of the
+   small companion character away. Keep Otto present, but render the full
+   figure in a compact, non-interactive footprint above the bottom nav. */
+.telegram-app:not(.otto-view-home) .otto-companion {
+  right: 8px !important;
+  bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 7px) !important;
+  width: 58px !important;
+  max-width: 58px !important;
+  height: 72px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  opacity: .92 !important;
+  pointer-events: none !important;
+  filter: drop-shadow(0 6px 9px rgba(20,65,70,.12)) !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-companion img,
+.telegram-app:not(.otto-view-home) .otto-companion .otto-companion-scene {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  transform: none !important;
+  background: transparent !important;
+}
+
+/* Sparse states are intentional, but should still look like designed
+   screens rather than an empty sheet. Keep the existing content and data,
+   just centre and visually balance it. */
+.otto-view-news .otto-page-hero {
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 28px !important;
+  padding: 40px !important;
+  text-align: center;
+}
+
+.otto-view-news .otto-page-hero > div {
+  max-width: 650px;
+}
+
+.otto-view-news .otto-news-icon {
+  width: 112px !important;
+  height: 112px !important;
+  flex: 0 0 112px !important;
+  border-radius: 34px !important;
+}
+
+.otto-view-news .otto-news-icon svg {
+  width: 54px !important;
+  height: 54px !important;
+}
+
+.otto-view-account .otto-account-summary {
+  position: relative;
+  align-items: center;
+  justify-content: center !important;
+  overflow: hidden;
+  padding: 36px !important;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(32,190,190,.13), transparent 28%),
+    radial-gradient(circle at 86% 80%, rgba(11,173,178,.08), transparent 25%),
+    rgba(255,255,255,.97) !important;
+}
+
+.otto-view-account .otto-account-summary > .mb-2.flex {
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px !important;
+}
+
+.otto-view-account .otto-account-summary > .mb-2.flex > div {
+  text-align: center;
+}
+
+.otto-view-account .otto-account-summary > .mb-2.flex svg {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+.otto-view-account .otto-account-summary h2 {
+  margin-top: 7px;
+  font-size: 28px !important;
+}
+
+.otto-view-account .otto-account-summary > div:nth-child(2) {
+  width: min(680px, 82%) !important;
+  height: 14px !important;
+  margin: 0 auto;
+}
+
+.otto-view-account .otto-account-summary > p:last-child {
+  max-width: 580px;
+  margin: 16px auto 0 !important;
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+
+/* On the tall 941×1672 mobile QA viewport, distribute sparse hub/task
+   content over the available height instead of leaving an accidental empty
+   lower half. Content and handlers are unchanged. */
+@media (min-height: 900px) and (max-width: 1000px) {
+  .otto-view-schreiben .otto-inner-screen > .animate-fade-in:has(> .grid) {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-schreiben .otto-inner-screen > .animate-fade-in:has(> .grid) > .grid {
+    display: grid !important;
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px !important;
+  }
+
+  .otto-view-schreiben .otto-inner-screen > .animate-fade-in:has(> .grid) > .grid > button {
+    display: flex;
+    min-height: 0 !important;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .otto-view-lesen .otto-inner-screen > .animate-fade-in:has(> .grid > div:nth-child(3)) {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-lesen .otto-inner-screen > .animate-fade-in:has(> .grid > div:nth-child(3)) > .grid {
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 12px !important;
+  }
+
+  .otto-view-lesen .otto-inner-screen > .animate-fade-in:has(> .grid > div:nth-child(3)) > .grid > div {
+    min-height: 0 !important;
+    height: 100%;
+    padding: 16px !important;
+  }
+
+  .otto-view-horen .otto-inner-screen > .animate-fade-in {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-horen .otto-inner-screen > .animate-fade-in > section {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .otto-view-horen .otto-inner-screen > .animate-fade-in > section > div:last-child {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .otto-view-horen .otto-inner-screen > .animate-fade-in > .mt-5.flex {
+    margin-top: 12px !important;
+    padding-bottom: 2px;
+  }
+
+  /* Sprechen menu: use the full working canvas as an even 2×2 card grid. */
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) > .mx-auto.mb-6 {
+    margin-bottom: 12px !important;
+  }
+
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) > .grid {
+    display: grid !important;
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px !important;
+  }
+
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) > .grid > button {
+    min-height: 0 !important;
+    height: 100%;
+    padding: 22px !important;
+  }
+
+  /* Mock-exam menu: hero stays compact, four real sections fill the rest. */
+  .otto-view-mock-exam .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-mock-exam .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) > .grid {
+    display: grid !important;
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px !important;
+    margin-top: 12px !important;
+  }
+
+  .otto-view-mock-exam .otto-inner-screen > .animate-fade-in:has(> .grid > button:nth-child(4)) > .grid > button {
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px !important;
+  }
+
+  /* Guide menu: six existing buttons become a balanced 2×3 grid. */
+  .otto-view-exam-guide .otto-inner-screen > .animate-fade-in:has(> .mx-auto.max-w-2xl > button:nth-child(6)) {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-exam-guide .otto-inner-screen > .animate-fade-in:has(> .mx-auto.max-w-2xl > button:nth-child(6)) > .mx-auto.max-w-2xl {
+    display: grid !important;
+    width: 100%;
+    max-width: none !important;
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 12px !important;
+  }
+
+  .otto-view-exam-guide .otto-inner-screen > .animate-fade-in:has(> .mx-auto.max-w-2xl > button:nth-child(6)) > .mx-auto.max-w-2xl > button {
+    min-height: 0;
+    height: 100%;
+    padding: 20px !important;
+  }
+
+  /* Instructions: four real module cards occupy a balanced 2×2 area. */
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 4px !important;
+  }
+
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in > .mb-6 {
+    margin-bottom: 12px !important;
+  }
+
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in > .space-y-4 {
+    display: grid !important;
+    min-height: 0;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px !important;
+  }
+
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in > .space-y-4 > div {
+    min-height: 0;
+    height: 100%;
+    padding: 18px !important;
+  }
+
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in > .mt-5 {
+    margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .telegram-app:not(.otto-view-home) .otto-settings-list {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 8px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-setting-row {
+    grid-template-columns: 46px minmax(0, 1fr) 22px !important;
+    padding: 11px 12px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-setting-copy strong { font-size: 15px !important; }
+  .telegram-app:not(.otto-view-home) .otto-setting-copy small { margin-top: 3px !important; font-size: 11px !important; }
+  .telegram-app:not(.otto-view-home) .otto-setting-details { margin-top: 7px; font-size: 11px; line-height: 1.35; }
+
+  .telegram-app:not(.otto-view-home) .otto-companion {
+    width: 50px !important;
+    max-width: 50px !important;
+    height: 62px !important;
+    right: 6px !important;
+  }
+}

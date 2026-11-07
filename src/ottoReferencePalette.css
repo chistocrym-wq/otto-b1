@@ -1,0 +1,530 @@
+/*
+ * OTTO premium EdTech color system — final color-only layer.
+ * Color roles only. Layout, sizing, responsive behavior, content,
+ * navigation, registration, images and application logic are untouched.
+ */
+:root {
+  --otto-ref-sky: #14766F;
+  --otto-ref-hero: #0D4F55;
+  --otto-ref-navy: #102A3A;
+  --otto-ref-cta-start: #C75A38;
+  --otto-ref-cta-end: #A94429;
+  --otto-ref-app-bg: #F7F2E9;
+  --otto-ref-surface: #FFFDFC;
+  --otto-ref-secondary: #E3F1EE;
+  --otto-ref-ink: #17242C;
+  --otto-ref-muted: #65727A;
+
+  /* Existing project aliases now resolve to one intentional role each. */
+  --otto-navy: var(--otto-ref-navy);
+  --otto-petrol: var(--otto-ref-sky);
+  --otto-petrol-dark: #0D4F55;
+  --otto-petrol-soft: var(--otto-ref-secondary);
+  --otto-cream: var(--otto-ref-app-bg);
+  --otto-surface: var(--otto-ref-surface);
+  --otto-sage: #1D9A8D;
+  --otto-sage-soft: #E3F1EE;
+  --otto-amber-soft: #F3E8CF;
+  --otto-cta: var(--otto-ref-cta-start);
+  --otto-cta-hover: var(--otto-ref-cta-end);
+  --otto-muted-premium: var(--otto-ref-muted);
+  --otto-line-premium: #D7DDD8;
+  --otto-bg: var(--otto-ref-app-bg);
+  --otto-bg-soft: #E3F1EE;
+  --otto-surface-strong: var(--otto-ref-surface);
+  --otto-teal: var(--otto-ref-sky);
+  --otto-teal-dark: #0D4F55;
+  --otto-teal-soft: var(--otto-ref-secondary);
+  --otto-brand: var(--otto-ref-sky);
+  --otto-brand-dark: #0D4F55;
+  --otto-brand-soft: var(--otto-ref-secondary);
+  --otto-ink: #17242C;
+  --otto-muted: var(--otto-ref-muted);
+  --otto-terracotta: #C75A38;
+  --otto-terracotta-dark: #A94429;
+  --otto-sand: #F3E8CF;
+  --otto-line: #D7DDD8;
+  --otto-line-strong: #BAC8C3;
+  --otto-ui-bg: var(--otto-ref-app-bg);
+  --otto-ui-bg-2: #E3F1EE;
+  --otto-ui-ink: #17242C;
+  --otto-ui-muted: var(--otto-ref-muted);
+  --otto-ui-teal: var(--otto-ref-sky);
+  --otto-ui-teal-bright: #1D9A8D;
+  --otto-ui-teal-dark: #0D4F55;
+  --otto-ui-soft: var(--otto-ref-secondary);
+  --otto-ui-border: #D7DDD8;
+  --otto-ui-shadow: 0 10px 28px rgba(16,42,58,.07);
+}
+
+html,
+body,
+#root {
+  background: var(--otto-ref-app-bg) !important;
+  color: var(--otto-ref-ink);
+}
+
+.otto-splash-screen {
+  background: linear-gradient(135deg, var(--otto-ref-hero) 0%, var(--otto-ref-sky) 100%) !important;
+}
+
+.telegram-app.otto-skin,
+.telegram-app.otto-skin:not(.otto-view-home),
+.otto-view-home .otto-app-content,
+.otto-view-home .otto-home-screen {
+  color: var(--otto-ref-ink) !important;
+  background: var(--otto-ref-app-bg) !important;
+}
+
+.otto-skin h1,
+.otto-skin h2,
+.otto-skin h3,
+.otto-skin h4 {
+  color: var(--otto-ref-navy) !important;
+}
+
+.otto-skin strong,
+.otto-skin b {
+  color: var(--otto-ref-ink);
+}
+
+.otto-skin p,
+.otto-skin small,
+.otto-skin .text-slate-400,
+.otto-skin .text-slate-500,
+.otto-skin .text-slate-600,
+.otto-skin .text-slate-700 {
+  color: var(--otto-ref-muted) !important;
+}
+
+.otto-skin .otto-kicker,
+.otto-skin [class~="text-sky-600"],
+.otto-skin [class~="text-sky-700"],
+.otto-skin [class~="text-teal-600"],
+.otto-skin [class~="text-teal-700"] {
+  color: var(--otto-petrol-dark) !important;
+}
+
+.otto-skin [class~="text-sky-800"],
+.otto-skin [class~="text-sky-900"],
+.otto-skin [class~="text-teal-800"],
+.otto-skin [class~="text-teal-900"],
+.otto-skin [class~="text-slate-900"],
+.otto-skin [class~="text-slate-950"] {
+  color: var(--otto-ref-ink) !important;
+}
+
+/* Main brand moment: saturated hero only. */
+.otto-view-home .otto-dashboard-hero {
+  border-color: #D7DDD8 !important;
+  background: linear-gradient(145deg, #0D4F55 0%, #1D9A8D 100%) !important;
+  box-shadow: 0 14px 36px rgba(16,42,58,.10) !important;
+}
+.otto-view-home .otto-dashboard-hero h1,
+.otto-view-home .otto-dashboard-hero p,
+.otto-view-home .otto-dashboard-hero > div > p:first-child {
+  color: #FFFDFC !important;
+}
+
+/* Other page heroes stay calm so the product does not become one blue field. */
+.otto-skin .otto-home-hero,
+.otto-skin .otto-page-hero {
+  border-color: #D7DDD8 !important;
+  background: linear-gradient(145deg, #FFFDFC 0 58%, var(--otto-ref-secondary) 100%) !important;
+  box-shadow: 0 10px 28px rgba(16,42,58,.07) !important;
+}
+.otto-skin .otto-page-hero p {
+  color: var(--otto-ref-muted) !important;
+}
+
+/* Core content surfaces: white cards over a quiet app background. */
+.otto-skin section[class*="bg-white"],
+.otto-skin div[class*="bg-white"][class*="rounded-2xl"],
+.otto-skin div[class*="bg-white"][class*="rounded-3xl"],
+.otto-skin .otto-card,
+.otto-skin .otto-home-module-card,
+.otto-skin .otto-material-card,
+.otto-skin .otto-progress-card,
+.otto-skin .otto-module-row,
+.otto-skin .otto-account-card,
+.otto-skin .otto-account-summary,
+.otto-skin .otto-setting-row,
+.otto-skin .otto-voice-settings,
+.otto-skin .otto-roadmap-training-picker,
+.otto-skin .otto-roadmap-plan-card,
+.otto-skin .otto-roadmap-info-card {
+  background: var(--otto-ref-surface) !important;
+  border-color: #D7DDD8 !important;
+  box-shadow: 0 9px 24px rgba(16,42,58,.055) !important;
+}
+
+.otto-skin .otto-module-row:nth-child(odd),
+.otto-skin .otto-module-row:nth-child(even) {
+  background: var(--otto-ref-surface) !important;
+}
+
+.otto-skin .otto-home-module-icon,
+.otto-skin .otto-module-row-icon,
+.otto-skin .otto-setting-icon,
+.otto-skin .otto-news-icon,
+.otto-skin .otto-support-badge,
+.otto-skin .otto-material-icon,
+.otto-skin .otto-soft-accent,
+.otto-skin .otto-account-stat > span {
+  color: var(--otto-petrol-dark) !important;
+  background: var(--otto-ref-secondary) !important;
+  box-shadow: none !important;
+}
+
+/* Dashboard: only selected time is dark; modules return to white cards. */
+.otto-view-home .otto-dashboard-time-option {
+  color: var(--otto-ref-ink) !important;
+  border-color: #D7DDD8 !important;
+  background: var(--otto-ref-surface) !important;
+  box-shadow: none !important;
+}
+.otto-view-home .otto-dashboard-time-option strong {
+  color: var(--otto-ref-navy) !important;
+}
+.otto-view-home .otto-dashboard-time-option span {
+  color: var(--otto-ref-muted) !important;
+}
+.otto-view-home .otto-dashboard-time-option:hover {
+  border-color: var(--otto-ref-sky) !important;
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-view-home .otto-dashboard-time-option.is-selected,
+.otto-view-home .otto-dashboard-time-option[aria-pressed="true"] {
+  color: #FFFFFF !important;
+  border-color: var(--otto-ref-navy) !important;
+  background: var(--otto-ref-navy) !important;
+  box-shadow: 0 8px 18px rgba(16,42,58,.16) !important;
+}
+.otto-view-home .otto-dashboard-time-option.is-selected strong,
+.otto-view-home .otto-dashboard-time-option.is-selected span,
+.otto-view-home .otto-dashboard-time-option[aria-pressed="true"] strong,
+.otto-view-home .otto-dashboard-time-option[aria-pressed="true"] span {
+  color: #FFFFFF !important;
+}
+
+.otto-view-home .otto-dashboard-module-card {
+  color: var(--otto-ref-ink) !important;
+  border-color: #D7DDD8 !important;
+  background: var(--otto-ref-surface) !important;
+  box-shadow: 0 8px 22px rgba(16,42,58,.055) !important;
+}
+.otto-view-home .otto-dashboard-module-card strong {
+  color: var(--otto-ref-navy) !important;
+}
+.otto-view-home .otto-dashboard-module-card > span > span {
+  color: var(--otto-petrol-dark) !important;
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-view-home .otto-dashboard-module-card > span > b {
+  color: var(--otto-petrol-dark) !important;
+}
+.otto-view-home .otto-dashboard-module-card > span:last-child {
+  color: var(--otto-ref-muted) !important;
+}
+.otto-view-home .otto-dashboard-module-card:hover {
+  border-color: var(--otto-ref-sky) !important;
+  background: var(--otto-ref-app-bg) !important;
+}
+
+/* Progress uses sky as a small accent, not as a card fill. */
+.otto-skin .otto-progress-ring {
+  background: conic-gradient(var(--otto-ref-sky) var(--progress), var(--otto-ref-secondary) 0) !important;
+}
+.otto-skin .otto-progress-bars i,
+.otto-skin div[class~="bg-sky-600"],
+.otto-skin div[class~="bg-teal-600"],
+.otto-skin [class~="bg-teal-400"] {
+  background: var(--otto-ref-sky) !important;
+}
+
+/* One primary action language across the product. */
+.otto-skin .otto-exam-button,
+.otto-skin .otto-primary-button,
+.otto-skin .otto-roadmap-start,
+.otto-skin button[class~="bg-slate-900"],
+.otto-skin button[class~="bg-teal-600"],
+.otto-skin button[class~="bg-teal-700"],
+.otto-skin button[class~="bg-teal-800"],
+.otto-skin button[class~="bg-amber-900"],
+.otto-skin button[class~="bg-rose-600"],
+.otto-skin [class*="from-[#28ADF7]"],
+.otto-skin [class*="bg-[#9E543C]"] {
+  color: #FFFFFF !important;
+  border-color: var(--otto-ref-cta-end) !important;
+  background: linear-gradient(135deg, var(--otto-ref-cta-start) 0%, var(--otto-ref-cta-end) 100%) !important;
+  box-shadow: 0 9px 22px rgba(169,68,41,.20) !important;
+}
+.otto-skin .otto-exam-button:hover,
+.otto-skin .otto-primary-button:hover,
+.otto-skin .otto-roadmap-start:hover,
+.otto-skin button[class~="bg-slate-900"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-600"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-700"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-800"]:not(:disabled):hover,
+.otto-skin button[class~="bg-amber-900"]:not(:disabled):hover,
+.otto-skin button[class~="bg-rose-600"]:not(:disabled):hover,
+.otto-skin [class*="from-[#28ADF7]"]:not(:disabled):hover {
+  background: linear-gradient(135deg, var(--otto-ref-cta-end) 0%, var(--otto-ref-cta-end) 100%) !important;
+}
+
+/* Secondary actions deliberately do not look like primary CTA. */
+.otto-skin .otto-support-copy,
+.otto-skin .otto-voice-test,
+.otto-skin .otto-roadmap-howto-link,
+.otto-skin .otto-exam-cta,
+.otto-skin .otto-support-intro,
+.otto-skin .otto-setting-row.is-open {
+  color: var(--otto-petrol-dark) !important;
+  border-color: rgba(20,118,111,.34) !important;
+  background: var(--otto-ref-secondary) !important;
+  box-shadow: none !important;
+}
+.otto-skin .otto-support-copy:hover,
+.otto-skin .otto-voice-test:hover,
+.otto-skin .otto-roadmap-howto-link:hover {
+  border-color: var(--otto-ref-sky) !important;
+  background: #FFFDFC !important;
+}
+
+/* Readiness gets one deep anchor without spreading navy across every card. */
+.otto-skin .otto-readiness-hero,
+.otto-skin [class~="bg-slate-950"] {
+  background: var(--otto-ref-navy) !important;
+  border-color: rgba(29,154,141,.35) !important;
+  box-shadow: 0 16px 38px rgba(16,42,58,.14) !important;
+}
+.otto-skin .otto-readiness-hero h1,
+.otto-skin .otto-readiness-hero h2,
+.otto-skin .otto-readiness-hero strong,
+.otto-skin section[class~="bg-slate-950"] h1,
+.otto-skin section[class~="bg-slate-950"] h2,
+.otto-skin section[class~="bg-slate-950"] strong {
+  color: #FFFFFF !important;
+}
+.otto-skin .otto-readiness-hero p,
+.otto-skin section[class~="bg-slate-950"] p {
+  color: var(--otto-ref-secondary) !important;
+}
+.otto-skin .otto-readiness-hero > div:first-child > svg {
+  color: #D7B56D !important;
+}
+
+/* Neutral utilities become quiet product surfaces, not decorative blue fills. */
+.otto-skin [class~="bg-slate-50"] {
+  background: var(--otto-ref-app-bg) !important;
+}
+.otto-skin [class~="bg-slate-100"],
+.otto-skin [class~="bg-slate-200"],
+.otto-skin [class~="bg-teal-50"],
+.otto-skin [class~="bg-sky-50"],
+.otto-skin [class~="bg-amber-50"],
+.otto-skin [class~="bg-amber-100"] {
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-skin [class~="border-slate-200"],
+.otto-skin [class~="border-slate-300"],
+.otto-skin [class~="border-teal-200"],
+.otto-skin [class~="border-teal-300"],
+.otto-skin [class~="border-teal-500"],
+.otto-skin [class~="border-teal-600"],
+.otto-skin [class~="border-sky-200"],
+.otto-skin [class~="border-sky-500"] {
+  border-color: #D7DDD8 !important;
+}
+
+/* Compatibility for old hard-coded blue palette classes still present in JSX. */
+.otto-skin [class*="border-[#076CD4]"],
+.otto-skin [class*="border-[#0F7D74]"] {
+  border-color: var(--otto-ref-sky) !important;
+}
+.otto-skin [class*="bg-[#A7E0F9]"],
+.otto-skin [class*="bg-[#A2DDF7]"],
+.otto-skin [class*="bg-[#EAF4F0]"] {
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-skin [class*="bg-[#F4F7F2]"],
+.otto-skin [class*="bg-[#F7F4EE]"],
+.otto-skin [class*="bg-[#FFFEFA]"] {
+  background: var(--otto-ref-surface) !important;
+}
+.otto-skin [class*="text-[#092F68]"],
+.otto-skin [class*="text-[#285C59]"],
+.otto-skin [class*="text-[#0F7D74]"] {
+  color: var(--otto-ref-navy) !important;
+}
+.otto-skin [class*="text-[#076CD4]"] {
+  color: var(--otto-ref-sky) !important;
+}
+
+/* Forms and focus. */
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  color: var(--otto-ref-ink) !important;
+  background: #FFFDFC !important;
+  border-color: #D7DDD8 !important;
+}
+.otto-skin input::placeholder,
+.otto-skin textarea::placeholder {
+  color: var(--otto-ref-muted) !important;
+  opacity: .78;
+}
+.otto-skin button:focus-visible,
+.otto-skin a:focus-visible,
+.otto-skin input:focus-visible,
+.otto-skin textarea:focus-visible,
+.otto-skin select:focus-visible {
+  outline: 3px solid rgba(29,154,141,.40) !important;
+  outline-offset: 2px;
+}
+.otto-skin button:disabled {
+  opacity: .48;
+}
+
+/* Settings and segmented controls: selected is visible but not another CTA. */
+.otto-skin .otto-voice-mode {
+  border-color: #D7DDD8 !important;
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-skin .otto-voice-mode button {
+  color: var(--otto-ref-muted) !important;
+  background: transparent !important;
+}
+.otto-skin .otto-voice-mode button.is-active {
+  color: var(--otto-ref-navy) !important;
+  background: #FFFDFC !important;
+  box-shadow: 0 3px 10px rgba(16,42,58,.08) !important;
+}
+
+/* Roadmap / daily-training compatibility. */
+.otto-skin .otto-roadmap-page,
+.otto-skin .otto-roadmap-page-header h1,
+.otto-skin .otto-roadmap-training-picker-head h2 {
+  color: var(--otto-ref-ink) !important;
+}
+.otto-skin .otto-roadmap-kicker,
+.otto-skin .otto-roadmap-training-picker-head > svg,
+.otto-skin .otto-roadmap-howto-icon,
+.otto-skin .otto-roadmap-plan-icon,
+.otto-skin .otto-roadmap-info-row > span,
+.otto-skin .otto-roadmap-time-guide svg,
+.otto-skin .otto-roadmap-change-time,
+.otto-skin .otto-roadmap-back {
+  color: var(--otto-petrol-dark) !important;
+}
+.otto-skin .otto-roadmap-howto-icon,
+.otto-skin .otto-roadmap-plan-icon,
+.otto-skin .otto-roadmap-info-row > span {
+  background: var(--otto-ref-secondary) !important;
+}
+.otto-skin .otto-roadmap-duration button {
+  border-color: #D7DDD8 !important;
+  background: #FFFDFC !important;
+  color: var(--otto-ref-muted) !important;
+}
+.otto-skin .otto-roadmap-duration button.is-active {
+  border-color: var(--otto-ref-navy) !important;
+  background: var(--otto-ref-navy) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 5px 14px rgba(16,42,58,.14) !important;
+}
+.otto-skin .otto-roadmap-duration button.is-active strong,
+.otto-skin .otto-roadmap-duration button.is-active span {
+  color: #FFFFFF !important;
+}
+.otto-skin .otto-roadmap-back,
+.otto-skin .otto-roadmap-time-badge,
+.otto-skin .otto-roadmap-plan-list li {
+  border-color: #D7DDD8 !important;
+  background: #FFFDFC !important;
+}
+.otto-skin .otto-roadmap-plan-index {
+  background: var(--otto-ref-secondary) !important;
+  color: var(--otto-ref-muted) !important;
+}
+
+/* Account and settings statistics stay white with restrained accents. */
+.telegram-app.otto-skin .otto-account-stat {
+  border-color: #D7DDD8 !important;
+  background: var(--otto-ref-app-bg) !important;
+}
+
+/* Bottom navigation is a neutral chrome surface. */
+.otto-skin .otto-bottom-nav-inner {
+  border-color: #D7DDD8 !important;
+  background: rgba(255,253,252,.985) !important;
+  box-shadow: 0 -8px 24px rgba(16,42,58,.08) !important;
+}
+.otto-skin .otto-bottom-nav-inner::after {
+  background: var(--otto-ref-muted) !important;
+  opacity: .45 !important;
+}
+.otto-skin .otto-bottom-nav-item {
+  color: var(--otto-ref-muted) !important;
+}
+.otto-skin .otto-bottom-nav-item.is-active {
+  color: var(--otto-ref-sky) !important;
+}
+
+/* Companion stays quiet and does not create another saturated block. */
+.otto-skin .otto-companion {
+  border-color: #FFFDFC !important;
+  background: var(--otto-ref-secondary) !important;
+  box-shadow: 0 8px 24px rgba(16,42,58,.10) !important;
+}
+
+/* Decorative legacy amber becomes brand blue; semantic warning cards are restored below. */
+.otto-skin [class~="text-amber-300"],
+.otto-skin [class~="text-amber-700"],
+.otto-skin [class~="text-amber-800"],
+.otto-skin [class~="text-amber-900"] {
+  color: #D7B56D !important;
+}
+.otto-skin [class~="border-amber-200"] {
+  border-color: #D7B56D !important;
+}
+
+/* Exercise feedback keeps semantic meaning. These colors are not decorative. */
+.otto-skin .otto-inner-screen [class~="bg-emerald-50"],
+
+.otto-skin .otto-inner-screen [class~="bg-emerald-100"] {
+  background: #E6F2EA !important;
+}
+.otto-skin .otto-inner-screen [class~="text-emerald-600"],
+.otto-skin .otto-inner-screen [class~="text-emerald-700"] {
+  color: #34785D !important;
+}
+.otto-skin .otto-inner-screen [class~="border-emerald-200"] {
+  border-color: #34785D !important;
+}
+.otto-skin .otto-inner-screen [class~="bg-rose-50"],
+.otto-skin .otto-inner-screen [class~="bg-rose-100"] {
+  background: #FAECEB !important;
+}
+.otto-skin .otto-inner-screen [class~="text-rose-600"],
+.otto-skin .otto-inner-screen [class~="text-rose-700"] {
+  color: #AD4545 !important;
+}
+.otto-skin .otto-inner-screen [class~="border-rose-200"] {
+  border-color: #AD4545 !important;
+}
+.otto-skin .otto-inner-screen [class~="bg-amber-50"][class~="border-amber-200"],
+.otto-skin .otto-inner-screen [class~="bg-amber-100"][class~="border-amber-200"],
+.otto-skin .otto-inner-screen [class~="border-amber-200"][class~="bg-amber-50"],
+.otto-skin .otto-inner-screen [class~="border-amber-200"][class~="bg-amber-100"] {
+  background: #F3E8CF !important;
+  border-color: #D7B56D !important;
+}
+.otto-skin .otto-inner-screen [class~="bg-amber-50"][class~="border-amber-200"] [class~="text-amber-700"],
+.otto-skin .otto-inner-screen [class~="bg-amber-50"][class~="border-amber-200"] [class~="text-amber-800"],
+.otto-skin .otto-inner-screen [class~="bg-amber-50"][class~="border-amber-200"] [class~="text-amber-900"],
+.otto-skin .otto-inner-screen [class~="bg-amber-100"][class~="border-amber-200"] [class~="text-amber-700"],
+.otto-skin .otto-inner-screen [class~="bg-amber-100"][class~="border-amber-200"] [class~="text-amber-800"],
+.otto-skin .otto-inner-screen [class~="bg-amber-100"][class~="border-amber-200"] [class~="text-amber-900"] {
+  color: #102A3A !important;
+}

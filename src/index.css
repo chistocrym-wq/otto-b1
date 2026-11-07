@@ -1,0 +1,284 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --otto-teal: #14766F;
+    --otto-teal-dark: #0D4F55;
+    --otto-teal-soft: #E3F1EE;
+    --otto-ink: #17242C;
+  }
+
+  body {
+    @apply text-slate-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    min-height: var(--tg-viewport-stable-height, 100vh);
+    background: #F7F2E9;
+    color: var(--tg-theme-text-color, #17242C);
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  p, li, label, textarea, input { font-size: 17px; line-height: 1.55; }
+  button { font-size: 17px; line-height: 1.4; min-height: 48px; touch-action: manipulation; }
+  button, textarea { font: inherit; }
+}
+
+.otto-question-text, .otto-reading-text, .otto-exercise-text { font-size: 18px; line-height: 1.6; }
+.otto-answer-button, .otto-primary-button { min-height: 52px; font-size: 17px; line-height: 1.4; }
+
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+  p, li, label, textarea, input { font-size: 18px; line-height: 1.6; }
+  button { min-height: 52px; font-size: 17px; }
+  .otto-question-text, .otto-reading-text, .otto-exercise-text { font-size: 19px; line-height: 1.65; }
+  .otto-answer-button, .otto-primary-button { min-height: 54px; font-size: 17px; }
+}
+
+.telegram-app {
+  position: relative;
+  isolation: isolate;
+  min-height: var(--tg-viewport-stable-height, 100vh);
+  padding-top: max(env(safe-area-inset-top), var(--tg-content-safe-area-inset-top, 0px));
+  padding-right: max(env(safe-area-inset-right), var(--tg-content-safe-area-inset-right, 0px));
+  padding-bottom: max(env(safe-area-inset-bottom), var(--tg-content-safe-area-inset-bottom, 0px));
+  padding-left: max(env(safe-area-inset-left), var(--tg-content-safe-area-inset-left, 0px));
+  background:
+    radial-gradient(circle at 5% 2%, rgba(20,118,111,.10), transparent 28%),
+    radial-gradient(circle at 96% 18%, rgba(20,118,111,.08), transparent 24%),
+    linear-gradient(180deg, #F7F2E9 0%, #E3F1EE 42%, #F7F2E9 100%);
+}
+
+.otto-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.otto-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(30px);
+  opacity: .9;
+}
+
+.otto-glow-a {
+  width: 260px;
+  height: 260px;
+  top: 70px;
+  left: -120px;
+  background: rgba(20,118,111,.12);
+}
+
+.otto-glow-b {
+  width: 340px;
+  height: 340px;
+  right: -190px;
+  top: 280px;
+  background: rgba(20,118,111,.08);
+}
+
+.otto-line-art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 170px;
+  opacity: .2;
+  background:
+    linear-gradient(170deg, transparent 0 52%, rgba(20,118,111,.07) 53% 54%, transparent 55%),
+    linear-gradient(10deg, transparent 0 50%, rgba(20,118,111,.06) 51% 52%, transparent 53%);
+}
+
+.otto-soft-accent {
+  color: var(--otto-teal) !important;
+  background: var(--otto-teal-soft) !important;
+}
+
+.otto-icon-tile {
+  color: var(--otto-teal);
+  background: linear-gradient(145deg, #E3F1EE, #E3F1EE);
+  box-shadow: inset 0 0 0 1px rgba(20,118,111,.08), 0 7px 16px rgba(20,118,111,.10);
+}
+
+.otto-primary {
+  background: linear-gradient(135deg, var(--otto-teal), var(--otto-teal-dark));
+}
+
+.otto-card {
+  position: relative;
+}
+
+.otto-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.otto-inner-screen {
+  position: relative;
+}
+
+.otto-inner-screen > .animate-fade-in,
+.otto-inner-screen > div {
+  border-radius: 30px;
+}
+
+.otto-companion {
+  position: fixed;
+  z-index: 35;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  width: 70px;
+  height: 70px;
+  border: 3px solid rgba(255,255,255,.96);
+  border-radius: 24px;
+  background: #FFFDFC;
+  box-shadow: 0 12px 34px rgba(16,42,58,.18);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.otto-companion-crop {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #E3F1EE, #FFFDFC);
+}
+
+.otto-companion img {
+  width: 126px;
+  height: 126px;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 5%;
+  transform: translate(-29px, -5px);
+}
+
+/* Главный акцентный цвет в интерфейсе — цвет заставки. */
+.otto-skin [class~="bg-teal-600"],
+.otto-skin [class~="bg-teal-700"],
+.otto-skin [class~="bg-slate-900"] {
+  background-color: var(--otto-teal) !important;
+}
+
+.otto-skin [class~="text-teal-700"],
+.otto-skin [class~="text-teal-800"],
+.otto-skin [class~="text-teal-900"] {
+  color: var(--otto-teal) !important;
+}
+
+.otto-skin [class~="border-teal-200"],
+.otto-skin [class~="border-teal-300"],
+.otto-skin [class~="border-teal-500"],
+.otto-skin [class~="border-teal-600"] {
+  border-color: rgba(20,118,111,.28) !important;
+}
+
+.otto-skin [class~="bg-teal-50"] {
+  background-color: var(--otto-teal-soft) !important;
+}
+
+/* Белые карточки получают единый мягкий вид, но функциональные цвета ошибок/успеха не меняются. */
+.otto-skin section[class*="bg-white"],
+.otto-skin div[class*="bg-white"][class*="rounded-2xl"],
+.otto-skin div[class*="bg-white"][class*="rounded-3xl"] {
+  border-color: rgba(255,255,255,.85);
+  box-shadow: 0 10px 28px rgba(16,42,58,.065);
+}
+
+.otto-skin button[class*="rounded-xl"],
+.otto-skin button[class*="rounded-2xl"] {
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background-color .16s ease;
+}
+
+.otto-skin button:not(:disabled):active {
+  transform: scale(.985);
+}
+
+/* Первая шапка внутренней страницы остаётся доступной при прокрутке. */
+.telegram-app .animate-fade-in > div:has(button[aria-label="Назад"]):first-child,
+.telegram-app .animate-fade-in > div:has(button[aria-label="Вернуться"]):first-child,
+.telegram-app .animate-fade-in > div:first-child:has(> button) {
+  position: sticky;
+  top: max(env(safe-area-inset-top), var(--tg-content-safe-area-inset-top, 0px));
+  z-index: 60;
+  margin-left: -0.35rem;
+  margin-right: -0.35rem;
+  padding: 0.55rem 0.55rem;
+  border: 1px solid rgba(255,255,255,.88);
+  border-radius: 20px;
+  background: rgba(247,242,233,.92);
+  box-shadow: 0 8px 24px rgba(16,42,58,.075);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+button[aria-label="Секреты успешной сдачи"] {
+  width: auto !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  column-gap: 6px;
+  white-space: nowrap;
+}
+
+button[aria-label="Секреты успешной сдачи"]::after {
+  content: 'Секреты';
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+html[data-otto-text-size="small"] button[aria-label="Секреты успешной сдачи"]::after { font-size: 9.9px; }
+html[data-otto-text-size="large"] button[aria-label="Секреты успешной сдачи"]::after { font-size: 13px; }
+
+@media (min-width: 480px) {
+  button[aria-label="Секреты успешной сдачи"]::after { content: 'Секреты успешной сдачи'; font-size: 12px; }
+  html[data-otto-text-size="small"] button[aria-label="Секреты успешной сдачи"]::after { font-size: 10.8px; }
+  html[data-otto-text-size="large"] button[aria-label="Секреты успешной сдачи"]::after { font-size: 14.16px; }
+}
+
+@media (max-width: 640px) {
+  .otto-companion {
+    width: 58px;
+    height: 58px;
+    right: 7px;
+    bottom: 10px;
+    border-radius: 20px;
+    opacity: .94;
+  }
+  .otto-companion img {
+    width: 108px;
+    height: 108px;
+    transform: translate(-25px, -5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
+
+@layer utilities {
+  .animate-fade-in { animation: fadeIn 0.35s ease-out; }
+  .animate-slide-up { animation: slideUp 0.45s ease-out; }
+  .animate-scale-in { animation: scaleIn 0.25s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #E3F1EE; }
+::-webkit-scrollbar-thumb { background: rgba(20,118,111,.35); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(20,118,111,.55); }

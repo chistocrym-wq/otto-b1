@@ -1,0 +1,28 @@
+name: Preview20 Production safety and cutover
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  safety:
+    if: github.event.pull_request.number == 20 && github.head_ref == 'preview/admin-journey-analytics-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      - name: Fail-closed feature gating
+        run: node --test tests/preview20-production-gates.test.mjs
+      - name: Four old/new API combinations - synthetic fixtures
+        run: node --test tests/preview20-cutover-matrix.test.mjs
+      - name: TypeScript and production build
+        run: npm run typecheck && npm run build

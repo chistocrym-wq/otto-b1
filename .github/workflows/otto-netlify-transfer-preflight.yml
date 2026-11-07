@@ -1,0 +1,48 @@
+name: OTTO Preview13 Netlify Blobs READ ONLY
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_readonly:
+        description: 'Confirm reviewed read-only inventory'
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+jobs:
+  inventory:
+    if: ${{ inputs.confirm_readonly == true && github.ref == 'refs/heads/preview/task-linked-learning' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install without hooks
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Static security checks without secret
+        run: |
+          node --check scripts/otto30-netlify-readonly-preflight.mjs
+          node --test tests/otto30-netlify-readonly-safety.test.mjs
+      - name: Read only audit (never mutate)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          OTTO_NETLIFY_SITE_ID: '6cd5980e-1876-40f3-85e4-b227362b4d3d'
+          OTTO_SAFE_REPORT_FILE: ${{ runner.temp }}/otto-netlify-readonly.json
+        run: |
+          set -euo pipefail
+          umask 077
+          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then echo '::error::NETLIFY_AUTH_TOKEN not configured'; exit 1; fi
+          node scripts/otto30-netlify-readonly-preflight.mjs
+      - name: Preserve metadata only for one day
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: otto-netlify-inventory-metadata
+          path: ${{ runner.temp }}/otto-netlify-readonly.json
+          if-no-files-found: ignore
+          retention-days: 1

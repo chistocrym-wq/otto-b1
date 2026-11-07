@@ -1,0 +1,15 @@
+# OTTO A1 — public search discovery
+# Allow crawling of publicly accessible pages, including the static Goethe A1 guide.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://otto-a1.netlify.app/sitemap.xml

@@ -1,0 +1,653 @@
+/* Approved OTTO home — reproduce the accepted mobile mockup without touching training logic. */
+
+:root {
+  --otto-approved-bg: #f6f0e7;
+  --otto-approved-card: #fdf9f3;
+  --otto-approved-ink: #10283b;
+  --otto-approved-body: #5f6c77;
+  --otto-approved-green: #176554;
+  --otto-approved-green-dark: #0f5648;
+  --otto-approved-sage: #eef3eb;
+  --otto-approved-sage-2: #dce8dc;
+  --otto-approved-terracotta: #a35037;
+  --otto-approved-line: rgba(61, 76, 74, .13);
+  --otto-nav-height: 64px;
+}
+
+.telegram-app.otto-view-home {
+  background: var(--otto-approved-bg) !important;
+}
+
+.otto-view-home .otto-app-content {
+  width: min(100%, 430px) !important;
+  max-width: 430px !important;
+  height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom)) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--otto-approved-bg) !important;
+}
+
+.otto-view-home .otto-home-screen {
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: var(--otto-approved-bg) !important;
+  scrollbar-width: none;
+}
+
+.otto-view-home .otto-home-screen::-webkit-scrollbar { display: none; }
+
+.otto-approved-dashboard {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 0 22px;
+  color: var(--otto-approved-ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* HERO — proportions taken directly from the accepted 941x1672 mockup. */
+.otto-approved-hero {
+  position: relative;
+  height: clamp(186px, 48.9vw, 210px);
+  min-height: 186px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 6% 6%, rgba(169, 174, 105, .16) 0 2%, transparent 7%),
+    radial-gradient(circle at 97% 10%, rgba(135, 157, 101, .18) 0 3%, transparent 11%),
+    linear-gradient(90deg, rgba(255,251,243,.96) 0 45%, rgba(247,241,229,.78) 61%, rgba(230,235,214,.62) 100%);
+}
+
+.otto-approved-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 52% 108%, rgba(162,184,178,.18) 0 22%, transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(238,232,216,.22));
+  pointer-events: none;
+}
+
+.otto-approved-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: -4%;
+  bottom: -3px;
+  width: 67%;
+  height: 52%;
+  opacity: .32;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 620 270'%3E%3Cg fill='none' stroke='%236a847c' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' opacity='.55'%3E%3Cpath d='M10 225 H610'/%3E%3Cpath d='M18 218 C92 186 142 184 213 214 C287 244 365 181 432 201 C501 222 549 197 610 207'/%3E%3Cpath d='M240 218 C310 154 378 154 452 218'/%3E%3Cpath d='M265 218 C330 174 388 174 430 218'/%3E%3Cpath d='M296 218 L296 187 M333 218 L333 173 M371 218 L371 169 M408 218 L408 184'/%3E%3C/g%3E%3Cg fill='%236a847c' opacity='.38'%3E%3Cpath d='M76 214 V129 H93 V214 Z'/%3E%3Cpath d='M73 129 L84 74 L96 129 Z'/%3E%3Cpath d='M103 214 V118 H121 V214 Z'/%3E%3Cpath d='M101 118 L112 51 L123 118 Z'/%3E%3Cpath d='M62 214 H135 V178 H62 Z'/%3E%3Cpath d='M142 214 V157 H171 V214 Z M178 214 V168 H201 V214 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.otto-approved-hero-copy {
+  position: absolute;
+  z-index: 4;
+  top: 25px;
+  left: 33px;
+  width: 54%;
+}
+
+.otto-approved-brand {
+  margin: 0;
+  color: #102a34 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 4.8vw, 21px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -.045em !important;
+  line-height: 1 !important;
+}
+
+.otto-approved-brand-line {
+  display: block;
+  width: 92px;
+  height: 5px;
+  margin: 6px 0 0 25px;
+  border-top: 2px solid #c79b56;
+  border-radius: 50%;
+  transform: rotate(-1deg);
+  opacity: .9;
+}
+
+.otto-approved-hero-copy h2 {
+  margin: 12px 0 0;
+  color: #10283b !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 5.25vw, 23px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -.035em !important;
+  line-height: 1.03 !important;
+}
+
+.otto-approved-hero-copy h2 em {
+  color: #3d745e;
+  font-style: normal;
+}
+
+.otto-approved-hero-copy p {
+  margin: 8px 0 0;
+  color: #66717b !important;
+  font-size: clamp(10.5px, 2.8vw, 12px) !important;
+  font-weight: 500;
+  line-height: 1.38 !important;
+}
+
+.otto-approved-handwrite {
+  display: inline-block;
+  margin: 8px 0 0 13px;
+  color: #5a675e;
+  font-family: "Segoe Print", "Bradley Hand", cursive;
+  font-size: clamp(11px, 3vw, 13px);
+  font-weight: 500;
+  line-height: 1;
+  transform: rotate(-5deg);
+}
+
+.otto-approved-handwrite::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 5px;
+  margin: 0 0 5px -13px;
+  border-top: 3px solid rgba(118,145,95,.48);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+.otto-approved-otto {
+  position: absolute;
+  z-index: 3;
+  top: 3px;
+  right: -2px;
+  width: 57%;
+  height: calc(100% + 2px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.otto-approved-otto-image {
+  position: absolute !important;
+  top: -2% !important;
+  right: -8% !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 146% !important;
+  object-fit: contain !important;
+  object-position: right top !important;
+  filter: saturate(.98) contrast(1.015) drop-shadow(0 8px 11px rgba(35,50,48,.10));
+}
+
+.otto-approved-side-note {
+  position: absolute;
+  z-index: 5;
+  top: 60px;
+  right: 10px;
+  color: #52695c;
+  font-family: "Segoe Print", "Bradley Hand", cursive;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
+  transform: rotate(-8deg);
+  opacity: .88;
+  pointer-events: none;
+}
+
+/* Readiness */
+.otto-approved-readiness {
+  margin: 0 16px;
+}
+
+.otto-approved-readiness-button {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,.88);
+  border-radius: 17px !important;
+  background: rgba(253,249,243,.98);
+  padding: 7px 9px 7px 10px;
+  color: var(--otto-approved-ink);
+  text-align: left;
+  box-shadow: 0 7px 18px rgba(54,56,50,.08);
+}
+
+.otto-approved-readiness-icon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  place-items: center;
+  border-radius: 50%;
+  background: #dfe8d6;
+  color: #176554;
+}
+
+.otto-approved-readiness-icon svg { width: 23px; height: 23px; stroke-width: 2.6; }
+
+.otto-approved-readiness-copy {
+  display: block;
+  min-width: 0;
+  flex: 1;
+}
+
+.otto-approved-readiness-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.otto-approved-readiness-top strong {
+  color: #162a37 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: .02em !important;
+}
+
+.otto-approved-readiness-top b {
+  color: #2f6d57 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.otto-approved-progress {
+  display: block;
+  height: 7px;
+  margin-top: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e3e3dc;
+}
+
+.otto-approved-progress i {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: inherit;
+  background: #2f7661;
+}
+
+.otto-approved-readiness-copy small {
+  display: block;
+  margin-top: 2px;
+  color: #68737b !important;
+  font-size: 9.5px !important;
+  font-weight: 500;
+  line-height: 1 !important;
+}
+
+.otto-approved-chevron { width: 18px; height: 18px; flex: 0 0 18px; color: #737e80; stroke-width: 2.5; }
+
+/* Otto recommendation */
+.otto-approved-recommendation {
+  display: flex;
+  height: 59px;
+  align-items: center;
+  gap: 11px;
+  margin: 8px 16px 0;
+  border: 1px solid rgba(87,113,100,.11);
+  border-radius: 18px;
+  background: linear-gradient(90deg, #f4f5ef, #edf3ec);
+  padding: 9px 12px;
+  box-shadow: 0 5px 14px rgba(54,56,50,.04);
+}
+
+.otto-approved-recommendation-icon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  place-items: center;
+  border-radius: 15px;
+  background: rgba(255,255,255,.78);
+  color: #1e6559;
+}
+
+.otto-approved-recommendation-icon svg { width: 22px; height: 22px; stroke-width: 2.3; }
+
+.otto-approved-recommendation strong {
+  display: block;
+  color: #62707a !important;
+  font-size: 9.5px !important;
+  font-weight: 850 !important;
+  letter-spacing: .13em !important;
+  line-height: 1 !important;
+}
+
+.otto-approved-recommendation p {
+  margin: 5px 0 0;
+  color: #283f47 !important;
+  font-size: 11.8px !important;
+  font-weight: 620;
+  line-height: 1.33 !important;
+}
+
+/* Today's training */
+.otto-approved-training {
+  height: 252px;
+  margin: 8px 16px 0;
+  border: 1px solid rgba(76,85,81,.10);
+  border-radius: 19px;
+  background: rgba(253,249,243,.98);
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(54,56,50,.07);
+}
+
+.otto-approved-training-head {
+  display: flex;
+  height: 29px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.otto-approved-training-head > div { min-width: 0; }
+
+.otto-approved-training-head strong {
+  display: block;
+  color: #65717c !important;
+  font-size: 9.5px !important;
+  font-weight: 850 !important;
+  letter-spacing: .12em !important;
+  line-height: 1 !important;
+}
+
+.otto-approved-training-head h2 {
+  margin: 1px 0 0;
+  color: #10283b !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.otto-approved-time {
+  display: inline-flex;
+  height: 26px;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(93,100,94,.16);
+  border-radius: 999px;
+  background: #f2f0e9;
+  padding: 0 10px;
+  color: #5c6669;
+  font-size: 10px;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.otto-approved-time svg { width: 14px; height: 14px; }
+
+.otto-approved-duration {
+  display: grid;
+  height: 32px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  margin-top: 7px;
+  border: 1px solid rgba(88,92,86,.13);
+  border-radius: 13px;
+  background: #eeece5;
+  padding: 2px;
+}
+
+.otto-approved-duration button {
+  border: 0;
+  border-radius: 11px !important;
+  background: transparent;
+  color: #747b7a;
+  font-size: 10.5px;
+  font-weight: 780;
+}
+
+.otto-approved-duration button.is-active {
+  background: #fff;
+  color: #195d52;
+  box-shadow: 0 3px 10px rgba(58,61,57,.08);
+}
+
+.otto-approved-plan {
+  display: grid;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.otto-approved-plan-row {
+  display: flex;
+  width: 100%;
+  height: 39px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(76,85,81,.11);
+  border-radius: 13px !important;
+  background: rgba(255,255,255,.78);
+  padding: 4px 7px;
+  color: var(--otto-approved-ink);
+  text-align: left;
+}
+
+.otto-approved-plan-number {
+  display: grid;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f2efe8;
+  color: #7d807d;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.otto-approved-plan-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border-radius: 11px;
+  background: #e3f0ef;
+  color: #17615a;
+}
+
+.otto-approved-plan-row:nth-child(2) .otto-approved-plan-icon { background: #e8f1ea; }
+.otto-approved-plan-row:nth-child(3) .otto-approved-plan-icon { background: #e8f0ea; }
+.otto-approved-plan-icon svg { width: 19px; height: 19px; stroke-width: 2; }
+
+.otto-approved-plan-copy {
+  display: block;
+  min-width: 0;
+  flex: 1;
+}
+
+.otto-approved-plan-copy strong {
+  display: block;
+  color: #132a3d !important;
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  line-height: 1.05 !important;
+}
+
+.otto-approved-plan-copy small {
+  display: -webkit-box;
+  margin-top: 1px;
+  overflow: hidden;
+  color: #63717e !important;
+  font-size: 8.7px !important;
+  font-weight: 500;
+  line-height: 1.16 !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.otto-approved-plan-chevron { width: 16px; height: 16px; flex: 0 0 16px; color: #798487; stroke-width: 2.4; }
+
+.otto-approved-primary {
+  display: flex;
+  width: 100%;
+  height: 31px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 7px;
+  border: 0;
+  border-radius: 13px !important;
+  background: linear-gradient(90deg, #ae5a3d, var(--otto-approved-terracotta));
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(132,62,42,.16);
+}
+
+.otto-approved-primary span {
+  color: #fff !important;
+  font-size: 10.5px;
+  font-weight: 850;
+  letter-spacing: .01em;
+}
+
+.otto-approved-primary svg { width: 17px; height: 17px; stroke-width: 2; }
+
+/* Completed today */
+.otto-approved-complete {
+  display: flex;
+  height: 39px;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 16px 0;
+  border: 1px solid rgba(67,107,88,.12);
+  border-radius: 17px;
+  background: linear-gradient(90deg, #eff4eb, #eef5ef);
+  padding: 6px 12px;
+}
+
+.otto-approved-complete > span {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  place-items: center;
+  border: 2px solid #2f6d57;
+  border-radius: 50%;
+  color: #2f6d57;
+}
+
+.otto-approved-complete > span svg { width: 15px; height: 15px; }
+
+.otto-approved-complete strong {
+  display: block;
+  color: #132a3d !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+.otto-approved-complete p {
+  margin: 3px 0 0;
+  color: #61707c !important;
+  font-size: 8.7px !important;
+  font-weight: 500;
+  line-height: 1 !important;
+}
+
+/* Everything below the accepted first viewport remains functional and scrollable. */
+.otto-approved-below-fold {
+  margin: 18px 16px 0 !important;
+}
+
+.otto-approved-dashboard > .otto-premium-mock,
+.otto-approved-dashboard > .otto-premium-details {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+}
+
+/* Fixed bottom navigation matching the accepted mockup. */
+.otto-view-home .otto-bottom-nav,
+.otto-bottom-nav {
+  height: calc(var(--otto-nav-height) + env(safe-area-inset-bottom)) !important;
+  padding: 0 12px max(4px, env(safe-area-inset-bottom)) !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+.otto-bottom-nav-inner {
+  position: relative;
+  height: 60px !important;
+  max-width: 406px !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  overflow: visible !important;
+  border: 1px solid rgba(255,255,255,.84) !important;
+  border-radius: 24px 24px 0 0 !important;
+  background: rgba(253,249,243,.98) !important;
+  box-shadow: 0 -7px 19px rgba(54,56,50,.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  pointer-events: auto;
+}
+
+.otto-bottom-nav-inner::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 98px;
+  height: 3px;
+  border-radius: 999px;
+  background: #8e9696;
+  transform: translateX(-50%);
+  opacity: .8;
+  pointer-events: none;
+}
+
+.otto-bottom-nav-item {
+  min-height: 56px !important;
+  gap: 1px !important;
+  padding: 6px 1px 8px !important;
+  color: #73808c !important;
+  font-size: 9.5px !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+}
+
+.otto-bottom-nav-item.is-active {
+  color: #176554 !important;
+  font-weight: 800 !important;
+}
+
+.otto-bottom-nav-icon {
+  width: 22px !important;
+  height: 22px !important;
+  stroke-width: 2.1 !important;
+}
+
+@media (max-width: 430px) {
+  .otto-approved-hero-copy { left: 8.5vw; }
+  .otto-approved-side-note { right: 2.5vw; }
+}
+
+@media (max-width: 360px) {
+  .otto-approved-hero { height: 181px; min-height: 181px; }
+  .otto-approved-hero-copy { top: 21px; left: 28px; }
+  .otto-approved-brand { font-size: 17px !important; }
+  .otto-approved-hero-copy h2 { font-size: 19px !important; }
+  .otto-approved-hero-copy p { font-size: 10px !important; }
+  .otto-approved-side-note { display: none; }
+  .otto-approved-readiness,
+  .otto-approved-recommendation,
+  .otto-approved-training,
+  .otto-approved-complete,
+  .otto-approved-below-fold,
+  .otto-approved-dashboard > .otto-premium-mock,
+  .otto-approved-dashboard > .otto-premium-details { margin-left: 13px !important; margin-right: 13px !important; }
+}
+
+@media (min-width: 431px) {
+  .otto-approved-dashboard { border-left: 1px solid rgba(45,64,60,.05); border-right: 1px solid rgba(45,64,60,.05); }
+}

@@ -1,0 +1,36 @@
+name: Notify IndexNow after OTTO public SEO changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/goethe-a1/**'
+      - 'public/legal/**'
+      - 'public/sitemap.xml'
+      - 'public/324744e27a3e5472ad2bc815dea1f667.txt'
+      - 'index.html'
+      - 'scripts/indexnow-submit.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-otto-production
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for verified Production deploy and notify IndexNow
+        run: node scripts/indexnow-submit.mjs --submit

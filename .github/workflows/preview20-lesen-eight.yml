@@ -1,0 +1,19 @@
+name: Preview20 Lesen archive eight audit
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  lesen:
+    if: github.event.pull_request.number == 20 && github.head_ref == 'preview/admin-journey-analytics-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Read-only inspection of eight requested source records
+        run: node scripts/audit-lesen-eight.mjs

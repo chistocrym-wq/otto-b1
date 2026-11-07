@@ -1,0 +1,94 @@
+import { useMemo, useState } from "react";
+import { hoerenSets, hoerenTasks } from "../data/hoerenAll";
+import "./HoerenAll.css";
+
+export default function HoerenAll() {
+  const [selectedSet, setSelectedSet] = useState(null);
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+
+  const tasks = useMemo(
+    () => selectedSet ? hoerenTasks.filter((t) => t.set === selectedSet) : [],
+    [selectedSet]
+  );
+
+  if (!selectedSet) {
+    return (
+      <div className="hoeren-all">
+        <h1>Hören</h1>
+        <p>Выберите тренировочный комплект</p>
+        <div className="set-list">
+          {hoerenSets.map((set) => (
+            <button
+              key={set.id}
+              className="set-button"
+              onClick={() => {
+                setSelectedSet(set.id);
+                setIndex(0);
+              }}
+            >
+              {set.title} — {set.taskCount} Aufgaben
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const task = tasks[index];
+  const answer = answers[task.id];
+
+  return (
+    <div className="hoeren-all">
+      <button className="back-button" onClick={() => setSelectedSet(null)}>
+        ← К комплектам
+      </button>
+
+      <div className="task-counter">
+        {selectedSet} · Aufgabe {task.originalId} · {index + 1}/{tasks.length}
+      </div>
+
+      {task.audio ? (
+        <audio key={task.id} controls preload="metadata" src={task.audio} className="audio-player" />
+      ) : (
+        <div className="audio-missing">
+          Аудио для этого задания пока отсутствует в загруженном исходнике.
+        </div>
+      )}
+
+      {task.type === "image_choice" && task.image && (
+        <img src={task.image} alt={`Aufgabe ${task.originalId}`} className="task-image" />
+      )}
+
+      {task.type === "true_false" && (
+        <div className="question-box">
+          <p>{task.question}</p>
+        </div>
+      )}
+
+      <div className="answers">
+        {task.choices.map((choice) => (
+          <button
+            key={choice}
+            className={answer === choice ? "answer active" : "answer"}
+            onClick={() => setAnswers((prev) => ({ ...prev, [task.id]: choice }))}
+          >
+            {choice}
+          </button>
+        ))}
+      </div>
+
+      <div className="navigation">
+        <button disabled={index === 0} onClick={() => setIndex((i) => i - 1)}>
+          Назад
+        </button>
+        <button
+          disabled={index === tasks.length - 1}
+          onClick={() => setIndex((i) => i + 1)}
+        >
+          Далее
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,71 @@
+name: Preview13 owner exam private-access tests
+on:
+  push:
+    branches: [preview/task-linked-learning]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  owner-exam-security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install project dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Full TypeScript typecheck
+        run: npm run typecheck
+      - name: Real Vite production build (no deploy or artifacts)
+        run: npm run build
+      - name: Verify safe PWA updates and retained app identity
+        run: node --test tests/preview13-pwa-release-safety.test.mjs
+      - name: Unit-test private route and fail-closed permissions
+        run: node --test tests/otto30-private-server.test.mjs
+      - name: Verify sequential exam route and clean user interface
+        run: node --test tests/preview13-exam-route.test.mjs
+      - name: Verify 25-point owner scoring on synthetic server fixtures
+        run: node --test tests/otto30-server-scoring.test.mjs
+      - name: Verify signed multi-account isolation and disabled rollout
+        run: node --test tests/otto30-multiuser-isolation.test.mjs
+      - name: Verify 31-exam trial paid expiry renewal and developer rights
+        run: node --experimental-strip-types --test tests/otto31-unified-entitlement.test.mjs
+      - name: Verify pre-release state queue, old cookies, user isolation and cross-device restore
+        run: node --test tests/preview13-state-sync-soft-release.test.mjs
+      - name: Verify results viewer survives missing review and malformed AI feedback
+        run: node --experimental-strip-types --test tests/otto30-result-view-safety.test.mjs
+      - name: Verify independent exam progression and timer persistence
+        run: node --experimental-strip-types --test tests/preview13-exam-sequence.test.mjs
+      - name: Verify private E9R3 key importer cannot accept anonymous clients
+        run: node --test tests/otto30-key-install.test.mjs
+      - name: Verify owner-approved delivery does not weaken private exam integrity
+        run: node --test tests/otto31-owner-release.test.mjs
+      - name: Verify read-only production transfer guards
+        run: node --test tests/otto30-production-transfer.test.mjs
+      - name: Verify Production transfer safety and readback contract
+        run: node --test tests/otto30-production-transfer.test.mjs
+      - name: Verify no archive material in source or public output
+        run: |
+          test ! -d public/mock-exams-30
+          test ! -d public/audio/exam_01
+          test ! -d public/images/sprechen
+          test ! -e src/features/mockExams30/exam_01.key.json
+      - name: Check unauthenticated direct API requests are denied
+        run: |
+          node --input-type=module <<'JS'
+          const base='https://deploy-preview-13--otto-a1.netlify.app/api/otto30-private';
+          const urls=[
+            base+'?op=status',
+            base+'?op=exam&number=1',
+            base+'?op=media&path=audio%2Fexam_01%2Ftask_01.mp3',
+            base+'?op=media&path=images%2Fsprechen%2Fscene_01.png'
+          ];
+          for(const url of urls){
+            const r=await fetch(url,{headers:{'Cache-Control':'no-store'}});
+            console.log(new URL(url).search,'status',r.status);
+            if(r.status!==403)throw Error('Private API returned '+r.status+' instead of 403');
+          }
+          JS

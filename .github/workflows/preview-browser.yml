@@ -1,0 +1,513 @@
+name: Preview browser walkthrough
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: otto-preview-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  walkthrough:
+    if: github.head_ref == 'preview/task-linked-learning'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cache Playwright Chromium downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium-1.48.2
+      - name: Install app and browser test dependencies
+        run: |
+          npm install
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Wait for Netlify preview
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS --max-time 10 https://deploy-preview-13--otto-a1.netlify.app/ >/dev/null; then
+              echo "Netlify preview is reachable"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Netlify preview did not become reachable"
+          exit 1
+
+      - name: Create fake microphone audio
+        run: |
+          python - <<'PY'
+          import math, struct, wave
+          rate=48000
+          seconds=3
+          with wave.open('fake-mic.wav','w') as wav:
+              wav.setnchannels(1)
+              wav.setsampwidth(2)
+              wav.setframerate(rate)
+              frames=[]
+              for i in range(rate*seconds):
+                  sample=int(9000*math.sin(2*math.pi*440*i/rate))
+                  frames.append(struct.pack('<h',sample))
+              wav.writeframes(b''.join(frames))
+          PY
+
+      - name: Click through preview in Chromium
+        env:
+          PREVIEW_URL: https://deploy-preview-13--otto-a1.netlify.app/
+        run: |
+          mkdir -p browser-artifacts
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { chromium } from 'playwright';
+
+          const PREVIEW_URL=process.env.PREVIEW_URL;
+          const browser=await chromium.launch({
+            headless:true,
+            args:[
+              '--use-fake-device-for-media-stream',
+              '--use-fake-ui-for-media-stream',
+              '--use-file-for-fake-audio-capture='+process.cwd()+'/fake-mic.wav',
+              '--autoplay-policy=no-user-gesture-required',
+            ],
+          });
+
+          const profile={
+            name:'Preview Test',
+            contactType:'email',
+            contact:'preview@example.com',
+            contactVerified:true,
+            authStatus:'verified',
+            gender:'female',
+            learningMode:'guided',
+            createdAt:'2026-10-02T12:00:00.000Z',
+            updatedAt:'2026-10-02T12:00:00.000Z',
+            onboardingCompleted:true,
+          };
+
+          async function preparePage(context){
+            await context.grantPermissions(['microphone'],{origin:new URL(PREVIEW_URL).origin});
+            const page=await context.newPage();
+            let mockSpeechPost=false;
+            let speechReadinessMocks=0;
+            page.on('pageerror',error=>console.log('PAGE_ERROR',error.message));
+            page.on('console',message=>console.log('BROWSER_CONSOLE',message.type(),message.text()));
+            page.on('requestfailed',request=>console.log('REQUEST_FAILED',request.url(),request.failure()?.errorText));
+            page.on('response',res=>{if(res.status()>=400&&res.url().includes('/api/'))console.log('API_RESPONSE_ERROR',res.status(),res.url())});
+            page.on('response',res=>{if(res.url().includes('/api/'))console.log('API_OBSERVED',res.status(),new URL(res.url()).pathname+new URL(res.url()).search)});
+            page.on('request',req=>{if(req.url().includes('/api/'))console.log('API_REQUEST',new URL(req.url()).pathname+new URL(req.url()).search)});
+
+            const json=(route,body,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(body)});
+            await page.route('**/api/session*',route=>json(route,{authenticated:true,userId:'preview-e2e'}));
+            await page.route('**/api/profile',route=>json(route,{authenticated:true,userId:'preview-e2e',profile}));
+            await page.route('**/api/account-access',route=>json(route,{
+              authenticated:true,userId:'preview-e2e',serverNow:new Date().toISOString(),
+              trialActive:true,trialStartedAt:new Date(Date.now()-3600000).toISOString(),trialEndsAt:new Date(Date.now()+71*3600000).toISOString(),
+              subscriptionActive:false,subscriptionUntil:null,hasTrainingAccess:true,reason:'preview-e2e',
+            }));
+            await page.route('**/api/legal-consent',route=>json(route,{accepted:true,documentVersion:'2026-09-23-v1'}));
+            await page.route('**/api/state',route=>json(route,{authenticated:true,userId:'preview-e2e',state:{}}));
+            await page.route('**/api/progress**',route=>json(route,{authenticated:true,progress:{},activity:[]}));
+            await page.route('**/api/support-summary',route=>json(route,{unreadCount:0,latestTicketId:null}));
+            await page.route('**/api/support-ticket?view=summary',route=>json(route,{unreadCount:0,latestTicketId:null,tickets:[]}));
+            await page.route('**/api/check-sprechen',async route=>{
+              // Only this isolated browser's readiness check is simulated.
+              // Real unsigned POST is separately asserted as HTTP 401 below.
+              if(route.request().method()==='GET'){
+                speechReadinessMocks++;
+                console.log('SPEECH_READINESS_MOCK',route.request().url());
+                return json(route,{ok:true,aiConfigured:true,model:'qa-fixture'});
+              }
+              if(route.request().method()==='POST'&&mockSpeechPost){
+                return json(route,{transcript:'ich',officialLevel:'full',score:100,strengths:['Понятно'],practice:[],pronunciationRu:'Понятно.',missing:[]});
+              }
+              return route.continue();
+            });
+            await page.addInitScript(()=>{
+              for(const key of Object.keys(localStorage)){
+                if(key.startsWith('otto-preview-app-mode-v1:')||key.startsWith('otto-preview-learning-v1:'))localStorage.removeItem(key);
+              }
+              sessionStorage.clear();
+              window.__ottoMediaPlayCalls=0;
+              window.__ottoMediaPlayResolved=0;
+              window.__ottoMediaPlayRejected=0;
+              const originalPlay=HTMLMediaElement.prototype.play;
+              HTMLMediaElement.prototype.play=function(...args){
+                window.__ottoMediaPlayCalls+=1;
+                try{
+                  const result=originalPlay.apply(this,args);
+                  Promise.resolve(result).then(()=>{window.__ottoMediaPlayResolved+=1}).catch(()=>{window.__ottoMediaPlayRejected+=1});
+                  return result;
+                }catch(error){
+                  window.__ottoMediaPlayRejected+=1;
+                  throw error;
+                }
+              };
+              window.__ottoNativeSpeechCalls=0;
+              if(window.speechSynthesis){
+                const originalSpeak=window.speechSynthesis.speak.bind(window.speechSynthesis);
+                window.speechSynthesis.speak=(utterance)=>{
+                  window.__ottoNativeSpeechCalls+=1;
+                  return originalSpeak(utterance);
+                };
+              }
+            });
+            return {page,setMockSpeech:(value)=>{mockSpeechPost=value},getSpeechReadinessMocks:()=>speechReadinessMocks};
+          }
+
+          function rgbParts(value){
+            const m=String(value).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if(!m)throw new Error('Cannot parse color '+value);
+            return [Number(m[1]),Number(m[2]),Number(m[3])];
+          }
+          function lum([r,g,b]){
+            const f=v=>{v/=255;return v<=0.03928?v/12.92:((v+0.055)/1.055)**2.4};
+            return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b);
+          }
+          function ratio(a,b){const l1=lum(a),l2=lum(b);return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05)}
+
+          // The service worker forwards GET requests and otherwise bypasses Playwright page.route.
+          // Keep SW active for dedicated PWA tests; block it only in this speech fixture.
+          const desktop=await browser.newContext({viewport:{width:1440,height:900},serviceWorkers:'block'});
+          const {page,setMockSpeech,getSpeechReadinessMocks}=await preparePage(desktop);
+          await page.goto(PREVIEW_URL,{waitUntil:'domcontentloaded'});
+          const tour=page.locator('[data-otto-tour]');
+          if(await tour.waitFor({state:'visible',timeout:8000}).then(()=>true).catch(()=>false))
+            await tour.getByRole('button',{name:'Закрыть экскурсию'}).click();
+          try {
+            await page.getByRole('heading',{name:'Как вы оцениваете свои знания?'}).waitFor({timeout:30000});
+          } catch (error) {
+            console.log('BODY_AT_START',String(await page.locator('body').innerText()).slice(0,5000));
+            console.log('START_LOCAL_STATE',await page.evaluate(()=>({modeKeys:Object.keys(localStorage).filter(k=>k.includes('otto')),url:location.href})));
+            await page.screenshot({path:'browser-artifacts/start-failure.png',fullPage:true});
+            throw error;
+          }
+
+          const trainingButton=page.getByRole('button',{name:/Мне нужен только тренажёр/});
+          const colors=await trainingButton.evaluate(el=>{const s=getComputedStyle(el);return{color:s.color,bg:s.backgroundColor}});
+          const contrast=ratio(rgbParts(colors.color),rgbParts(colors.bg));
+          console.log('Second mode button contrast ratio:',contrast.toFixed(2),colors);
+          assert.ok(contrast>=4.5,'Second mode button text contrast is too low');
+          await page.screenshot({path:'browser-artifacts/01-mode-choice.png',fullPage:true});
+
+          await page.getByRole('button',{name:/Мне нужна подготовка/}).click();
+          const refWelcome=page.getByRole('button',{name:'Посмотреть позже'});
+          if(await refWelcome.isVisible({timeout:3000}).catch(()=>false))await refWelcome.click();
+          const continueLearning=page.getByRole('button',{name:'Продолжить обучение'});
+          if(await continueLearning.isVisible({timeout:3000}).catch(()=>false))await continueLearning.click();
+          await page.getByRole('heading',{name:'Начинаем со Schreiben'}).waitFor();
+          await page.getByRole('button',{name:/Начать/}).click();
+          await page.getByRole('heading',{name:'Базовые слова'}).waitFor();
+          await page.getByRole('button',{name:/Местоимения/}).click();
+          await page.getByRole('heading',{name:'Сначала Nominativ'}).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByText('ich',{exact:true}).first().waitFor();
+          await page.getByText('OTTO РЯДОМ',{exact:true}).waitFor();
+          const learningHeaderHeight=await page.locator('.otto-preview-learning-mode header').evaluate(el=>el.getBoundingClientRect().height);
+          console.log('Learning header height:',learningHeaderHeight);
+          assert.ok(learningHeaderHeight<130,'Learning header is still oversized on desktop');
+          const listenButton=page.getByRole('button',{name:'Послушать'});
+          const listenColors=await listenButton.evaluate(el=>{const s=getComputedStyle(el);return{color:s.color,bg:s.backgroundColor}});
+          const listenContrast=ratio(rgbParts(listenColors.color),rgbParts(listenColors.bg));
+          console.log('Learning secondary button contrast ratio:',listenContrast.toFixed(2),listenColors);
+          assert.ok(listenContrast>=4.5,'Learning secondary button contrast is too low');
+          const helper=page.getByText('OTTO РЯДОМ',{exact:true}).locator('..').locator('..');
+          const card=page.locator('section').filter({hasText:'ich'}).first();
+          const [hb,cb]=await Promise.all([helper.boundingBox(),card.boundingBox()]);
+          if(hb&&cb){
+            const overlap=Math.max(0,Math.min(hb.x+hb.width,cb.x+cb.width)-Math.max(hb.x,cb.x));
+            console.log('Desktop helper/card horizontal overlap:',overlap);
+            assert.equal(overlap,0,'Small OTTO helper overlaps the exercise work area on desktop');
+          }
+          await page.screenshot({path:'browser-artifacts/02-pronoun-first.png',fullPage:true});
+
+          assert.equal(await page.evaluate(()=>typeof window.OttoSpeech?.play),'function','OttoSpeech is not installed in Deploy Preview');
+          await page.getByRole('button',{name:'Послушать'}).click();
+          await page.waitForFunction(()=>window.__ottoMediaPlayCalls>0||window.__ottoNativeSpeechCalls>0,null,{timeout:10000});
+          const playback=await page.evaluate(()=>({
+            mediaCalls:window.__ottoMediaPlayCalls,
+            mediaResolved:window.__ottoMediaPlayResolved,
+            mediaRejected:window.__ottoMediaPlayRejected,
+            nativeSpeechCalls:window.__ottoNativeSpeechCalls,
+          }));
+          console.log('Audio click playback path:',JSON.stringify(playback));
+          assert.ok(playback.mediaCalls>0||playback.nativeSpeechCalls>0,'Audio click did not invoke a real browser playback path');
+          const ttsPath=await page.evaluate(()=>window.OttoSpeech.ttsUrl('ich',{mode:'normal'}));
+          const ttsResponse=await page.request.get(new URL(ttsPath,PREVIEW_URL).href);
+          console.log('TTS endpoint status:',ttsResponse.status(),ttsResponse.headers()['content-type']);
+          assert.equal(ttsResponse.status(),200,'OTTO TTS endpoint did not return 200');
+          const ttsBody=await ttsResponse.body();
+          assert.ok(ttsBody.length>1000,'OTTO TTS returned empty/tiny audio');
+
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Что означает «ich»?'}).waitFor();
+          await page.getByRole('button',{name:'я',exact:true}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Повторите: ich'}).waitFor();
+
+          await page.getByRole('button',{name:'Записать ответ'}).click();
+          await page.getByRole('button',{name:'Остановить запись'}).waitFor();
+          await page.waitForTimeout(1400);
+          await page.getByRole('button',{name:'Остановить запись'}).click();
+          await page.getByRole('button',{name:'Проверить с Отто'}).waitFor();
+          assert.ok(getSpeechReadinessMocks()>0,'Browser speech readiness GET bypassed the isolated QA route');
+
+          // This fake frontend account cannot hold a valid signed OTTO session.
+          // Verify the real server correctly refuses AI spending, then test
+          // the microphone UI with the isolated QA evaluator.
+          const unsigned=await page.request.post(new URL('/api/check-sprechen',PREVIEW_URL).href,{
+            data:{mode:'phrase',expectedText:'ich',audioBase64:'eA==',mimeType:'audio/webm'}
+          });
+          assert.equal(unsigned.status(),401,'Unsigned speech scoring must remain inaccessible');
+          setMockSpeech(true);
+          await page.getByRole('button',{name:'Перезаписать'}).click();
+          await page.getByRole('button',{name:'Записать ответ'}).click();
+          await page.waitForTimeout(700);
+          await page.getByRole('button',{name:'Остановить запись'}).click();
+          const checkIch=page.getByRole('button',{name:'Проверить с Отто'});
+          assert.ok(await checkIch.isEnabled(),'QA speech evaluator button must enable after a recorded answer');
+          await checkIch.click();
+          await page.getByText('Отлично ✓',{exact:true}).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+
+          await page.getByRole('heading',{name:'Напишите по-немецки'}).waitFor();
+          await page.locator('input[placeholder="Напишите ответ"]').fill('ich');
+          await page.getByRole('button',{name:'Проверить'}).click();
+          await page.getByText(/Получилось/).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+
+          await page.getByRole('heading',{name:'Вставьте местоимение в предложение'}).waitFor();
+          await page.locator('input[placeholder="Напишите ответ"]').fill('Ich');
+          await page.getByRole('button',{name:'Проверить'}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+
+          // New course: each pronoun has a meaning, speaking, writing,
+          // gap and sentence build; additional grammar intros cover all cases.
+          const build=async(sentence)=>{
+            await page.getByRole('heading',{name:'Соберите предложение'}).waitFor();
+            for(const word of sentence.split(' '))await page.getByRole('button',{name:word,exact:true}).and(page.locator('button:enabled')).first().click();
+            await page.getByRole('button',{name:'Проверить',exact:true}).click();
+            await page.getByText('Получилось ✓',{exact:true}).waitFor();
+            await page.getByRole('button',{name:'Прослушать собранное'}).click();
+            await page.getByRole('button',{name:/Продолжить/}).click();
+          };
+          await build('Ich heiße Anna.');
+          await page.getByRole('heading',{name:'du',exact:true}).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Что означает «du»?'}).waitFor();
+          await page.getByRole('button',{name:'ты',exact:true}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Повторите: du'}).waitFor();
+          await page.getByRole('button',{name:'Записать ответ'}).click();
+          await page.waitForTimeout(650);
+          await page.getByRole('button',{name:'Остановить запись'}).click();
+          const checkDu=page.getByRole('button',{name:'Проверить с Отто'});
+          if(!await checkDu.isEnabled())console.log('SPEECH_DISABLED_STATE',String(await page.locator('body').innerText()).slice(-1800));
+          await checkDu.click();
+          await page.getByText('Отлично ✓',{exact:true}).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Напишите по-немецки'}).waitFor();
+          const duInput=page.locator('input[placeholder="Напишите ответ"]');
+          await duInput.fill('ich');
+          await page.getByRole('button',{name:'Проверить',exact:true}).click();
+          await page.getByRole('button',{name:'Попробовать снова'}).waitFor();
+          await page.getByRole('button',{name:'Попробовать снова'}).click();
+          assert.equal(await duInput.inputValue(),'','Retry must clear the current answer');
+          await duInput.fill('du');
+          await page.getByRole('button',{name:'Проверить',exact:true}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:'Вставьте местоимение в предложение'}).waitFor();
+          await page.locator('input[placeholder="Напишите ответ"]').fill('Du');
+          await page.getByRole('button',{name:'Проверить',exact:true}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await build('Du wohnst in Berlin.');
+          await page.getByRole('heading',{name:'Как по-немецки «ты»?'}).waitFor();
+          await page.locator('input[placeholder="Напишите по-немецки"]').fill('du');
+          await page.getByRole('button',{name:'Проверить',exact:true}).click();
+          await page.getByText('Теперь получилось ✓',{exact:true}).waitFor();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          // "Я это знаю" is the approved user fast-path for remaining known
+          // words. Their sentence-building exercises are still completed.
+          const remaining=[
+            ['er','Peter kommt heute. Er kommt um sechs.'],
+            ['sie','Anna lernt Deutsch. Sie lernt jeden Tag.'],
+            ['es','Das Kind? Es ist zu Hause.'],['wir','Wir wohnen in Berlin.'],
+            ['ihr','Ihr lernt Deutsch.'],['sie','Anna und Peter? Sie kommen morgen.'],
+            ['Sie','Wo wohnen Sie?'],['mich','Anna sieht mich.'],
+            ['dich','Ich besuche dich.'],['ihn','Ich sehe ihn.'],
+            ['sie','Ich sehe sie.'],['es','Ich kaufe es.'],['uns','Anna besucht uns.'],
+            ['euch','Ich sehe euch.'],['sie','Ich besuche sie.'],
+            ['Sie','Ich sehe Sie morgen.'],['mir','Können Sie mir helfen?'],
+            ['dir','Ich schreibe dir.'],['ihm','Ich helfe ihm.'],
+            ['ihr','Ich schreibe ihr.'],['ihm','Ich gebe ihm Wasser.'],
+            ['uns','Er hilft uns.'],['euch','Ich schreibe euch.'],
+            ['ihnen','Ich helfe ihnen.'],['Ihnen','Kann ich Ihnen helfen?']
+          ];
+          for(let i=0;i<remaining.length;i++){
+            if(i===7||i===16){
+              await page.getByRole('heading',{name:i===7?'Теперь Akkusativ — кого? что?':'Теперь Dativ — кому?'}).waitFor();
+              await page.getByRole('button',{name:/Продолжить/}).click();
+            }
+            const [word,sentence]=remaining[i];
+            await page.getByRole('heading',{name:word,exact:true}).waitFor();
+            await page.getByRole('button',{name:'Я это знаю'}).click();
+            await build(sentence);
+          }
+          await page.getByRole('heading',{name:/Местоимения повторили/}).waitFor();
+          await page.getByRole('button',{name:'Повторить ошибки'}).click();
+          await page.getByRole('heading',{name:'Как по-немецки «ты»?'}).waitFor();
+          await page.locator('input[placeholder="Напишите по-немецки"]').fill('du');
+          await page.getByRole('button',{name:'Проверить',exact:true}).click();
+          await page.getByRole('button',{name:/Продолжить/}).click();
+          await page.getByRole('heading',{name:/Местоимения повторили/}).waitFor();
+          await page.screenshot({path:'browser-artifacts/03-pronouns-done.png',fullPage:true});
+          await page.getByRole('button',{name:'К разделам'}).click();
+          await page.getByRole('heading',{name:'Базовые слова'}).waitFor();
+          await page.getByRole('button',{name:'Пропустить повторение'}).click();
+          try{
+            await page.getByRole('heading',{name:'С базовыми словами разобрались ✓'}).waitFor({timeout:12000});
+          }catch(error){
+            console.log('POST_VOCABULARY_ROUTE',String(await page.locator('body').innerText()).slice(0,6000));
+            console.log('POST_VOCABULARY_LOCAL_STATE',await page.evaluate(()=>({
+              keys:Object.keys(localStorage).filter(k=>k.includes('learning')),
+              learning:localStorage.getItem('otto-preview-learning-v2:preview-e2e')
+            })));
+            await page.screenshot({path:'browser-artifacts/04-vocabulary-route-failure.png',fullPage:true});
+            throw error;
+          }
+          await page.getByRole('heading',{name:'Шаг 2. Учимся заполнять формуляр'}).waitFor();
+          await page.screenshot({path:'browser-artifacts/04-step-two.png',fullPage:true});
+          await page.getByRole('button',{name:'Перейти к реальным тренировкам Schreiben'}).click();
+          await page.getByRole('heading',{name:'Перейти к настоящим заданиям OTTO?'}).waitFor();
+          await page.getByRole('button',{name:'Перейти к тренировкам',exact:true}).click();
+
+          // Existing trainer must appear unchanged.
+          await page.waitForFunction(()=>document.body.textContent?.includes('Hören')&&document.body.textContent?.includes('Lesen'),null,{timeout:30000});
+          console.log('Existing OTTO trainer opened');
+
+          const settingsButton=page.getByRole('button',{name:/Настройки/}).last();
+          await settingsButton.click();
+          await page.getByRole('heading',{name:'Как вы хотите заниматься сейчас?'}).waitFor();
+          await page.getByRole('button',{name:/Обучение с OTTO/}).click();
+          await page.locator('.otto-preview-learning-mode').waitFor({timeout:30000});
+          console.log('RETURN_TO_LEARNING_STATE',String(await page.locator('body').innerText()).slice(0,4600));
+          console.log('RETURN_TO_LEARNING_LOCAL',await page.evaluate(()=>localStorage.getItem('otto-preview-learning-v2:preview-e2e')));
+          await page.screenshot({path:'browser-artifacts/04-settings-return.png',fullPage:true});
+          await page.getByRole('heading',{name:'С базовыми словами разобрались ✓'}).waitFor({timeout:15000});
+          console.log('Returned from trainer to learning via Settings');
+
+          // Mobile smoke/geometry.
+          const mobile=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block'});
+          const {page:mobilePage}=await preparePage(mobile);
+          await mobilePage.goto(PREVIEW_URL,{waitUntil:'domcontentloaded'});
+          const mobileFirstTour=mobilePage.locator('[data-otto-tour]');
+          // The tour mounts after initial profile/session loading. isVisible() is an
+          // immediate snapshot (its timeout option does not wait for rendering).
+          await mobileFirstTour.waitFor({state:'visible',timeout:30000});
+          await mobileFirstTour.getByRole('button',{name:'Закрыть экскурсию'}).click();
+          await mobileFirstTour.waitFor({state:'detached',timeout:10000});
+          try{
+            await mobilePage.getByRole('heading',{name:'Как вы оцениваете свои знания?'}).waitFor({timeout:30000});
+          }catch(error){
+            console.log('MOBILE_AFTER_TOUR',JSON.stringify({
+              body:(await mobilePage.locator('body').innerText()).slice(0,4500),
+              url:mobilePage.url(),
+              tourVisible:await mobileFirstTour.isVisible().catch(()=>false),
+              modeChooser:await mobilePage.getByRole('heading',{name:'Как вы оцениваете свои знания?'}).count(),
+              userState:await mobilePage.evaluate(()=>({
+                mode:localStorage.getItem('otto-preview-app-mode-v2:preview-e2e'),
+                tour:localStorage.getItem('otto-preview-tour-seen-v1:preview-e2e'),
+              })).catch(()=>null),
+            }));
+            await mobilePage.screenshot({path:'browser-artifacts/05-mobile-tour-state.png',fullPage:true});
+            throw error;
+          }
+          const overflow=await mobilePage.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+          assert.ok(overflow<=1,'Mode choice has horizontal overflow on mobile');
+          const mobileTraining=mobilePage.getByRole('button',{name:/Мне нужен только тренажёр/});
+          assert.ok(await mobileTraining.isVisible(),'Second mode button is not visible on mobile');
+          await mobilePage.getByRole('button',{name:/Мне нужна подготовка/}).click();
+          const later=mobilePage.getByRole('button',{name:'Посмотреть позже'});
+          if(await later.isVisible({timeout:3000}).catch(()=>false))await later.click();
+          const resume=mobilePage.getByRole('button',{name:'Продолжить обучение'});
+          if(await resume.isVisible({timeout:3000}).catch(()=>false))await resume.click();
+          await mobilePage.getByRole('heading',{name:'Начинаем со Schreiben'}).waitFor();
+          await mobilePage.getByRole('button',{name:/Начать/}).click();
+          await mobilePage.getByRole('button',{name:/Местоимения/}).click();
+          await mobilePage.getByText('OTTO РЯДОМ',{exact:true}).waitFor();
+          // Keep the layout checks, but hit-test each button only AFTER scrolling
+          // it into view. elementFromPoint returns null for off-screen coordinates.
+          const learningHeader=mobilePage.locator('.otto-preview-learning-mode header');
+          const mobileHeaderLayout=await learningHeader.evaluate(el=>{
+            const header=el.getBoundingClientRect();
+            const lesson=el.nextElementSibling?.getBoundingClientRect();
+            return {
+              height:header.height,
+              insideViewport:header.left>=-1&&header.right<=window.innerWidth+1,
+              lessonVisible:Boolean(lesson&&lesson.top<window.innerHeight-64),
+              lessonNotOverlapped:Boolean(lesson&&lesson.top>=header.bottom-1),
+            };
+          });
+          const learningActions=learningHeader.locator('button:visible');
+          assert.equal(await learningActions.count(),4,'Learning toolbar has missing or unexpected mobile actions');
+          const mobileActionChecks=[];
+          for(let i=0;i<4;i++){
+            const button=learningActions.nth(i);
+            await button.scrollIntoViewIfNeeded({timeout:10000});
+            // trial verifies Playwright actionability: visible, enabled and
+            // receives pointer events; it does NOT activate the button.
+            await button.click({trial:true,timeout:10000});
+            const hit=await button.evaluate(el=>{
+              const r=el.getBoundingClientRect();
+              const h=el.closest('header')?.getBoundingClientRect();
+              const cx=r.left+r.width/2,cy=r.top+r.height/2;
+              const target=document.elementFromPoint(cx,cy);
+              return {
+                label:el.textContent?.trim(),
+                touchTarget:r.width>=38&&r.height>=38,
+                insideHeader:Boolean(h&&r.left>=h.left-1&&r.right<=h.right+1&&r.top>=h.top-1&&r.bottom<=h.bottom+1),
+                centerVisible:cx>=0&&cx<window.innerWidth&&cy>=0&&cy<window.innerHeight,
+                reachable:target===el||el.contains(target),
+              };
+            });
+            mobileActionChecks.push(hit);
+            assert.ok(hit.touchTarget&&hit.insideHeader&&hit.centerVisible&&hit.reachable,
+              'Mobile learning toolbar button is too small, clipped or covered: '+hit.label);
+          }
+          console.log('Mobile learning header layout:',JSON.stringify({...mobileHeaderLayout,actions:mobileActionChecks}));
+          const mobileOverflow=await mobilePage.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+          assert.ok(mobileOverflow<=1,'Pronoun exercise has horizontal overflow on mobile');
+          assert.ok(mobileHeaderLayout.insideViewport,'Learning header is horizontally clipped on mobile');
+          assert.ok(mobileHeaderLayout.lessonNotOverlapped,'Learning header overlaps the first lesson');
+          assert.ok(mobileHeaderLayout.lessonVisible,'Learning header pushes lesson below the mobile viewport');
+          await mobilePage.getByText('OTTO РЯДОМ',{exact:true}).scrollIntoViewIfNeeded();
+          await mobilePage.screenshot({path:'browser-artifacts/05-mobile-pronoun.png',fullPage:true});
+
+          await mobile.close();
+          await desktop.close();
+          await browser.close();
+          console.log('PREVIEW_BROWSER_WALKTHROUGH_OK');
+          NODE
+
+      - name: Upload browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-browser-walkthrough
+          path: browser-artifacts
+          if-no-files-found: ignore
+          retention-days: 2

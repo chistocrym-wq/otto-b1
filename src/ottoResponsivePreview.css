@@ -1,0 +1,1860 @@
+/* Preview-only responsive audit layer.
+   Layout only: no task logic, answers, progress, auth, trial, subscription, backend or data changes. */
+
+:root {
+  --otto-desktop-max: 1440px;
+  --otto-readable-max: 960px;
+  --otto-page-gutter: clamp(16px, 3vw, 48px);
+}
+
+/* The existing app shell stays viewport-bound, but the working canvas is no longer
+   capped like a mobile/tablet card on desktop. */
+@media (min-width: 1024px) {
+  .otto-app-shell .otto-app-content {
+    width: 100% !important;
+    max-width: var(--otto-desktop-max) !important;
+    padding-inline: var(--otto-page-gutter) !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-app-content {
+    max-width: var(--otto-desktop-max) !important;
+    padding: 18px var(--otto-page-gutter) 12px !important;
+  }
+
+  .otto-home-screen,
+  .otto-inner-screen {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-inner-screen > .animate-fade-in,
+  .telegram-app:not(.otto-view-home) .otto-hub-screen {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* Hub pages use a real desktop composition rather than a narrow centered phone stack. */
+  .telegram-app:not(.otto-view-home) .otto-page-hero {
+    min-height: 184px !important;
+    flex-basis: 184px !important;
+    padding: 30px 250px 30px 34px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-page-hero h1 {
+    max-width: 780px !important;
+    font-size: clamp(30px, 2.5vw, 42px) !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-page-hero-character {
+    right: 28px !important;
+    bottom: -42px !important;
+    width: 190px !important;
+    height: 238px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-module-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(118px, 1fr)) !important;
+    gap: 16px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-module-row {
+    min-height: 118px !important;
+    padding: 18px 20px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-module-row-icon {
+    width: 62px !important;
+    height: 62px !important;
+    flex-basis: 62px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-module-row strong {
+    font-size: 20px !important;
+  }
+
+  /* Settings/account/support use available desktop width, but preserve readable cards. */
+  .telegram-app:not(.otto-view-home) .otto-settings-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: minmax(150px, auto) !important;
+    gap: 16px !important;
+    overflow: auto !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-setting-row {
+    padding: 20px !important;
+  }
+
+  .otto-support-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+
+  /* Main learning/exam work areas: broad page, controlled reading column. */
+  .otto-view-horen .otto-inner-screen > .animate-fade-in,
+  .otto-view-lesen .otto-inner-screen > .animate-fade-in,
+  .otto-view-schreiben .otto-inner-screen > .animate-fade-in,
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in,
+  .otto-view-mock-exam .otto-inner-screen > .animate-fade-in,
+  .otto-view-errors .otto-inner-screen > .animate-fade-in,
+  .otto-view-readiness .otto-inner-screen > .animate-fade-in,
+  .otto-view-phrases-speaking .otto-inner-screen > .animate-fade-in {
+    width: min(100%, 1180px) !important;
+    margin-inline: auto !important;
+  }
+
+  .otto-view-horen .otto-inner-screen section,
+  .otto-view-schreiben .otto-inner-screen section,
+  .otto-view-sprechen .otto-inner-screen section,
+  .otto-view-mock-exam .otto-inner-screen section {
+    max-width: 1180px;
+  }
+
+  .otto-view-horen .otto-inner-screen img,
+  .otto-view-lesen .otto-inner-screen img,
+  .otto-view-sprechen .otto-inner-screen img {
+    max-height: min(52vh, 560px);
+    object-fit: contain;
+  }
+
+  /* Lesen documents need a comfortable line length even on ultrawide displays. */
+  .otto-view-lesen .otto-inner-screen :is(.max-w-2xl, .max-w-xl) {
+    max-width: 860px !important;
+  }
+
+  /* Writing gets room for prompt + textarea without stretching text endlessly. */
+  .otto-view-schreiben textarea {
+    min-height: 220px;
+  }
+
+  /* Bottom navigation aligns with the desktop canvas, not the old 980px cap. */
+  .telegram-app:not(.otto-view-home) .otto-bottom-nav-inner {
+    width: min(calc(100% - 48px), 1320px) !important;
+    max-width: 1320px !important;
+    margin-inline: auto;
+  }
+}
+
+/* Intermediate widths: tablet / small laptop. */
+@media (min-width: 701px) and (max-width: 1023px) {
+  .otto-app-content,
+  .telegram-app:not(.otto-view-home) .otto-app-content {
+    width: 100% !important;
+    max-width: none !important;
+    padding-inline: clamp(14px, 2.8vw, 28px) !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-page-hero {
+    min-height: 156px !important;
+    padding-right: 180px !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-module-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(100px, 1fr)) !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-settings-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: minmax(130px, auto) !important;
+    overflow: auto !important;
+  }
+
+  .otto-view-horen .otto-inner-screen > .animate-fade-in,
+  .otto-view-lesen .otto-inner-screen > .animate-fade-in,
+  .otto-view-schreiben .otto-inner-screen > .animate-fade-in,
+  .otto-view-sprechen .otto-inner-screen > .animate-fade-in,
+  .otto-view-mock-exam .otto-inner-screen > .animate-fade-in {
+    width: min(100%, 960px) !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* Mobile remains mobile: full available width, touch targets, no accidental horizontal scroll. */
+@media (max-width: 700px) {
+  .otto-app-content,
+  .telegram-app:not(.otto-view-home) .otto-app-content {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .otto-inner-screen,
+  .otto-home-screen,
+  .otto-skin :is(section, article, form, fieldset, textarea, input, img, audio, video) {
+    max-width: 100%;
+  }
+
+  .otto-skin audio,
+  .otto-skin video {
+    width: 100%;
+  }
+
+  .otto-skin textarea,
+  .otto-skin input,
+  .otto-skin select {
+    font-size: 16px; /* avoids iOS zoom and keeps the active field visible */
+  }
+
+  .otto-skin button,
+  .otto-skin [role='button'] {
+    min-height: 44px;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-settings-list {
+    overflow-y: auto !important;
+  }
+}
+
+/* Short viewports: never hide the primary action below a rigid layout. */
+@media (max-height: 720px) {
+  .otto-home-screen,
+  .otto-dashboard-screen {
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+
+  .otto-dashboard-screen {
+    height: auto !important;
+    min-height: 100% !important;
+    display: block !important;
+    padding-bottom: 12px !important;
+  }
+
+  .otto-dashboard-screen > * + * {
+    margin-top: 10px !important;
+  }
+
+  .otto-inner-screen {
+    overflow-y: auto !important;
+    padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .telegram-app:not(.otto-view-home) .otto-hub-screen,
+  .otto-settings-screen {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-y: visible !important;
+  }
+}
+
+/* Standalone auth/onboarding/profile/legal/subscription screens rendered outside the app shell.
+   Keep mobile compact, but give desktop a real two-dimensional page footprint. */
+@media (min-width: 900px) {
+  main.otto-responsive-auth,
+  main.otto-responsive-profile,
+  main.otto-responsive-legal,
+  main.otto-responsive-subscription {
+    padding-inline: clamp(32px, 6vw, 96px) !important;
+  }
+
+  main.otto-responsive-auth > div,
+  main.otto-responsive-profile > div,
+  main.otto-responsive-legal > div {
+    width: min(100%, 980px) !important;
+    max-width: 980px !important;
+  }
+
+  main.otto-responsive-subscription > section {
+    max-width: 1180px !important;
+  }
+}
+
+/* Dialog safety on small/short screens. */
+@media (max-width: 700px), (max-height: 680px) {
+  [role='dialog'] {
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .otto-view-home .otto-dashboard-existing {
+    width: min(100%, 1180px);
+    margin-inline: auto;
+    padding-inline: 2px;
+  }
+
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero {
+    min-height: 220px;
+    padding: 28px 34px !important;
+  }
+
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero > div:first-child {
+    max-width: 720px !important;
+  }
+
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero .otto-scene {
+    height: 300px !important;
+    right: 24px !important;
+    bottom: -92px !important;
+  }
+
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-module-card {
+    min-height: 138px !important;
+    padding: 18px !important;
+  }
+}
+
+
+/* Secondary desktop compositions: preserve the same cards/content, only redistribute them. */
+@media (min-width: 1100px) {
+  .otto-view-settings .otto-settings-screen {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: max-content !important;
+    align-content: start !important;
+    gap: 16px !important;
+    overflow-y: auto !important;
+  }
+
+  .otto-view-settings .otto-settings-screen > .otto-page-hero,
+  .otto-view-settings .otto-settings-screen > .otto-support-reply-card {
+    grid-column: 1 / -1;
+  }
+
+  .otto-view-settings .otto-settings-screen > section {
+    margin-top: 0 !important;
+    height: auto;
+  }
+
+  .otto-view-account .otto-hub-screen {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: max-content !important;
+    align-content: start !important;
+    gap: 16px !important;
+    overflow-y: auto !important;
+  }
+
+  .otto-view-account .otto-hub-screen > .otto-page-hero,
+  .otto-view-account .otto-hub-screen > .otto-account-card {
+    grid-column: 1 / -1;
+  }
+
+  .otto-view-account .otto-hub-screen > section {
+    margin-top: 0 !important;
+  }
+
+  .otto-view-account .otto-account-card {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    padding: 16px !important;
+  }
+
+  .otto-view-account .otto-account-stat {
+    min-height: 108px !important;
+  }
+
+  .otto-view-readiness .otto-readiness-screen {
+    width: min(100%, 1120px) !important;
+    max-width: 1120px !important;
+  }
+
+  .otto-view-readiness .otto-readiness-screen > section.mt-5.grid,
+  .otto-view-readiness .otto-readiness-screen > section.mt-6.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .otto-view-news .otto-inner-screen > .animate-fade-in,
+  .otto-view-support .otto-inner-screen > .animate-fade-in,
+  .otto-view-instructions .otto-inner-screen > .animate-fade-in,
+  .otto-view-exam-guide .otto-inner-screen > .animate-fade-in,
+  .otto-view-how-to-train .otto-inner-screen > .animate-fade-in,
+  .otto-view-reference .otto-inner-screen > .animate-fade-in,
+  .otto-view-daily-training .otto-inner-screen > .animate-fade-in {
+    width: min(100%, 1180px) !important;
+    margin-inline: auto !important;
+  }
+
+  .otto-support-create-sheet,
+  .otto-support-dialog {
+    max-width: 860px !important;
+  }
+}
+
+/* Modal/sheet viewport safety on phones and short laptop windows. */
+.otto-support-modal-layer {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.otto-support-create-sheet,
+.otto-support-dialog {
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.otto-support-dialog .otto-support-message-list {
+  min-height: 0;
+}
+
+@media (max-width: 700px) {
+  .otto-support-create-sheet,
+  .otto-support-dialog {
+    max-height: calc(100dvh - env(safe-area-inset-top) - 8px);
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  .otto-support-dialog {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .otto-view-settings .otto-settings-screen,
+  .otto-view-account .otto-hub-screen {
+    display: block !important;
+  }
+
+  .otto-view-settings .otto-settings-screen > section,
+  .otto-view-account .otto-hub-screen > section {
+    margin-top: 16px !important;
+  }
+
+  .otto-view-settings .otto-settings-screen > .otto-page-hero,
+  .otto-view-account .otto-hub-screen > .otto-page-hero {
+    margin-top: 0 !important;
+  }
+}
+
+/* Extra-short mobile screens and open virtual keyboard: content must remain reachable. */
+@media (max-width: 700px) and (max-height: 620px) {
+  .otto-app-content {
+    height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom)) !important;
+  }
+
+  .otto-inner-screen {
+    padding-bottom: 24px !important;
+  }
+
+  .otto-support-dialog-footer,
+  .otto-skin [class*="sticky"][class*="bottom-0"] {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+  }
+}
+
+
+/* Integrated learning mode has no bottom navigation; use the full viewport. */
+.otto-preview-learning-mode .otto-app-content {
+  height: 100dvh !important;
+  padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+}
+
+.otto-preview-learning-mode .otto-inner-screen {
+  padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+}
+
+@media (min-width: 1024px) {
+  .otto-preview-learning-mode .otto-app-content {
+    max-width: 1440px !important;
+  }
+}
+
+
+/* New preview controls must stay readable in every interaction state. */
+.otto-preview-mode-choice button,
+.otto-preview-learning-mode button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.otto-preview-mode-choice button:focus-visible,
+.otto-preview-learning-mode button:focus-visible {
+  outline: 3px solid #0f766e;
+  outline-offset: 3px;
+}
+
+.otto-preview-mode-choice button:disabled,
+.otto-preview-learning-mode button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  .otto-preview-learning-mode button:not(:disabled):hover {
+    filter: brightness(.985);
+  }
+}
+
+.otto-preview-learning-mode button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+
+/* Preview-only contrast corrections. The global OTTO palette remaps Tailwind teal fills
+   for existing production pages; learning preview needs explicit readable secondary actions. */
+.otto-preview-learning-mode button[class~="bg-teal-50"] {
+  background: #ECFDF5 !important;
+  border-color: #99F6E4 !important;
+  color: #134E4A !important;
+  box-shadow: none !important;
+}
+.otto-preview-learning-mode button[class~="bg-teal-50"]:not(:disabled):hover {
+  background: #D1FAE5 !important;
+  color: #0F3D3A !important;
+}
+.otto-preview-learning-mode button[class~="bg-white"] {
+  color: #0F172A !important;
+}
+.otto-preview-learning-mode button:disabled {
+  opacity: .72;
+}
+
+
+/* Preview critical-route contrast and helper sizing */
+.otto-preview-mode-card,
+.otto-preview-mode-card * {
+  color: #0f172a !important;
+}
+
+.otto-preview-mode-card-learning {
+  background: #ecfdf5 !important;
+  border-color: #5eead4 !important;
+}
+
+.otto-preview-mode-card-training {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+}
+
+.otto-preview-mode-card:hover,
+.otto-preview-mode-card:focus-visible {
+  color: #0f172a !important;
+}
+
+.otto-preview-mode-card:disabled {
+  color: #475569 !important;
+  opacity: .58;
+}
+
+.otto-preview-learning-mode button[class*="bg-white"] {
+  color: #0f172a !important;
+}
+
+.otto-preview-learning-mode button[class*="bg-teal-50"] {
+  color: #134e4a !important;
+}
+
+.otto-preview-learning-mode button[class*="bg-amber-50"] {
+  color: #78350f !important;
+}
+
+.otto-preview-learning-mode button[class*="bg-slate-900"] {
+  color: #ffffff !important;
+}
+
+.otto-preview-learning-mode button:focus-visible {
+  outline: 3px solid rgba(20,184,166,.30);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .otto-preview-learning-mode .otto-inner-screen {
+    padding-inline: 12px !important;
+  }
+
+  .otto-preview-learning-mode .otto-inner-screen > div {
+    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Preview 13 responsive audit: reserve an unobstructed rail for the EXISTING
+   floating reference/smart-card buttons. This changes layout only; the controls,
+   content, colors, OTTO assets and module behavior stay exactly the same. */
+@media (min-width: 701px) {
+  .telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) .otto-app-content {
+    height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom) - 90px) !important;
+  }
+}
+@media (max-width: 700px) {
+  /* Use the full space above bottom navigation; reserve the shortcut rail
+     INSIDE the scrollable canvas, instead of blanking 90px of the viewport. */
+  .telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) .otto-app-content {
+    height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom)) !important;
+  }
+  .telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) .otto-inner-screen {
+    padding-bottom: max(104px, calc(env(safe-area-inset-bottom) + 94px)) !important;
+    scroll-padding-bottom: 104px;
+  }
+}
+
+.telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) > [aria-label="Быстрый доступ OTTO"] {
+  bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 11px) !important;
+}
+
+/* Learning mode now renders the shared bottom navigation. Its smart-card
+   shortcut must stay above that dock instead of being hidden underneath. */
+.telegram-app.otto-preview-learning-mode .otto-app-content {
+  height: calc(100dvh - env(safe-area-inset-bottom) - 92px) !important;
+}
+.telegram-app.otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] {
+  bottom: calc(var(--otto-nav-height, 66px) + env(safe-area-inset-bottom, 0px) + 12px) !important;
+}
+
+/* The reference overlay is a full-screen working surface. A generic dialog
+   max-height rule must not shorten it or hide its header / close controls. */
+.otto-reference-overlay[role='dialog'] {
+  width: 100%;
+  max-width: 100vw !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+.otto-reference-overlay > div {
+  min-width: 0;
+  min-height: 0;
+}
+.otto-reference-overlay main {
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* One-row reference toolbar: task return + bookmark and close.
+   The previous four-child grid forced the current two-child toolbar to wrap. */
+@media (max-width: 640px) {
+  .otto-reference-overlay-header {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding-top: max(6px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: 6px !important;
+    padding-inline: 8px !important;
+  }
+  .otto-reference-overlay-header > :first-child {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .otto-reference-overlay-header > :last-child {
+    display: flex;
+    flex: 0 0 auto;
+    width: auto;
+    gap: 6px;
+  }
+}
+
+/* The old full-bleed headers of exam/trainer screens extended six pixels
+   outside the scrollport. Make this the inner-screen's own inline gutter,
+   so no text or buttons are clipped at 320px or at desktop widths. */
+.telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) .otto-inner-screen {
+  padding-inline: 6px !important;
+}
+.telegram-app.otto-preview-learning-mode .otto-app-content {
+  min-height: 0 !important;
+  max-height: calc(100dvh - env(safe-area-inset-bottom) - 92px) !important;
+}
+.telegram-app.otto-preview-learning-mode .otto-inner-screen {
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* Preview 13: compact, readable reference tables on real mobile devices.
+   Scoped to the NEW OTTO Reference; desktop geometry stays unchanged. */
+@media (max-width: 640px) {
+  .otto-reference-smart-heading {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+  .otto-reference-smart-heading :is(h2, h3),
+  .otto-reference-combo-toggle button > span,
+  .otto-reference-table :is(th, td),
+  .otto-reference-combo-table :is(th, td) {
+    hyphens: none !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+  .otto-reference-combo-toggle {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start !important;
+    gap: 6px !important;
+  }
+  .otto-reference-combo-toggle > button {
+    width: 100%;
+    min-width: 0;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .otto-reference-combo-toggle > button > span {
+    min-width: 0;
+    flex: 1 1 auto;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .otto-reference-combo-toggle > span {
+    width: max-content;
+    max-width: 100%;
+    justify-self: start;
+  }
+  .otto-reference-table,
+  .otto-reference-combo-table {
+    max-width: 100%;
+  }
+  .otto-reference-table[data-columns="2"] > table,
+  .otto-reference-table[data-columns="3"] > table,
+  .otto-reference-combo-table > table {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .otto-reference-table[data-columns="2"] :is(th, td),
+  .otto-reference-table[data-columns="3"] :is(th, td),
+  .otto-reference-combo-table :is(th, td) {
+    padding: 6px 8px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    vertical-align: middle;
+  }
+  .otto-reference-table :is(th, td),
+  .otto-reference-combo-table :is(th, td) {
+    line-height: 1.45 !important;
+  }
+  /* Global mobile button min-height: 52px used to inflate every table row.
+     Keep the 36px audio control fully visible without forcing empty cell space. */
+  .otto-reference-table button[aria-label^="Озвучить"],
+  .otto-reference-combo-table button[aria-label^="Озвучить"] {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
+    flex: 0 0 36px !important;
+  }
+  .otto-reference-table td > div,
+  .otto-reference-combo-table td > div {
+    gap: 6px !important;
+  }
+  .otto-reference-table td span,
+  .otto-reference-combo-table td span {
+    min-width: 0;
+  }
+  /* Three-column tables: two readable cells, then a full-width examples row.
+     All original values, labels, and audio buttons remain present. */
+  .otto-reference-table[data-columns="3"] > table,
+  .otto-reference-combo-table > table {
+    display: block;
+  }
+  .otto-reference-table[data-columns="3"] :is(thead, tbody),
+  .otto-reference-combo-table :is(thead, tbody) {
+    display: block;
+    width: 100%;
+  }
+  .otto-reference-table[data-columns="3"] tr,
+  .otto-reference-combo-table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    width: 100%;
+  }
+  .otto-reference-table[data-columns="3"] tr > :nth-child(3),
+  .otto-reference-combo-table tr > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .otto-reference-table[data-columns="3"] thead th:nth-child(3),
+  .otto-reference-combo-table thead th:nth-child(3) {
+    display: none;
+  }
+  .otto-reference-table[data-columns="3"] tbody td:nth-child(3),
+  .otto-reference-combo-table tbody td:nth-child(3) {
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-table[data-columns="3"] tbody td:nth-child(3):not([data-label=""])::before,
+  .otto-reference-combo-table tbody td:nth-child(3)::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+  }
+  .otto-reference-table[data-columns="3"] tbody td:nth-child(3):not([data-label=""])::before {
+    content: attr(data-label);
+  }
+  .otto-reference-combo-table td:nth-child(3) > div > div {
+    flex-wrap: wrap;
+    gap: 4px 8px !important;
+  }
+}
+
+/* Mobile reference only: unlabeled example pairs and noun vocabulary.
+   Preserve every example, translation, speaker button and desktop table layout.
+   The original generic 30/70 split squeezed German words into tiny cells. */
+@media (max-width: 640px) {
+  .otto-reference-table[data-unlabeled-examples="true"] > table,
+  .otto-reference-table[data-noun-vocabulary="true"] > table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] thead {
+    display: none;
+  }
+  /* The noun-table headers remain available to assistive technologies. */
+  .otto-reference-table[data-noun-vocabulary="true"] thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody,
+  .otto-reference-table[data-noun-vocabulary="true"] tbody,
+  .otto-reference-table[data-unlabeled-examples="true"] tbody tr,
+  .otto-reference-table[data-noun-vocabulary="true"] tbody tr {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody td,
+  .otto-reference-table[data-noun-vocabulary="true"] tbody td {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 10px !important;
+    white-space: normal !important;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody td + td {
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody td[data-empty="true"] {
+    display: none !important;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody td > div,
+  .otto-reference-table[data-noun-vocabulary="true"] tbody td > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px !important;
+    min-width: 0;
+  }
+  .otto-reference-table[data-unlabeled-examples="true"] tbody td > div > span,
+  .otto-reference-table[data-noun-vocabulary="true"] tbody td > div > span {
+    flex: 1 1 140px;
+    min-width: 0;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+  .otto-reference-table[data-noun-vocabulary="true"] tbody td:first-child {
+    padding-bottom: 3px !important;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .otto-reference-table[data-noun-vocabulary="true"] tbody td:last-child {
+    padding-top: 3px !important;
+    color: #475569;
+  }
+}
+
+/* Readable mobile vocabulary and question lists: no narrow 30% cells.
+   Keep all labels and speaker controls, and leave desktop tables intact. */
+@media (max-width: 640px) {
+  .otto-reference-table[data-verb-vocabulary="true"] > table,
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) > table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) thead {
+    display: none !important;
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody,
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody tr {
+    display: block !important;
+    width: 100% !important;
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody td {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 10px !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody td + td {
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody td > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    gap: 8px !important;
+  }
+  .otto-reference-table[data-columns="2"]:not([data-numbers="true"]):not([data-unlabeled-examples="true"]) tbody td > div > span {
+    min-width: 0;
+    flex: 1 1 155px;
+    word-break: normal !important;
+    white-space: normal !important;
+  }
+}
+
+/* Smart-card excerpts are narrower than the full Reference overlay. On mobile
+   let tables become readable vertical rows instead of squeezing translations
+   and speech buttons into ~90px cells. No values, audio or PDF content change. */
+@media (max-width: 640px) {
+  .otto-reference-smartcard-embedded {
+    width: 100%;
+    min-width: 0;
+  }
+  .otto-reference-smartcard-embedded > section {
+    padding: 8px !important;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] > table,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] > table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] :is(thead, tbody),
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] :is(thead, tbody) {
+    display: block;
+    width: 100%;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] thead,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] thead {
+    display: none;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] tr,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] td,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] td {
+    display: block;
+    grid-column: 1 / -1;
+    width: 100% !important;
+    min-width: 0;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] td + td,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] td + td {
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="2"] td:not([data-label=""])::before,
+  .otto-reference-smartcard-embedded .otto-reference-table[data-columns="3"] td:not([data-label=""])::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+  }
+  .otto-reference-smartcard-embedded .otto-reference-table :is(td, th) {
+    overflow-wrap: break-word !important;
+    hyphens: manual !important;
+  }
+}
+
+
+/* Preview 13 preproduction: row cards for 4–5-column Reference tables. */
+@media (max-width: 640px) {
+  .otto-reference-table[data-columns="4"],
+  .otto-reference-table[data-columns="5"] {
+    overflow-x: visible !important;
+  }
+  .otto-reference-table[data-columns="4"] > table,
+  .otto-reference-table[data-columns="5"] > table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+  }
+  .otto-reference-table[data-columns="4"] thead,
+  .otto-reference-table[data-columns="5"] thead {
+    display: none;
+  }
+  .otto-reference-table[data-columns="4"] tbody,
+  .otto-reference-table[data-columns="5"] tbody {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 9px;
+    width: 100%;
+  }
+  .otto-reference-table[data-columns="4"] tbody tr,
+  .otto-reference-table[data-columns="5"] tbody tr {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--otto-line);
+    border-radius: 12px;
+    background: white;
+  }
+  .otto-reference-table[data-columns="4"] tbody td,
+  .otto-reference-table[data-columns="5"] tbody td {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 10px !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+  .otto-reference-table[data-columns="4"] tbody td + td,
+  .otto-reference-table[data-columns="5"] tbody td + td {
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-table[data-columns="4"] tbody td::before,
+  .otto-reference-table[data-columns="5"] tbody td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #475569;
+  }
+  .otto-reference-table[data-columns="4"] tbody td > div,
+  .otto-reference-table[data-columns="5"] tbody td > div {
+    flex-wrap: wrap;
+  }
+  /* Keep long German numbers next to (or just above) their audio controls. */
+  .otto-reference-table[data-columns="2"] td[data-label="Немецкий"] > div {
+    flex-wrap: wrap;
+  }
+  .otto-reference-table[data-columns="2"] td[data-label="Немецкий"] span {
+    flex: 1 1 130px;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    white-space: normal !important;
+  }
+}
+
+/* Preview 13: move floating shortcuts away while the user types on mobile. */
+@media (max-width: 640px) {
+  /* Keyboard focus takes priority over nonessential fixed shortcuts. */
+  .telegram-app:has(input:focus) > div[aria-label="Быстрый доступ OTTO"],
+  .telegram-app:has(textarea:focus) > div[aria-label="Быстрый доступ OTTO"],
+  .telegram-app:has([contenteditable="true"]:focus) > div[aria-label="Быстрый доступ OTTO"] {
+    display: none !important;
+  }
+  .telegram-app > div[aria-label="Быстрый доступ OTTO"] {
+    left: auto !important;
+    right: max(10px, env(safe-area-inset-right, 0px)) !important;
+    bottom: calc(var(--otto-nav-height, 72px) + env(safe-area-inset-bottom, 0px) + 8px) !important;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .telegram-app > div[aria-label="Быстрый доступ OTTO"] button {
+    width: 42px;
+    height: 42px;
+    min-height: 42px !important;
+    min-width: 42px !important;
+  }
+}
+
+/* Legal consent lives outside the app shell. The global document scroll is
+   disabled, so this exact screen needs its own reachable scrollport. */
+main.otto-responsive-legal {
+  box-sizing: border-box;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  scroll-padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+main.otto-responsive-legal > [role="presentation"] {
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+main.otto-responsive-legal [role="dialog"] {
+  max-height: 100% !important;
+  overflow: hidden !important;
+}
+main.otto-responsive-legal [role="dialog"] > div:nth-child(2) {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Preserve the existing auto-fit full/basic grids, icons and navbar height.
+   Allow longer labels to use two lines rather than ellipsis on small phones. */
+@media (max-width: 700px) {
+  .telegram-app .otto-bottom-nav-inner {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+  }
+  .telegram-app .otto-bottom-nav-item {
+    font-size: clamp(10px, 2.6vw, 11px) !important;
+    line-height: 1.15 !important;
+  }
+  .telegram-app .otto-bottom-nav-item > span:last-child {
+    display: block;
+    width: 100%;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal;
+    line-height: 1.15 !important;
+    font-size: inherit !important;
+    text-align: center;
+  }
+  /* Don't place a focused input underneath fixed buttons or the bottom bar. */
+  .otto-inner-screen :is(input, textarea, select) {
+    scroll-margin-bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 16px);
+  }
+}
+
+/* Lift only the Home caption a couple of pixels off the mobile gesture line. */
+@media (max-width: 700px) {
+  .otto-preview-learning-mode .otto-bottom-nav-item.is-home > span:last-child {
+    transform: translateY(-2px);
+  }
+}
+
+/* Narrow reference tables: preserve readable German compounds and keep
+   their audio button reachable, without forcing both into a single thin row. */
+@media (max-width: 360px) {
+  .otto-reference-table[data-columns="2"] td[data-label="Немецкий"] > div {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+  .otto-reference-table[data-columns="2"] td[data-label="Немецкий"] span {
+    flex: 1 1 160px;
+    min-width: min(100%, 160px);
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: manual;
+  }
+}
+
+/* Show a reversible compact learning menu on both desktop and mobile.
+   Keeping this rule outside media queries avoids wide-screen overflow,
+   desktop browser zoom issues and tablet viewports that report >700px. */
+.otto-preview-learning-mode .otto-learning-menu-toggle { display:inline-flex; }
+.otto-preview-learning-mode .otto-learning-topbar-actions[data-collapsed="true"] {
+  display:none !important;
+}
+/* On wide viewports, the toolbar must wrap before it squeezes the learning
+   title into a one-letter-wide column. Keep the phone menu rules unchanged. */
+@media (min-width: 701px) {
+  .otto-preview-learning-mode .otto-learning-topbar-heading {
+    flex: 1 1 280px;
+    min-width: 275px;
+  }
+  .otto-preview-learning-mode .otto-learning-topbar-heading :is(.otto-kicker, b) {
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .otto-preview-learning-mode .otto-learning-topbar-actions {
+    flex: 1 1 760px;
+    min-width: 0;
+  }
+}
+/* Learning hub card geometry is owned by LearningModulesHub at phone widths. */
+@media (max-width: 700px) {
+  .otto-preview-learning-mode .otto-learning-topbar { gap: 9px; padding: 11px; border-radius: 18px; }
+  .otto-preview-learning-mode .otto-learning-topbar > div:first-child { min-width: 0; }
+  .otto-preview-learning-mode .otto-learning-topbar > div:first-child > div { min-width: 0; }
+  .otto-preview-learning-mode .otto-learning-topbar b { display: block; font-size: 16px; line-height: 1.35; hyphens: none; word-break: normal; }
+  .otto-preview-learning-mode .otto-learning-topbar .otto-kicker { font-size: 11px; }
+  .otto-preview-learning-mode .otto-learning-topbar-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 8px; }
+  .otto-preview-learning-mode .otto-learning-topbar-actions > button { min-width: 0; min-height: 48px; padding: 9px 10px; font-size: 14px; line-height: 1.3; white-space: normal; hyphens: none; }
+  .otto-preview-learning-mode .otto-learning-help-button { grid-column: auto; }
+  .otto-preview-learning-mode .otto-learning-menu-toggle { display:inline-flex; }
+  .otto-preview-learning-mode .otto-learning-topbar { align-items:center; padding:8px 10px; gap:7px; }
+  .otto-preview-learning-mode .otto-learning-topbar-heading { flex:1 1 0%; min-width:0; gap:8px; }
+  .otto-preview-learning-mode .otto-learning-topbar-heading > span { width:36px; height:36px; }
+  .otto-preview-learning-mode .otto-learning-topbar-heading b { font-size:14px; line-height:1.3; }
+  .otto-preview-learning-mode .otto-learning-topbar-actions[data-collapsed="true"] { display:none !important; }
+}
+
+
+/* Preview 13 mobile ergonomics: keep existing OTTO assets, content and colors.
+   These adjustments are restricted to phones; desktop layout is untouched. */
+@media (max-width: 700px) {
+  /* The preview-learning app already allocates space for its navigation.
+     Avoid an additional hard-coded 92px height loss on small viewports. */
+  .telegram-app.otto-preview-learning-mode .otto-app-content {
+    max-height: none !important;
+    height: calc(100dvh - env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .telegram-app .otto-home-screen,
+  .telegram-app .otto-inner-screen {
+    min-width: 0;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Module/settings cards need their natural height for real-language copy. */
+  .telegram-app .otto-module-list,
+  .telegram-app .otto-settings-list {
+    min-width: 0;
+    align-content: start;
+  }
+  .telegram-app .otto-module-row,
+  .telegram-app .otto-setting-row {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .telegram-app .otto-module-row :is(strong, small),
+  .telegram-app .otto-setting-row :is(strong, small) {
+    white-space: normal;
+    word-break: normal;
+    hyphens: none;
+    line-height: 1.35;
+  }
+
+  /* Keep long reference explanations visible without shrinking entire columns. */
+  .otto-reference-table :is(th, td) {
+    min-width: 0;
+    word-break: normal;
+    hyphens: none;
+  }
+  .otto-reference-table :is(th, td) :is(button, svg) {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Former 10px labels made important dashboard controls hard to read. */
+  .otto-dashboard-screen .otto-progress-link > span:last-of-type {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    white-space: normal;
+  }
+  .otto-dashboard-screen .otto-exam-button {
+    min-height: 48px !important;
+    height: auto !important;
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    white-space: normal;
+    text-align: center;
+  }
+  .otto-dashboard-screen .otto-exam-cta {
+    min-height: 70px;
+    height: auto;
+  }
+  .otto-dashboard-screen .otto-exam-cta p {
+    white-space: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+}
+
+
+/* Use natural phone scrolling, not a permanent 104px blank bottom rail.
+   The fixed shortcuts remain above navigation and can overlap whitespace
+   only after the final content (a modest 16px scroll clearance). */
+@media (max-width: 700px) {
+  .telegram-app.otto-app-shell:not(.otto-view-home):not(.otto-preview-learning-mode) .otto-inner-screen {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+    scroll-padding-bottom: 16px !important;
+  }
+  .telegram-app.otto-preview-learning-mode .otto-app-content {
+    height: calc(100dvh - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: none !important;
+  }
+  .otto-preview-learning-mode .otto-inner-screen > div {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+  /* Avoid mid-word breaks caused by inherited utility styles; let text use
+     the available width before wrapping at ordinary word boundaries. */
+  .telegram-app :is(.otto-page-hero, .otto-module-row, .otto-setting-row, .otto-learning-topbar)
+    :is(h1, h2, h3, h4, p, strong, small, b, span) {
+    min-width: 0;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+  .telegram-app :is(.otto-module-row, .otto-setting-row, .otto-learning-topbar) > * {
+    min-width: 0;
+  }
+}
+
+
+/* Reference home: single centered next action, no overlapping floating rail. */
+.otto-reference-entry-next { display:flex; justify-content:center; margin:18px auto 24px; padding:0 12px; }
+.otto-reference-entry-next > div { margin:0; justify-content:center; width:100%; }
+.otto-reference-entry-next button { min-height:52px; justify-content:center; width:min(100%,420px); }
+@media (max-width:700px) {
+  .otto-reference-entry-home { padding-bottom:12px; }
+  .otto-reference-entry-next { display:none; }
+  .telegram-app.otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] { gap:10px; }
+  .telegram-app.otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] button { max-width:48px; max-height:48px; }
+}
+
+
+/* Keep bottom-left OTTO shortcuts separate from Reference topic controls. */
+@media (max-width: 700px) {
+  .otto-reference-topic-page { padding-bottom: 12px; }
+  .otto-reference-topic-page > nav { margin-inline: 0; margin-bottom: 16px; }
+  .otto-reference-entry-next { display:none; }
+  .otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] { left: auto !important; right: max(10px, env(safe-area-inset-right, 0px)) !important; bottom: max(18px, env(safe-area-inset-bottom, 0px)) !important; flex-direction: column !important; }
+  .otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] button { width: 48px !important; height: 48px !important; }
+}
+@media (max-width: 360px) {
+  .otto-reference-topic-page > nav { grid-template-columns: minmax(0,1fr); }
+}
+
+
+/* Preview 13: targeted layout repair from real Android reference screenshots.
+   The Otto asset, lesson wording, audio logic and palette are unchanged. */
+.otto-reference-number-listening {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.otto-reference-number-listening-intro .otto-scene {
+  width: 80px !important;
+  height: 100px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+  flex: 0 0 80px !important;
+  object-fit: contain;
+}
+.otto-reference-number-listening-intro > div {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .otto-reference-number-listening-intro {
+    width: 100%;
+    min-width: 0;
+  }
+  .otto-reference-number-listening-intro .otto-scene {
+    width: 76px !important;
+    height: 95px !important;
+    min-width: 76px !important;
+    max-width: 76px !important;
+    flex-basis: 76px !important;
+  }
+  .otto-reference-number-listening :is(h2, p, label) {
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .otto-reference-number-listening input,
+  .otto-reference-number-listening button {
+    max-width: 100%;
+  }
+
+  /* Number, German word and its audio control stay in one readable row. */
+  .otto-reference-table[data-numbers="true"] {
+    width: 100%;
+    max-width: 580px;
+    margin-inline: auto;
+    overflow-x: hidden;
+  }
+  .otto-reference-table[data-numbers="true"] > table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed;
+  }
+  .otto-reference-table[data-numbers="true"] :is(th:first-child, td:first-child) {
+    width: 26% !important;
+    text-align: center;
+  }
+  .otto-reference-table[data-numbers="true"] :is(th:nth-child(2), td:nth-child(2)) {
+    width: 74% !important;
+    text-align: left;
+  }
+  .otto-reference-table[data-numbers="true"] td[data-label="Немецкий"] > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 0;
+    width: 100%;
+    gap: 6px !important;
+  }
+  .otto-reference-table[data-numbers="true"] td[data-label="Немецкий"] span {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+  .otto-reference-table[data-numbers="true"] td[data-label="Немецкий"] button {
+    flex: 0 0 36px !important;
+  }
+
+  /* Phonetics: each combination is one card; examples and audio below it. */
+  .otto-reference-combo-table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+  .otto-reference-combo-table > table {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+  }
+  .otto-reference-combo-table thead {
+    display: none !important;
+  }
+  .otto-reference-combo-table tbody {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    gap: 10px;
+    padding: 8px;
+  }
+  .otto-reference-combo-table tbody tr {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--otto-line);
+    border-radius: 12px;
+    background: white;
+  }
+  .otto-reference-combo-table tbody tr td {
+    min-width: 0 !important;
+    padding: 9px !important;
+    overflow-wrap: break-word !important;
+    hyphens: none;
+    word-break: normal;
+  }
+  .otto-reference-combo-table tbody tr td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    color: var(--otto-muted);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .otto-reference-combo-table tbody tr td:nth-child(3) {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--otto-line);
+  }
+  .otto-reference-combo-table td:nth-child(3) > div > div {
+    display: flex;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 8px !important;
+  }
+  .otto-reference-combo-table td:nth-child(3) > div > div > span {
+    min-width: 0;
+    flex: 1 1 0;
+    overflow-wrap: break-word;
+  }
+  .otto-reference-combo-table td:nth-child(3) button {
+    flex: 0 0 36px !important;
+  }
+}
+
+
+/* Narrowest Android viewports: reduce only spacing of phonetic reference
+   cards, retaining all examples, labels and playback controls. */
+@media (max-width: 640px) {
+  .otto-reference-combo-table tbody {
+    gap: 7px !important;
+    padding: 7px !important;
+  }
+  .otto-reference-combo-table tbody tr td {
+    padding: 6px 8px !important;
+    line-height: 1.35 !important;
+  }
+  .otto-reference-combo-table tbody tr td::before {
+    margin-bottom: 2px !important;
+    line-height: 1.25 !important;
+  }
+  .otto-reference-combo-table tbody tr td:nth-child(3) > div {
+    display: grid;
+    gap: 2px !important;
+  }
+  .otto-reference-combo-table tbody tr td:nth-child(3) > div > div {
+    min-height: 34px;
+  }
+  .otto-reference-combo-table button[aria-label^="Озвучить"] {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    flex: 0 0 34px !important;
+  }
+}
+
+/* OTTO reference shortcuts are absent on the Reference screens. On actual
+   exercises reserve space for them inside the scrollable lesson, never over text. */
+@media (max-width: 700px) {
+  .otto-preview-learning-mode:has(> [aria-label="Быстрый доступ OTTO"]) .otto-inner-screen > div {
+    padding-bottom: max(110px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .otto-reference-topic-page > nav button { min-height: 48px; }
+  .otto-preview-learning-mode .otto-reference-training-button,
+  .otto-preview-learning-mode .otto-reference-resume-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+  }
+}
+
+/* Preview 13 phone-only alignment: mode control gets its own flow row so that
+   it never covers the existing resume control or page headings. */
+@media (max-width: 700px) {
+  .telegram-app.otto-app-shell > .otto-preview-quick-learn {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    display: flex;
+    width: max-content;
+    max-width: calc(100% - 24px);
+    margin: 8px 12px 10px auto;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+  }
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero {
+    min-height: 162px;
+  }
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero > div:first-child {
+    max-width: calc(100% - 115px);
+  }
+  .otto-view-home .otto-dashboard-existing .otto-dashboard-hero .otto-scene {
+    height: 145px !important;
+    right: -6px !important;
+    bottom: -42px !important;
+    width: auto;
+  }
+  .otto-bottom-nav-inner .otto-bottom-nav-item {
+    min-width: 0;
+  }
+  .otto-bottom-nav-inner .otto-bottom-nav-item > span:last-child {
+    font-size: clamp(10px, 2.7vw, 12px);
+    line-height: 1.2;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+}
+
+/* Preview 13 movable mobile mode controls: desktop keeps its existing layout. */
+@media (max-width: 700px) {
+  .telegram-app.otto-app-shell > .otto-preview-quick-learn,
+  .telegram-app.otto-app-shell .otto-training-resume-slot > .otto-draggable-mode-action {
+    position: fixed !important;
+    inset: auto !important;
+    left: var(--otto-floating-x) !important;
+    top: var(--otto-floating-y) !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    z-index: 110 !important;
+    width: max-content;
+    max-width: calc(100vw - 16px);
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 13px;
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+  }
+  .telegram-app.otto-app-shell .otto-draggable-mode-action:active { cursor: grabbing; }
+  .telegram-app.otto-app-shell .otto-training-resume-slot {
+    height: 0;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width:700px) {
+  /* The home screen needs only the learn control, not the resume action. */
+  .otto-view-home .otto-training-resume-slot { display:none !important; }
+}
+
+/* Compact space for movable learning access; mobile dashboard only. */
+@media (max-width: 700px) {
+  .otto-view-home .otto-dashboard-existing { padding-top: 58px; }
+}
+
+/* Preview 13: German tiles remain complete; controls take a new row on small screens. */
+.otto-preview-learning-mode :is(.otto-build-word-tile,.otto-build-selected-tile) {
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  width: max-content;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+.otto-preview-learning-mode .otto-build-choice-row {
+  min-width: 0;
+}
+.otto-preview-learning-mode .otto-build-word-actions {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.otto-preview-learning-mode .otto-learning-teil-return {
+  grid-column: 1 / -1;
+}
+@media (max-width: 639px) {
+  .otto-preview-learning-mode .otto-learning-topbar-actions > button {
+    min-width: 0;
+    width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+  .otto-preview-learning-mode .otto-build-choice-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .otto-preview-learning-mode .otto-build-word-tile {
+    align-self: flex-start;
+    min-height: 44px;
+  }
+  .otto-preview-learning-mode .otto-build-word-actions {
+    width: 100%;
+    flex: 0 1 auto;
+    gap: 8px;
+  }
+  .otto-preview-learning-mode .otto-build-word-actions > * {
+    max-width: 100%;
+  }
+}
+
+/* Keep the approved bottom-left dock everywhere except the narrow Horen
+   exercise. Its fixed Check action occupies that corner at 320px. */
+@media (max-width: 350px) {
+  body:has(.otto-view-horen) [aria-label="Быстрый доступ OTTO"] {
+    top: calc(env(safe-area-inset-top, 0px) + 92px);
+    bottom: auto;
+  }
+}
+
+/* Preview 13: keep original reference quick actions above the action row on
+   mock-exam, Horen and Lesen screens. The drag-to-move learning button and
+   reference modal retain their existing behavior. */
+@media (max-width: 700px) {
+  .telegram-app.otto-app-shell:is(.otto-view-mock-exam,.otto-view-horen,.otto-view-lesen)
+    > div[aria-label="Быстрый доступ OTTO"] {
+    top: calc(env(safe-area-inset-top, 0px) + 118px) !important;
+    bottom: auto !important;
+    left: max(10px, env(safe-area-inset-left, 0px)) !important;
+    right: auto !important;
+  }
+}
+
+/* Preview 13: on the three action-heavy work screens, the two Reference
+   shortcuts live in the normal scrollport above the task instead of covering
+   bottom buttons at arbitrary scroll positions. They remain clickable and are
+   not hidden; other routes keep the approved fixed dock. */
+@media (max-width: 700px) {
+  .otto-reference-workarea-dock {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 0 14px;
+    min-height: 44px;
+  }
+  .otto-reference-workarea-dock > [aria-label="Быстрый доступ OTTO"] {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    flex-direction: row !important;
+    gap: 8px;
+  }
+}
+
+/* Preview 20: one shared reference work area for A1 base, Schreiben and Sprechen.
+   Navigation/content changes only; preserve original lesson material and assets. */
+.otto-reference-unified,
+.otto-reference-exam-content,
+.otto-reference-exam-topic,
+.otto-reference-topic-page {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+.otto-reference-unified :is(img,video,svg) { max-width: 100%; }
+.otto-reference-exam-content :is(h2,p,button,span) { overflow-wrap: break-word; }
+.otto-reference-exam-content .otto-reference-topic-button { height: auto; }
+.otto-reference-overlay main .otto-reference-unified { width: 100%; }
+@media (max-width: 639px) {
+  .otto-reference-exam-content nav { gap: 8px; }
+  .otto-reference-exam-content nav button { padding-inline: 8px; }
+}
+
+/* Preview 20 — Учебная база: the bottom dock already owns its height.
+   Keep the seven menu cards in a single scrollport without phantom padding
+   from the old floating-shortcut and nav compensation layers. */
+.telegram-app.otto-preview-learning-mode.otto-study-base-active .otto-app-content {
+  height: calc(100dvh - var(--otto-nav-height, 66px) - env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(100dvh - var(--otto-nav-height, 66px) - env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: 0 !important;
+}
+.telegram-app.otto-preview-learning-mode.otto-study-base-active .otto-inner-screen {
+  padding-bottom: 0 !important;
+  scroll-padding-bottom: 12px;
+}
+.telegram-app.otto-preview-learning-mode.otto-study-base-active .otto-inner-screen > div {
+  padding-bottom: 0 !important;
+}
+.telegram-app.otto-preview-learning-mode.otto-study-base-active [data-testid="otto-study-base-menu"] {
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
+}
+.telegram-app.otto-preview-learning-mode.otto-study-base-active [data-testid="otto-study-base-menu"] > div {
+  align-content: start;
+}
+
+
+/* Preview 20: the grey line was an application-generated ::after gesture
+   imitation. Actual Android/iOS system gesture areas remain untouched. */
+.telegram-app.otto-app-shell {
+  --otto-nav-height: 80px;
+  --otto-bottom-safe: max(env(safe-area-inset-bottom, 0px), var(--tg-content-safe-area-inset-bottom, 0px));
+}
+.telegram-app.otto-app-shell .otto-bottom-nav {
+  box-sizing: border-box !important;
+  height: calc(var(--otto-nav-height) + var(--otto-bottom-safe)) !important;
+  padding: 0 max(6px, env(safe-area-inset-right, 0px)) var(--otto-bottom-safe) max(6px, env(safe-area-inset-left, 0px)) !important;
+}
+.telegram-app.otto-app-shell .otto-bottom-nav-inner {
+  box-sizing: border-box !important;
+  height: var(--otto-nav-height) !important;
+  min-height: var(--otto-nav-height) !important;
+  overflow: hidden !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+.telegram-app.otto-app-shell .otto-bottom-nav-inner::after {
+  content: none !important;
+  display: none !important;
+}
+.telegram-app.otto-app-shell .otto-bottom-nav-item {
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  padding: 6px 2px 9px !important;
+  gap: 3px !important;
+  justify-content: center !important;
+}
+.telegram-app.otto-app-shell .otto-bottom-nav-item > span:last-child {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.12 !important;
+  font-size: clamp(9px, 2.5vw, 11px) !important;
+  text-align: center !important;
+  transform: none !important;
+}
+.telegram-app.otto-app-shell .otto-bottom-nav-icon-slot { flex: 0 0 auto; }
+.telegram-app.otto-preview-learning-mode .otto-learning-topbar {
+  min-height: 0 !important;
+  gap: 0 !important;
+  padding: 8px 12px !important;
+  margin-bottom: 12px !important;
+  flex-wrap: nowrap !important;
+}
+.telegram-app.otto-preview-learning-mode .otto-learning-topbar-heading {
+  min-width: 0 !important;
+  flex: 1 1 100% !important;
+}
+.telegram-app.otto-preview-learning-mode .otto-app-content,
+.telegram-app.otto-preview-learning-mode.otto-study-base-active .otto-app-content {
+  height: calc(100dvh - var(--otto-nav-height) - var(--otto-bottom-safe)) !important;
+  max-height: calc(100dvh - var(--otto-nav-height) - var(--otto-bottom-safe)) !important;
+  min-height: 0 !important;
+}
+.telegram-app.otto-app-shell:not(.otto-preview-learning-mode):not(.otto-view-home) > [aria-label="Быстрый доступ OTTO"],
+.telegram-app.otto-preview-learning-mode > [aria-label="Быстрый доступ OTTO"] {
+  bottom: calc(var(--otto-nav-height) + var(--otto-bottom-safe) + 12px) !important;
+}
+@media (max-width: 700px) {
+  .telegram-app.otto-app-shell .otto-bottom-nav-item > span:last-child {
+    font-size: clamp(9px, 2.35vw, 10.5px) !important;
+  }
+}
+
+/* PR 20: reference-only navigation below the informational header.
+   No global application spacing is changed. */
+.otto-reference-return-bar[data-return-actions="both"] {
+  grid-template-columns: repeat(2,minmax(0,1fr));
+}
+.otto-reference-return-bar[data-return-actions="single"] {
+  grid-template-columns: minmax(0,max-content);
+}
+.otto-reference-return-button {
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.2;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+  min-height: 44px;
+}
+.otto-reference-return-button span { min-width: 0; }
+.otto-reference-section-title {
+  font-size: clamp(1.625rem,2.4vw,1.875rem);
+  line-height: 1.18;
+  font-weight: 900;
+  overflow-wrap: break-word;
+}
+.otto-reference-topic-title {
+  font-size: clamp(1.25rem,2vw,1.5rem);
+  line-height: 1.3;
+  font-weight: 800;
+  overflow-wrap: break-word;
+}
+.otto-reference-exam-content .otto-reference-topic-button { font-size: 0.9375rem; line-height: 1.3; }
+.otto-reference-topic-page > .otto-reference-unified,
+.otto-reference-entry-home > .otto-reference-unified { margin-top: 0; }
+@media (max-width: 380px) {
+  .otto-reference-return-bar { gap: 6px; }
+  .otto-reference-return-button { gap: 4px; padding-inline: 7px; font-size: 11px; }
+  .otto-reference-section-title { font-size: 1.625rem; }
+}
+
+/* Hotfix 2026-10-27: mobile Settings only. Keep content scrollable above fixed tabs. */
+@media (max-width: 700px) {
+  .telegram-app.otto-view-settings .otto-settings-screen {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    /* The parent .otto-inner-screen owns vertical scrolling. */
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .telegram-app.otto-view-settings .otto-settings-screen > section {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .telegram-app.otto-view-settings .otto-settings-screen button {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .telegram-app.otto-view-settings .otto-bottom-nav-item.is-home > span:last-child {
+    font-size: clamp(8px, 1.9vw, 10px) !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+}

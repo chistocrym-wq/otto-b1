@@ -1,0 +1,30 @@
+name: Preview 13 Actions runner control
+on:
+  push:
+    branches:
+      - preview/task-linked-learning
+    paths:
+      - '.github/workflows/**'
+permissions:
+  contents: read
+concurrency:
+  group: otto-preview-actions-control-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  runner-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout workflow changes
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Validate workflow YAML syntax and patch whitespace
+        run: |
+          git diff HEAD^ HEAD --check
+          ruby -e 'require "yaml"; Dir.glob(".github/workflows/*.yml").each { |f| YAML.parse_file(f); puts "Valid YAML: #{f}" }'
+      - name: Confirm real runner execution
+        run: |
+          echo "Runner: $RUNNER_NAME"
+          echo "Run: $GITHUB_RUN_ID"
+          test -n "$RUNNER_NAME"

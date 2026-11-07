@@ -1,0 +1,365 @@
+:root {
+  --otto-navy: #102A3A;
+  --otto-petrol: #14766F;
+  --otto-petrol-dark: #0D4F55;
+  --otto-petrol-soft: #E3F1EE;
+  --otto-cream: #F7F2E9;
+  --otto-surface: #FFFDFC;
+  --otto-sage: #1D9A8D;
+  --otto-sage-soft: #E3F1EE;
+  --otto-cta: #C75A38;
+  --otto-cta-hover: #A94429;
+  --otto-amber: #D7B56D;
+  --otto-muted-premium: #65727A;
+  --otto-line-premium: #D7DDD8;
+  --otto-danger: #AD4545;
+  --otto-danger-soft: #FAECEB;
+  --otto-shadow-premium: 0 16px 42px rgba(16,42,58,.10);
+  --otto-shadow-soft: 0 7px 22px rgba(16,42,58,.07);
+
+  /* Backwards-compatible project tokens */
+  --otto-bg: #F7F2E9;
+  --otto-bg-soft: #E3F1EE;
+  --otto-surface-strong: #FFFDFC;
+  --otto-teal: var(--otto-petrol);
+  --otto-teal-dark: var(--otto-petrol-dark);
+  --otto-teal-soft: var(--otto-petrol-soft);
+  --otto-brand: var(--otto-petrol);
+  --otto-brand-dark: var(--otto-petrol-dark);
+  --otto-brand-soft: var(--otto-petrol-soft);
+  --otto-ink: #17242C;
+  --otto-muted: var(--otto-muted-premium);
+  --otto-terracotta: #C75A38;
+  --otto-terracotta-dark: #A94429;
+  --otto-sand: #F3E8CF;
+  --otto-line: #D7DDD8;
+  --otto-line-strong: #BAC8C3;
+
+  /* Legacy UI aliases kept intact; only their values change. */
+  --otto-ui-bg: #F7F2E9;
+  --otto-ui-bg-2: #E3F1EE;
+  --otto-ui-ink: #17242C;
+  --otto-ui-muted: #65727A;
+  --otto-ui-teal: #14766F;
+  --otto-ui-teal-bright: #1D9A8D;
+  --otto-ui-teal-dark: #0D4F55;
+  --otto-ui-soft: #E3F1EE;
+  --otto-ui-border: #D7DDD8;
+  --otto-ui-shadow: 0 10px 28px rgba(16,42,58,.07);
+}
+
+html,
+body,
+#root {
+  background: var(--otto-bg) !important;
+}
+
+body {
+  color: var(--otto-navy);
+  text-rendering: optimizeLegibility;
+}
+
+.telegram-app.otto-skin {
+  color: var(--otto-navy);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(20,118,111,.42), transparent 32%),
+    radial-gradient(circle at 96% 20%, rgba(20,118,111,.34), transparent 30%),
+    linear-gradient(180deg, #0D4F55 0%, #14766F 36%, #1D9A8D 68%, #1D9A8D 100%) !important;
+}
+
+.otto-skin .otto-glow-a { background: rgba(20,118,111,.42) !important; }
+.otto-skin .otto-glow-b { background: rgba(20,118,111,.34) !important; }
+.otto-skin .otto-line-art { opacity: .12 !important; }
+
+.otto-skin h1,
+.otto-skin h2,
+.otto-skin h3,
+.otto-skin h4,
+.otto-skin strong,
+.otto-skin b {
+  color: var(--otto-navy);
+}
+
+.otto-skin p,
+.otto-skin small,
+.otto-skin .text-slate-500,
+.otto-skin .text-slate-600,
+.otto-skin .text-slate-700 {
+  color: var(--otto-muted-premium) !important;
+}
+
+/* Calm adult surfaces */
+.otto-skin section[class*="bg-white"],
+.otto-skin div[class*="bg-white"][class*="rounded-2xl"],
+.otto-skin div[class*="bg-white"][class*="rounded-3xl"],
+.otto-skin .otto-card,
+.otto-skin .otto-home-module-card,
+.otto-skin .otto-material-card,
+.otto-skin .otto-module-row,
+.otto-skin .otto-progress-card {
+  background: rgba(255,255,255,.97) !important;
+  border-color: var(--otto-line-premium) !important;
+  box-shadow: var(--otto-shadow-soft) !important;
+}
+
+.otto-skin .otto-home-hero {
+  min-height: 400px;
+  border-color: rgba(16,42,58,.18) !important;
+  background:
+    radial-gradient(circle at 86% 18%, rgba(20,118,111,.54), transparent 33%),
+    linear-gradient(145deg, #0D4F55 0%, #14766F 38%, #1D9A8D 70%, #1D9A8D 100%) !important;
+  box-shadow: var(--otto-shadow-premium) !important;
+}
+
+.otto-skin .otto-logo-word {
+  color: var(--otto-navy) !important;
+  text-shadow: none !important;
+}
+
+.otto-skin .otto-home-copy h1,
+.otto-skin .otto-page-hero h1,
+.otto-skin .otto-section-title,
+.otto-skin .otto-home-module-card strong,
+.otto-skin .otto-module-row strong {
+  color: var(--otto-navy) !important;
+}
+
+.otto-skin .otto-home-copy > p,
+.otto-skin .otto-exam-cta p {
+  color: var(--otto-muted-premium) !important;
+}
+
+.otto-skin .otto-handwritten {
+  color: var(--otto-petrol-dark) !important;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-style: italic;
+  font-weight: 700 !important;
+  transform: none !important;
+  letter-spacing: -.01em;
+}
+
+.otto-skin .otto-home-character,
+.otto-skin .otto-page-hero-character,
+.otto-skin .otto-exam-otto {
+  filter: saturate(.98) contrast(1.02);
+}
+
+.otto-skin .otto-home-character img,
+.otto-skin .otto-page-hero-character img,
+.otto-skin .otto-exam-otto img,
+.otto-skin .otto-companion img {
+  image-rendering: auto;
+  filter: drop-shadow(0 15px 25px rgba(16,42,58,.13));
+}
+
+.otto-skin .otto-home-module-icon,
+.otto-skin .otto-module-row-icon {
+  color: #fff;
+  background: linear-gradient(145deg, #14766F, #0D4F55) !important;
+  box-shadow: 0 8px 20px rgba(20,118,111,.28) !important;
+}
+
+.otto-skin .otto-material-icon,
+.otto-skin .otto-soft-accent,
+.otto-skin [class~="bg-teal-50"],
+.otto-skin [class~="bg-sky-50"] {
+  color: var(--otto-petrol-dark) !important;
+  background: var(--otto-petrol-soft) !important;
+}
+
+.otto-skin [class~="text-teal-700"],
+.otto-skin [class~="text-teal-800"],
+.otto-skin [class~="text-teal-900"],
+.otto-skin [class~="text-sky-700"],
+.otto-skin [class~="text-sky-800"] {
+  color: var(--otto-petrol-dark) !important;
+}
+
+.otto-skin [class~="border-teal-200"],
+.otto-skin [class~="border-teal-300"],
+.otto-skin [class~="border-teal-500"],
+.otto-skin [class~="border-teal-600"],
+.otto-skin [class~="border-sky-200"],
+.otto-skin [class~="border-sky-500"] {
+  border-color: rgba(20,118,111,.38) !important;
+}
+
+/* Success and feedback stay semantic, but quieter. */
+.otto-skin [class~="bg-emerald-50"] { background: #E6F2EA !important; }
+.otto-skin [class~="text-emerald-700"] { color: #34785D !important; }
+.otto-skin [class~="border-emerald-200"] { border-color: #34785D !important; }
+.otto-skin [class~="bg-rose-50"] { background: var(--otto-danger-soft) !important; }
+.otto-skin [class~="text-rose-700"] { color: var(--otto-danger) !important; }
+.otto-skin [class~="border-rose-200"] { border-color: #AD4545 !important; }
+
+/* Warm blocks are supporting accents, not competing CTAs. */
+.otto-skin [class~="bg-amber-50"],
+.otto-skin [class~="bg-amber-100"] {
+  background: #F3E8CF !important;
+}
+.otto-skin [class~="text-amber-700"],
+.otto-skin [class~="text-amber-800"],
+.otto-skin [class~="text-amber-900"] {
+  color: #102A3A !important;
+}
+.otto-skin [class~="border-amber-200"] { border-color: #D7B56D !important; }
+
+/* One visually dominant action per screen. */
+.otto-skin .otto-exam-button,
+.otto-skin .otto-primary-button,
+.otto-skin button[class~="bg-slate-900"],
+.otto-skin button[class~="bg-teal-600"],
+.otto-skin button[class~="bg-teal-700"] {
+  color: #fff !important;
+  background: linear-gradient(135deg, #C75A38 0%, #C75A38 52%, #A94429 100%) !important;
+  border-color: #A94429 !important;
+  box-shadow: 0 10px 26px rgba(169,68,41,.30) !important;
+}
+
+.otto-skin .otto-exam-button:hover,
+.otto-skin .otto-primary-button:hover,
+.otto-skin button[class~="bg-slate-900"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-600"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-700"]:not(:disabled):hover {
+  background: linear-gradient(135deg, #A94429, #A94429) !important;
+}
+
+html[data-otto-cta-variant="B"] .otto-skin .otto-exam-button,
+html[data-otto-cta-variant="B"] .otto-skin .otto-primary-button,
+html[data-otto-cta-variant="B"] .otto-skin button[class~="bg-slate-900"],
+html[data-otto-cta-variant="B"] .otto-skin button[class~="bg-teal-600"],
+html[data-otto-cta-variant="B"] .otto-skin button[class~="bg-teal-700"] {
+  background: linear-gradient(135deg, #C75A38 0%, #C75A38 52%, #A94429 100%) !important;
+  border-color: #A94429 !important;
+  box-shadow: 0 10px 24px rgba(16,42,58,.20) !important;
+}
+
+/* Progress is deliberately petrol/sage rather than CTA-colored. */
+.otto-skin .otto-progress-ring {
+  background: conic-gradient(var(--otto-petrol) var(--progress), #E3F1EE 0) !important;
+}
+.otto-skin .otto-progress-bars i,
+.otto-skin div[class~="bg-sky-600"],
+.otto-skin div[class~="bg-teal-600"] {
+  background: var(--otto-petrol) !important;
+}
+
+.otto-skin .otto-exam-cta {
+  border-color: rgba(20,118,111,.28) !important;
+  background: linear-gradient(120deg, #E3F1EE, #1D9A8D) !important;
+  box-shadow: var(--otto-shadow-soft) !important;
+}
+
+.otto-skin .otto-page-hero {
+  border-color: var(--otto-line-premium) !important;
+  background: linear-gradient(135deg, #E3F1EE 0 54%, #1D9A8D 100%) !important;
+  box-shadow: var(--otto-shadow-soft) !important;
+}
+
+.otto-skin .otto-bottom-nav-inner {
+  border-color: #D7DDD8 !important;
+  background: rgba(255,255,255,.985) !important;
+  box-shadow: 0 -10px 30px rgba(16,42,58,.09) !important;
+}
+
+.otto-skin .otto-bottom-nav-item { color: rgba(16,42,58,.70) !important; }
+.otto-skin .otto-bottom-nav-item.is-active { color: var(--otto-petrol) !important; }
+
+.otto-skin .otto-companion {
+  border-color: rgba(255,255,255,.96) !important;
+  background: #E3F1EE !important;
+  box-shadow: 0 9px 28px rgba(16,42,58,.13) !important;
+}
+
+/* Form controls */
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  color: var(--otto-navy) !important;
+  background: #FFFDFC !important;
+  border-color: #D7DDD8 !important;
+}
+.otto-skin input::placeholder,
+.otto-skin textarea::placeholder { color: rgba(16,42,58,.72) !important; opacity: 1; }
+
+.otto-skin button,
+.otto-skin a,
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  outline-color: var(--otto-petrol);
+}
+.otto-skin button:focus-visible,
+.otto-skin a:focus-visible,
+.otto-skin input:focus-visible,
+.otto-skin textarea:focus-visible,
+.otto-skin select:focus-visible {
+  outline: 3px solid rgba(20,118,111,.46) !important;
+  outline-offset: 2px;
+}
+
+/* Refined motion: enough feedback, no game-like bouncing. */
+.otto-skin button,
+.otto-skin a,
+.otto-skin .otto-card,
+.otto-skin .otto-home-module-card,
+.otto-skin .otto-module-row {
+  transition: transform .16s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease, color .18s ease;
+}
+.otto-skin button:not(:disabled):active,
+.otto-skin a:active { transform: translateY(1px) scale(.99) !important; }
+
+/* Make desktop feel intentionally composed rather than like an enlarged phone. */
+@media (min-width: 900px) {
+  .otto-skin .otto-app-content { max-width: 980px !important; }
+  .otto-skin .otto-home-hero { min-height: 390px; }
+  .otto-skin .otto-home-character { width: min(46%, 430px); height: 405px; right: 8px; bottom: -32px; }
+  .otto-skin .otto-home-character img { width: 430px; height: 430px; }
+  .otto-skin .otto-page-hero-character { width: 210px; height: 245px; }
+}
+
+@media (max-width: 640px) {
+  .otto-skin .otto-home-hero {
+    min-height: 350px;
+    border-radius: 26px;
+  }
+  .otto-skin .otto-home-copy { padding: 26px 0 27px 24px; width: 62%; }
+  .otto-skin .otto-logo-word { font-size: clamp(48px, 14vw, 68px); }
+  .otto-skin .otto-home-character { width: 48%; height: 345px; right: -18px; bottom: -40px; }
+  .otto-skin .otto-home-character img { width: 350px; height: 350px; }
+  .otto-skin .otto-progress-card { border-radius: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otto-skin *,
+  .otto-skin *::before,
+  .otto-skin *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Task #8 — late color-only compatibility for legacy hardcoded brand styles. */
+.otto-skin [class~="bg-slate-50"],.otto-skin [class~="bg-slate-100"]{background-color:#E3F1EE!important}
+.otto-skin [class~="bg-slate-950"],.otto-skin .otto-readiness-hero{background:linear-gradient(145deg,#102A3A,#0D4F55)!important;border-color:rgba(227,241,238,.24)!important;box-shadow:0 18px 42px rgba(16,42,58,.16)!important}
+.otto-skin .otto-readiness-hero>div:first-child>svg{color:#E3F1EE!important}.otto-skin [class~="bg-teal-400"]{background:#14766F!important}.otto-skin [class~="text-teal-300"]{color:#E3F1EE!important}
+.otto-skin [class~="text-teal-600"],.otto-skin [class~="text-teal-700"],.otto-skin [class~="text-sky-600"],.otto-skin [class~="text-sky-700"]{color:#0D4F55!important}
+.otto-skin [class~="text-teal-800"],.otto-skin [class~="text-teal-900"],.otto-skin [class~="text-sky-800"],.otto-skin [class~="text-sky-900"]{color:#102A3A!important}
+.otto-skin button[class~="bg-teal-800"],.otto-skin .otto-voice-test,.otto-skin .otto-roadmap-start,.otto-skin [class*="bg-[#9E543C]"]{background:linear-gradient(135deg, #C75A38 0%, #C75A38 52%, #A94429 100%)!important;border-color:#A94429!important;color:#fff!important;box-shadow:0 10px 24px rgba(169,68,41,.30)!important}
+.telegram-app.otto-skin:not(.otto-view-home) .otto-module-row:nth-child(1),.telegram-app.otto-skin:not(.otto-view-home) .otto-module-row:nth-child(3){background:linear-gradient(135deg,#E3F1EE,#E3F1EE)!important}
+.telegram-app.otto-skin:not(.otto-view-home) .otto-module-row:nth-child(2),.telegram-app.otto-skin:not(.otto-view-home) .otto-module-row:nth-child(4){background:linear-gradient(135deg,#E3F1EE,#1D9A8D)!important}
+.telegram-app.otto-skin .otto-account-stat{border-color:rgba(20,118,111,.10)!important;background:linear-gradient(145deg,#E3F1EE,#E3F1EE)!important}
+.telegram-app.otto-skin .otto-account-stat>span,.telegram-app.otto-skin .otto-news-icon,.telegram-app.otto-skin .otto-setting-icon{background:#E3F1EE!important;color:#0D4F55!important}
+.telegram-app.otto-skin .otto-setting-row.is-open{border-color:rgba(20,118,111,.22)!important;background:linear-gradient(135deg,#E3F1EE,#1D9A8D)!important}
+.telegram-app.otto-skin .otto-support-intro{border-color: #D7DDD8!important;background:linear-gradient(135deg,#E3F1EE,#1D9A8D)!important}.telegram-app.otto-skin .otto-support-badge,.telegram-app.otto-skin .otto-support-card>svg{color:#0D4F55!important}.telegram-app.otto-skin .otto-support-copy{background:linear-gradient(135deg, #C75A38 0%, #C75A38 52%, #A94429 100%)!important;color:#fff!important;box-shadow:0 8px 20px rgba(20,118,111,.28)!important}
+.telegram-app.otto-skin [class*="border-[#0F7D74]"]{border-color:#0D4F55!important}.telegram-app.otto-skin [class*="bg-[#EAF4F0]"]{background:#E3F1EE!important}.telegram-app.otto-skin [class*="text-[#285C59]"],.telegram-app.otto-skin [class*="text-[#0F7D74]"]{color:#102A3A!important}
+.telegram-app.otto-skin [class*="bg-[#F4F7F2]"]{background:#E3F1EE!important}.telegram-app.otto-skin [class*="border-[#d9e7e2]"]{border-color: #D7DDD8!important}.telegram-app.otto-skin [class*="bg-[#f7f4ee]"]{background:rgba(227,241,238,.95)!important}
+.otto-skin .otto-voice-mode{border-color: #D7DDD8!important;background:#E3F1EE!important}.otto-skin .otto-voice-mode button.is-active{background:#fff!important;color:#102A3A!important;box-shadow:0 3px 10px rgba(16,42,58,.08)!important}
+.otto-skin .otto-roadmap-training-picker,.otto-skin .otto-roadmap-plan-card,.otto-skin .otto-roadmap-info-card{border-color:rgba(16,42,58,.11)!important;background:#fff!important;box-shadow:0 8px 22px rgba(16,42,58,.07)!important}
+.otto-skin .otto-roadmap-page,.otto-skin .otto-roadmap-page-header h1,.otto-skin .otto-roadmap-training-picker-head h2{color:#102A3A!important}
+.otto-skin .otto-roadmap-kicker,.otto-skin .otto-roadmap-training-picker-head>svg,.otto-skin .otto-roadmap-howto-icon,.otto-skin .otto-roadmap-plan-icon,.otto-skin .otto-roadmap-info-row>span,.otto-skin .otto-roadmap-time-guide svg,.otto-skin .otto-roadmap-change-time,.otto-skin .otto-roadmap-back{color:#0D4F55!important}
+.otto-skin .otto-roadmap-howto-icon,.otto-skin .otto-roadmap-plan-icon,.otto-skin .otto-roadmap-info-row>span{background:#E3F1EE!important}.otto-skin .otto-roadmap-duration button{border-color:rgba(16,42,58,.12)!important;background:#E3F1EE!important;color:rgba(16,42,58,.72)!important}.otto-skin .otto-roadmap-duration button.is-active{border-color:rgba(20,118,111,.28)!important;background:#fff!important;color:#102A3A!important}
+.otto-skin .otto-roadmap-howto-link{border-color:rgba(16,42,58,.10)!important;background:linear-gradient(90deg,#E3F1EE,#E3F1EE)!important;color:#102A3A!important}.otto-skin .otto-roadmap-back,.otto-skin .otto-roadmap-time-badge,.otto-skin .otto-roadmap-plan-list li{border-color:rgba(16,42,58,.12)!important;background:#fff!important}.otto-skin .otto-roadmap-plan-index{background:#E3F1EE!important;color:rgba(16,42,58,.72)!important}
+

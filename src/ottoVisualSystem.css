@@ -1,0 +1,1356 @@
+/* OTTO A1 — warm, adult, premium visual system.
+   This file is intentionally imported last so one coherent system wins over
+   legacy page-specific experiments without changing exercise business logic. */
+
+:root {
+  --otto-bg: #f4efe6;
+  --otto-bg-soft: #faf7f1;
+  --otto-surface: #fffdf9;
+  --otto-surface-strong: #ffffff;
+  --otto-ink: #263643;
+  --otto-muted: #68747a;
+  --otto-petrol: #426f6d;
+  --otto-petrol-dark: #315957;
+  --otto-petrol-soft: #e7efeb;
+  --otto-sage: #a8baaa;
+  --otto-sage-soft: #edf2ec;
+  --otto-terracotta: #a85d43;
+  --otto-terracotta-dark: #8d4935;
+  --otto-sand: #e8dcc9;
+  --otto-amber-soft: #f5ecdc;
+  --otto-danger: #984d4d;
+  --otto-line: rgba(64, 79, 77, .13);
+  --otto-line-strong: rgba(64, 79, 77, .20);
+  --otto-shadow-xs: 0 4px 14px rgba(43, 54, 54, .045);
+  --otto-shadow-sm: 0 10px 28px rgba(43, 54, 54, .065);
+  --otto-shadow-md: 0 18px 48px rgba(43, 54, 54, .09);
+  --otto-radius-sm: 15px;
+  --otto-radius-md: 20px;
+  --otto-radius-lg: 28px;
+  --otto-teal: var(--otto-petrol);
+  --otto-teal-dark: var(--otto-petrol-dark);
+  --otto-teal-soft: var(--otto-petrol-soft);
+  --otto-brand: var(--otto-petrol);
+  --otto-brand-dark: var(--otto-petrol-dark);
+  --otto-brand-soft: var(--otto-petrol-soft);
+}
+
+html,
+body,
+#root {
+  background: var(--otto-bg) !important;
+}
+
+body {
+  color: var(--otto-ink) !important;
+  letter-spacing: -.008em;
+}
+
+.telegram-app.otto-skin {
+  background:
+    radial-gradient(circle at 7% -4%, rgba(168, 186, 170, .24), transparent 28%),
+    radial-gradient(circle at 96% 13%, rgba(232, 220, 201, .40), transparent 28%),
+    linear-gradient(180deg, #fbf8f2 0%, var(--otto-bg) 60%, #f0eadf 100%) !important;
+}
+
+.otto-skin .otto-glow-a {
+  background: rgba(111, 146, 137, .08) !important;
+}
+
+.otto-skin .otto-glow-b {
+  background: rgba(184, 151, 117, .08) !important;
+}
+
+.otto-skin .otto-line-art {
+  opacity: .07 !important;
+}
+
+.otto-skin h1,
+.otto-skin h2,
+.otto-skin h3,
+.otto-skin h4,
+.otto-skin strong,
+.otto-skin b {
+  color: var(--otto-ink);
+  letter-spacing: -.025em;
+}
+
+.otto-skin p,
+.otto-skin small,
+.otto-skin label {
+  text-wrap: pretty;
+}
+
+.otto-skin button,
+.otto-skin a,
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  border-radius: var(--otto-radius-sm);
+}
+
+.otto-skin button {
+  transition: transform .16s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.otto-skin button:not(:disabled):active {
+  transform: translateY(1px) scale(.99);
+}
+
+.otto-skin button:focus-visible,
+.otto-skin input:focus-visible,
+.otto-skin textarea:focus-visible,
+.otto-skin select:focus-visible,
+.otto-skin summary:focus-visible {
+  outline: 3px solid rgba(66, 111, 109, .22);
+  outline-offset: 2px;
+}
+
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  border-color: var(--otto-line-strong) !important;
+  background: rgba(255,255,255,.95) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.otto-skin input:focus,
+.otto-skin textarea:focus,
+.otto-skin select:focus {
+  border-color: rgba(66, 111, 109, .48) !important;
+  box-shadow: 0 0 0 4px rgba(66, 111, 109, .08) !important;
+}
+
+/* Shell and navigation */
+.otto-app-content {
+  width: min(100%, 1040px) !important;
+  margin-inline: auto !important;
+}
+
+.otto-bottom-nav {
+  padding-inline: max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-right)) !important;
+}
+
+.otto-bottom-nav-inner {
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+  max-width: 1000px !important;
+  border: 1px solid rgba(66, 111, 109, .12) !important;
+  background: rgba(250, 247, 241, .94) !important;
+  box-shadow: 0 -12px 35px rgba(43, 54, 54, .075) !important;
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+.otto-bottom-nav-item {
+  color: #77817f !important;
+  font-weight: 740 !important;
+}
+
+.otto-bottom-nav-item.is-active {
+  color: var(--otto-petrol-dark) !important;
+}
+
+.otto-bottom-nav-item.is-active .otto-bottom-nav-icon {
+  stroke-width: 2.35;
+  filter: drop-shadow(0 4px 8px rgba(66, 111, 109, .16));
+}
+
+/* The previous approved-home stylesheet intentionally used a full-viewport
+   cyan canvas and hid navigation. The guided dashboard now owns home. */
+.telegram-app.otto-view-home {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.otto-view-home .otto-app-content {
+  width: min(100%, 1040px) !important;
+  max-width: 1040px !important;
+  height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom)) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: clamp(8px, 1.2vw, 14px) clamp(10px, 2.2vw, 22px) 8px !important;
+  background: transparent !important;
+}
+
+.otto-view-home .otto-home-screen {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+  scrollbar-width: none;
+}
+
+.otto-view-home .otto-home-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.otto-view-home > .otto-bottom-nav,
+.otto-view-home .otto-bottom-nav {
+  display: block !important;
+}
+
+/* Premium guided dashboard */
+.otto-premium-dashboard {
+  width: 100%;
+  max-width: 930px;
+  margin: 0 auto;
+  padding: 0 0 26px;
+  color: var(--otto-ink);
+}
+
+.otto-premium-hero {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: var(--otto-radius-lg);
+  background:
+    radial-gradient(circle at 86% 20%, rgba(168, 186, 170, .30), transparent 34%),
+    linear-gradient(135deg, #fffdf9 0 53%, #eef2eb 78%, #e7efeb 100%);
+  box-shadow: var(--otto-shadow-md);
+}
+
+.otto-premium-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  right: -8%;
+  bottom: -42%;
+  width: 68%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(66,111,109,.09);
+  border-radius: 50%;
+}
+
+.otto-premium-hero-copy {
+  position: relative;
+  z-index: 4;
+  width: 60%;
+  max-width: 535px;
+  padding: clamp(24px, 4vw, 42px);
+  padding-right: 12px;
+}
+
+.otto-premium-greeting {
+  margin: 0 0 10px;
+  color: #707976 !important;
+  font-size: 13px !important;
+  font-weight: 760;
+}
+
+.otto-premium-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--otto-ink);
+  font-size: clamp(25px, 4.1vw, 39px);
+  font-weight: 880;
+  letter-spacing: -.045em;
+  line-height: 1;
+}
+
+.otto-premium-brand i {
+  width: 78%;
+  height: 8px;
+  margin-top: 8px;
+  border-top: 3px solid var(--otto-terracotta);
+  border-radius: 50%;
+  transform: rotate(-1.4deg);
+  opacity: .92;
+}
+
+.otto-premium-hero h1 {
+  max-width: 510px;
+  margin: 14px 0 0;
+  color: var(--otto-ink) !important;
+  font-size: clamp(27px, 4.7vw, 43px);
+  font-weight: 850;
+  letter-spacing: -.045em;
+  line-height: 1.02;
+}
+
+.otto-premium-lead {
+  max-width: 460px;
+  margin: 12px 0 0;
+  color: #616e70 !important;
+  font-size: clamp(14px, 1.9vw, 17px) !important;
+  font-weight: 560;
+  line-height: 1.5 !important;
+}
+
+.otto-premium-bust {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  width: 44%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.otto-premium-bust::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 14% 5% 8% 10%;
+  border-radius: 50% 50% 36% 45%;
+  background: rgba(255,255,255,.42);
+  filter: blur(1px);
+}
+
+.otto-premium-bust-image {
+  position: absolute;
+  top: -4%;
+  left: -23%;
+  width: 148%;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
+  filter: saturate(.94) contrast(1.015) drop-shadow(0 16px 20px rgba(39,54,56,.14));
+}
+
+.otto-premium-hero-halo {
+  position: absolute;
+  z-index: 2;
+  top: -18%;
+  right: -8%;
+  width: 54%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.58), rgba(255,255,255,0) 67%);
+  pointer-events: none;
+}
+
+.otto-premium-readiness {
+  position: relative;
+  z-index: 8;
+  margin: -18px 18px 0;
+}
+
+.otto-premium-readiness-main {
+  display: flex;
+  width: 100%;
+  min-height: 105px;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(66,111,109,.12);
+  border-radius: 24px;
+  background: rgba(255,253,249,.97);
+  padding: 16px 18px;
+  color: var(--otto-ink);
+  text-align: left;
+  box-shadow: var(--otto-shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.otto-premium-round-icon,
+.otto-premium-note-icon,
+.otto-premium-mock-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  place-items: center;
+  border-radius: 17px;
+  background: var(--otto-petrol-soft);
+  color: var(--otto-petrol-dark);
+}
+
+.otto-premium-round-icon svg,
+.otto-premium-note-icon svg,
+.otto-premium-mock-icon svg {
+  width: 23px;
+  height: 23px;
+  stroke-width: 2;
+}
+
+.otto-premium-readiness-copy {
+  display: block;
+  min-width: 0;
+  flex: 1;
+}
+
+.otto-premium-kicker {
+  margin: 0;
+  color: var(--otto-petrol-dark) !important;
+  font-size: 11px !important;
+  font-weight: 820;
+  letter-spacing: .105em;
+  line-height: 1.2 !important;
+  text-transform: uppercase;
+}
+
+.otto-premium-readiness-line {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-top: 4px;
+}
+
+.otto-premium-readiness-line strong {
+  color: var(--otto-ink) !important;
+  font-size: 31px;
+  font-weight: 850;
+  letter-spacing: -.045em;
+}
+
+.otto-premium-readiness-line small {
+  color: #76807e !important;
+  font-size: 12px !important;
+  font-weight: 650;
+}
+
+.otto-premium-progress,
+.otto-premium-mini-progress {
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e5e9e4;
+}
+
+.otto-premium-progress {
+  height: 7px;
+  margin-top: 7px;
+}
+
+.otto-premium-progress i,
+.otto-premium-mini-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #73938a, var(--otto-petrol));
+}
+
+.otto-premium-chevron {
+  width: 21px;
+  color: #9aa19e;
+}
+
+.otto-premium-otto-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin: 14px 2px 0;
+  border: 1px solid rgba(66,111,109,.10);
+  border-radius: 20px;
+  background: rgba(238,243,237,.86);
+  padding: 14px 16px;
+}
+
+.otto-premium-note-icon {
+  width: 40px;
+  height: 40px;
+  flex-basis: 40px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.76);
+}
+
+.otto-premium-note-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.otto-premium-otto-note > div > p:last-child {
+  margin: 4px 0 0;
+  color: #485756 !important;
+  font-size: 14px !important;
+  font-weight: 620;
+  line-height: 1.45 !important;
+}
+
+.otto-premium-panel {
+  border: 1px solid var(--otto-line);
+  border-radius: 24px;
+  background: rgba(255,253,249,.94);
+  box-shadow: var(--otto-shadow-sm);
+}
+
+.otto-premium-training {
+  margin-top: 20px;
+  padding: clamp(16px, 2.8vw, 24px);
+}
+
+.otto-premium-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.otto-premium-section-heading h2,
+.otto-premium-mock h2 {
+  margin: 3px 0 0;
+  color: var(--otto-ink) !important;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 840;
+  letter-spacing: -.035em;
+  line-height: 1.08;
+}
+
+.otto-premium-time {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(66,111,109,.10);
+  border-radius: 999px;
+  background: #f2f1eb;
+  padding: 6px 10px;
+  color: #687473;
+  font-size: 11px;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.otto-premium-time svg {
+  width: 14px;
+  height: 14px;
+}
+
+.otto-premium-duration {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 15px;
+  border: 1px solid rgba(66,111,109,.08);
+  border-radius: 16px;
+  background: #efeee8;
+  padding: 4px;
+}
+
+.otto-premium-duration button {
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  color: #747d7a;
+  font-size: 13px;
+  font-weight: 760;
+  box-shadow: none;
+}
+
+.otto-premium-duration button.is-active {
+  background: var(--otto-surface-strong);
+  color: var(--otto-petrol-dark);
+  box-shadow: 0 3px 10px rgba(43,54,54,.07);
+}
+
+.otto-premium-plan {
+  display: grid;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.otto-premium-plan-row {
+  display: grid;
+  grid-template-columns: 24px 42px minmax(0, 1fr) auto;
+  min-height: 67px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(64,79,77,.105);
+  border-radius: 17px;
+  background: rgba(255,255,255,.76);
+  padding: 10px 12px;
+  text-align: left;
+  box-shadow: var(--otto-shadow-xs);
+}
+
+.otto-premium-plan-number {
+  color: #9a9f9b;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.otto-premium-plan-icon,
+.otto-premium-skill-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--otto-petrol-soft);
+  color: var(--otto-petrol-dark);
+}
+
+.otto-premium-plan-icon svg,
+.otto-premium-skill-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+.otto-premium-plan-copy {
+  min-width: 0;
+}
+
+.otto-premium-plan-copy strong {
+  display: block;
+  color: var(--otto-ink) !important;
+  font-size: 14px;
+  font-weight: 790;
+  letter-spacing: -.015em;
+}
+
+.otto-premium-plan-copy small {
+  display: block;
+  margin-top: 2px;
+  color: #727d7c !important;
+  font-size: 11px !important;
+  font-weight: 550;
+  line-height: 1.32 !important;
+}
+
+.otto-premium-plan-time {
+  color: #7d8582;
+  font-size: 10px;
+  font-weight: 730;
+  white-space: nowrap;
+}
+
+.otto-premium-primary {
+  display: flex;
+  width: 100%;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 13px;
+  border: 1px solid var(--otto-terracotta);
+  border-radius: 17px;
+  background: linear-gradient(135deg, #ad6248, var(--otto-terracotta-dark));
+  padding: 12px 18px;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 820;
+  letter-spacing: .015em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 25px rgba(141,73,53,.17);
+}
+
+.otto-premium-primary svg,
+.otto-premium-secondary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.otto-premium-primary:disabled {
+  opacity: .42;
+}
+
+.otto-premium-complete {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  border: 1px solid rgba(94,128,107,.15);
+  border-radius: 19px;
+  background: rgba(237,242,236,.88);
+  padding: 13px 15px;
+}
+
+.otto-premium-complete > svg {
+  width: 22px;
+  color: #55745f;
+}
+
+.otto-premium-complete strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.otto-premium-complete p {
+  margin: 2px 0 0;
+  color: #66716d !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+}
+
+.otto-premium-skills {
+  margin-top: 24px;
+}
+
+.otto-premium-text-button {
+  min-height: 36px !important;
+  border: 0;
+  background: transparent;
+  color: var(--otto-petrol-dark);
+  font-size: 12px !important;
+  font-weight: 780;
+}
+
+.otto-premium-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.otto-premium-skill-card {
+  display: block;
+  min-height: 151px;
+  border: 1px solid var(--otto-line);
+  border-radius: 20px;
+  background: rgba(255,253,249,.92);
+  padding: 14px;
+  color: var(--otto-ink);
+  text-align: left;
+  box-shadow: var(--otto-shadow-xs);
+}
+
+.otto-premium-skill-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.otto-premium-skill-icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 13px;
+}
+
+.otto-premium-skill-score {
+  color: var(--otto-petrol-dark);
+  font-size: 16px;
+  font-weight: 840;
+}
+
+.otto-premium-skill-card > strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 820;
+}
+
+.otto-premium-skill-card > small {
+  display: block;
+  margin-top: 2px;
+  color: #78817f !important;
+  font-size: 10px !important;
+  line-height: 1.25 !important;
+}
+
+.otto-premium-mini-progress {
+  height: 5px;
+  margin-top: 9px;
+}
+
+.otto-premium-status {
+  display: inline-flex;
+  margin-top: 8px;
+  border-radius: 999px;
+  padding: 4px 7px;
+  font-size: 9px;
+  font-weight: 780;
+}
+
+.otto-premium-status.is-ready {
+  background: #e8f0e8;
+  color: #4c6a55;
+}
+
+.otto-premium-status.is-almost {
+  background: var(--otto-amber-soft);
+  color: #7a6034;
+}
+
+.otto-premium-status.is-train {
+  background: #f4e8e4;
+  color: #8b5545;
+}
+
+.otto-premium-mock {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 17px;
+}
+
+.otto-premium-mock-icon {
+  background: var(--otto-amber-soft);
+  color: #80633a;
+}
+
+.otto-premium-mock-copy > p:last-child {
+  max-width: 560px;
+  margin: 5px 0 0;
+  color: #687370 !important;
+  font-size: 12px !important;
+  line-height: 1.42 !important;
+}
+
+.otto-premium-secondary {
+  display: inline-flex;
+  min-height: 45px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid rgba(66,111,109,.24);
+  border-radius: 15px;
+  background: #f8faf7;
+  padding: 10px 13px;
+  color: var(--otto-petrol-dark);
+  font-size: 11px;
+  font-weight: 790;
+  white-space: nowrap;
+}
+
+.otto-premium-details {
+  margin-top: 10px;
+  border: 1px solid var(--otto-line);
+  border-radius: 19px;
+  background: rgba(255,253,249,.82);
+  padding: 0 14px;
+  box-shadow: var(--otto-shadow-xs);
+}
+
+.otto-premium-details summary {
+  display: flex;
+  min-height: 54px;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--otto-ink);
+  font-size: 13px;
+  font-weight: 790;
+}
+
+.otto-premium-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.otto-premium-details summary svg {
+  width: 17px;
+  color: #8d9692;
+  transition: transform .18s ease;
+}
+
+.otto-premium-details[open] summary svg {
+  transform: rotate(90deg);
+}
+
+.otto-premium-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  padding: 0 0 13px;
+}
+
+.otto-premium-details-grid button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(66,111,109,.09);
+  border-radius: 14px;
+  background: #f4f3ed;
+  padding: 8px 10px;
+  color: #53605f;
+  font-size: 11px;
+  font-weight: 730;
+  text-align: left;
+}
+
+.otto-premium-details-grid button svg {
+  width: 17px;
+  flex: 0 0 17px;
+  color: var(--otto-petrol-dark);
+}
+
+.otto-premium-details-note {
+  margin: -2px 0 10px;
+  color: #747d7a !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+.otto-premium-quick-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.otto-premium-quick-links button {
+  display: flex;
+  min-height: 54px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid rgba(66,111,109,.09);
+  border-radius: 16px;
+  background: rgba(255,253,249,.78);
+  color: #697572;
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.otto-premium-quick-links svg {
+  width: 18px;
+  height: 18px;
+  color: var(--otto-petrol-dark);
+  stroke-width: 2;
+}
+
+/* General inner-screen polish: keep semantic feedback colors and layouts intact. */
+.otto-inner-screen {
+  color: var(--otto-ink);
+}
+
+.otto-inner-screen > .animate-fade-in,
+.otto-inner-screen > div {
+  border-radius: 24px !important;
+}
+
+.otto-skin section[class*="bg-white"],
+.otto-skin div[class*="bg-white"][class*="rounded-2xl"],
+.otto-skin div[class*="bg-white"][class*="rounded-3xl"] {
+  border-color: var(--otto-line) !important;
+  background-color: rgba(255,253,249,.96) !important;
+  box-shadow: var(--otto-shadow-xs) !important;
+}
+
+.otto-skin [class~="bg-teal-50"] {
+  background-color: var(--otto-petrol-soft) !important;
+}
+
+.otto-skin [class~="text-teal-700"],
+.otto-skin [class~="text-teal-800"],
+.otto-skin [class~="text-teal-900"] {
+  color: var(--otto-petrol-dark) !important;
+}
+
+.otto-skin button[class~="bg-slate-900"],
+.otto-skin button[class~="bg-teal-600"],
+.otto-skin button[class~="bg-teal-700"],
+.otto-skin .otto-primary-button,
+.otto-skin .otto-exam-button {
+  border-color: var(--otto-terracotta) !important;
+  background: var(--otto-terracotta) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 22px rgba(141,73,53,.15) !important;
+}
+
+.otto-skin button[class~="bg-slate-900"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-600"]:not(:disabled):hover,
+.otto-skin button[class~="bg-teal-700"]:not(:disabled):hover,
+.otto-skin .otto-primary-button:not(:disabled):hover {
+  background: var(--otto-terracotta-dark) !important;
+}
+
+.telegram-app .animate-fade-in > div:has(button[aria-label="Назад"]):first-child,
+.telegram-app .animate-fade-in > div:has(button[aria-label="Вернуться"]):first-child,
+.telegram-app .animate-fade-in > div:first-child:has(> button) {
+  border-color: rgba(66,111,109,.11) !important;
+  background: rgba(250,247,241,.93) !important;
+  box-shadow: 0 8px 22px rgba(43,54,54,.065) !important;
+}
+
+.otto-companion {
+  border: 1px solid rgba(255,255,255,.92) !important;
+  background: rgba(250,247,241,.94) !important;
+  box-shadow: 0 10px 26px rgba(43,54,54,.10) !important;
+  filter: none !important;
+}
+
+.otto-companion-scene,
+.otto-companion img {
+  filter: saturate(.93) contrast(1.01) drop-shadow(0 8px 10px rgba(43,54,54,.10)) !important;
+}
+
+/* Splash: warm entrance, ghost Otto -> colour -> quiet dissolve. */
+.otto-splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.84), transparent 30%),
+    radial-gradient(circle at 88% 8%, rgba(168,186,170,.22), transparent 26%),
+    linear-gradient(150deg, #f8f3e9 0%, #eee9dc 58%, #e6eee8 100%) !important;
+  opacity: 1;
+  filter: none;
+  transition: opacity .48s ease, filter .48s ease;
+}
+
+.otto-splash-glow {
+  position: absolute;
+  width: min(72vw, 480px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(66,111,109,.08);
+  border-radius: 50%;
+  background: rgba(255,255,255,.22);
+  box-shadow: 0 0 90px rgba(255,255,255,.48);
+}
+
+.otto-splash-figure {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(88vw, 430px) !important;
+  aspect-ratio: auto !important;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1 !important;
+  transform: translateY(7px) scale(.985) !important;
+  transition: opacity .45s ease, transform .58s cubic-bezier(.2,.75,.25,1), filter .45s ease !important;
+}
+
+.otto-splash-bust {
+  position: relative;
+  width: min(68vw, 300px);
+  height: min(52vw, 230px);
+  max-height: 230px;
+  overflow: hidden;
+  border-radius: 42% 42% 31% 31%;
+}
+
+.otto-splash-otto {
+  position: absolute;
+  top: -3%;
+  left: -22%;
+  width: 145% !important;
+  max-width: none !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: grayscale(.88) saturate(.28) contrast(.96) opacity(.42) drop-shadow(0 14px 18px rgba(43,54,54,.10));
+  transform: scale(.985);
+  transition: filter .7s ease, transform .75s cubic-bezier(.18,.8,.22,1) !important;
+}
+
+.otto-splash-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  text-align: center;
+  opacity: .72;
+  transform: translateY(5px);
+  transition: opacity .52s ease .08s, transform .52s ease .08s;
+}
+
+.otto-splash-brand strong {
+  color: var(--otto-ink);
+  font-size: clamp(25px, 7vw, 35px);
+  font-weight: 860;
+  letter-spacing: -.045em;
+  line-height: 1;
+}
+
+.otto-splash-brand i {
+  width: 118px;
+  height: 7px;
+  margin-top: 8px;
+  border-top: 3px solid var(--otto-terracotta);
+  border-radius: 50%;
+  transform: rotate(-1.5deg);
+}
+
+.otto-splash-brand span {
+  margin-top: 8px;
+  color: #687572;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .015em;
+}
+
+.otto-splash-screen.is-color .otto-splash-otto {
+  filter: grayscale(0) saturate(.97) contrast(1.02) opacity(1) drop-shadow(0 16px 20px rgba(43,54,54,.14));
+  transform: scale(1.015);
+}
+
+.otto-splash-screen.is-color .otto-splash-brand {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.otto-splash-screen.is-leaving {
+  opacity: 0 !important;
+  filter: blur(4px) !important;
+  pointer-events: none;
+}
+
+.otto-splash-screen.is-leaving .otto-splash-figure {
+  opacity: 0 !important;
+  transform: translateY(-5px) scale(1.015) !important;
+  filter: blur(3px);
+}
+
+.otto-splash-particles {
+  display: none !important;
+}
+
+/* Responsive rhythm */
+@media (max-width: 640px) {
+  :root {
+    --otto-radius-lg: 24px;
+  }
+
+  .otto-view-home .otto-app-content {
+    padding: 7px 8px 7px !important;
+  }
+
+  .otto-premium-dashboard {
+    padding-bottom: 18px;
+  }
+
+  .otto-premium-hero {
+    min-height: 245px;
+    border-radius: 24px;
+  }
+
+  .otto-premium-hero-copy {
+    width: 66%;
+    padding: 20px 0 22px 18px;
+  }
+
+  .otto-premium-greeting {
+    margin-bottom: 7px;
+    font-size: 11px !important;
+  }
+
+  .otto-premium-brand {
+    font-size: clamp(24px, 7vw, 31px);
+  }
+
+  .otto-premium-brand i {
+    height: 6px;
+    margin-top: 6px;
+    border-top-width: 2.5px;
+  }
+
+  .otto-premium-hero h1 {
+    margin-top: 10px;
+    font-size: clamp(24px, 7.2vw, 32px);
+    line-height: 1.01;
+  }
+
+  .otto-premium-lead {
+    max-width: 94%;
+    margin-top: 8px;
+    font-size: 12px !important;
+    line-height: 1.38 !important;
+  }
+
+  .otto-premium-bust {
+    right: -4%;
+    width: 44%;
+  }
+
+  .otto-premium-bust-image {
+    top: 2%;
+    left: -40%;
+    width: 170%;
+  }
+
+  .otto-premium-readiness {
+    margin: -13px 9px 0;
+  }
+
+  .otto-premium-readiness-main {
+    min-height: 92px;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 13px;
+  }
+
+  .otto-premium-round-icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    border-radius: 14px;
+  }
+
+  .otto-premium-readiness-line strong {
+    font-size: 27px;
+  }
+
+  .otto-premium-readiness-line small {
+    font-size: 10px !important;
+  }
+
+  .otto-premium-otto-note {
+    margin-top: 10px;
+    padding: 12px;
+  }
+
+  .otto-premium-training {
+    margin-top: 14px;
+    padding: 15px 12px 13px;
+  }
+
+  .otto-premium-section-heading h2,
+  .otto-premium-mock h2 {
+    font-size: 20px;
+  }
+
+  .otto-premium-plan-row {
+    grid-template-columns: 20px 38px minmax(0, 1fr) auto;
+    min-height: 64px;
+    gap: 8px;
+    padding: 9px 9px;
+  }
+
+  .otto-premium-plan-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .otto-premium-plan-copy strong {
+    font-size: 13px;
+  }
+
+  .otto-premium-plan-copy small {
+    font-size: 10px !important;
+  }
+
+  .otto-premium-primary {
+    min-height: 52px;
+    padding-inline: 13px;
+    font-size: 11px;
+  }
+
+  .otto-premium-skill-grid {
+    gap: 8px;
+  }
+
+  .otto-premium-skill-card {
+    min-height: 145px;
+    padding: 12px;
+  }
+
+  .otto-premium-mock {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 11px;
+    padding: 14px;
+  }
+
+  .otto-premium-mock-icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .otto-premium-secondary {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .otto-premium-details {
+    padding-inline: 12px;
+  }
+
+  .otto-premium-quick-links {
+    gap: 5px;
+  }
+
+  .otto-premium-quick-links button {
+    min-height: 52px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 370px) {
+  .otto-premium-hero {
+    min-height: 232px;
+  }
+
+  .otto-premium-hero-copy {
+    width: 68%;
+    padding-left: 15px;
+  }
+
+  .otto-premium-brand {
+    font-size: 22px;
+  }
+
+  .otto-premium-hero h1 {
+    font-size: 23px;
+  }
+
+  .otto-premium-lead {
+    font-size: 11px !important;
+  }
+
+  .otto-premium-bust {
+    right: -7%;
+    width: 43%;
+  }
+
+  .otto-premium-readiness-main {
+    padding: 11px;
+  }
+
+  .otto-premium-round-icon {
+    display: none;
+  }
+
+  .otto-premium-plan-row {
+    grid-template-columns: 18px 35px minmax(0, 1fr);
+  }
+
+  .otto-premium-plan-time {
+    display: none;
+  }
+
+  .otto-premium-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .otto-premium-quick-links button span {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 760px) {
+  .otto-premium-dashboard {
+    padding-top: 4px;
+  }
+
+  .otto-premium-training,
+  .otto-premium-mock {
+    border-radius: 26px;
+  }
+
+  .otto-premium-plan {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .otto-premium-plan-row:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .otto-premium-skill-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .otto-premium-details-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .otto-premium-details-grid.is-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otto-splash-screen,
+  .otto-splash-figure,
+  .otto-splash-otto,
+  .otto-splash-brand {
+    transition-duration: .01ms !important;
+  }
+}

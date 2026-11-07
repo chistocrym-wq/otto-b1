@@ -1,0 +1,154 @@
+/* Support UI fixes. Loaded after the shared theme so support-specific contrast and overlays win. */
+
+/* Keep support sheets above OTTO's fixed bottom navigation (z-index: 90). */
+.otto-support-modal-layer {
+  z-index: 140 !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+.otto-support-dialog,
+.otto-support-create-sheet {
+  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px) !important;
+  overflow: hidden;
+}
+
+.otto-support-create-sheet {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+}
+
+.otto-support-message-list {
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+
+.otto-support-dialog-footer {
+  flex: 0 0 auto;
+  background: #fffdfc !important;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+}
+
+/* The global premium theme makes all <p> muted with !important; chat copy must stay readable. */
+.otto-skin .otto-support-message {
+  border: 1px solid #d7ddd8 !important;
+  box-shadow: 0 6px 18px rgba(16,42,58,.07);
+}
+
+.otto-skin .otto-support-message.is-user {
+  border-color: #0d4f55 !important;
+  background: #0d4f55 !important;
+}
+
+.otto-skin .otto-support-message.is-support {
+  border-color: #d7ddd8 !important;
+  background: #fffdfc !important;
+}
+
+.otto-skin .otto-support-message.is-user .otto-support-message-body {
+  color: #ffffff !important;
+}
+
+.otto-skin .otto-support-message.is-user .otto-support-message-meta {
+  color: rgba(255,255,255,.78) !important;
+}
+
+.otto-skin .otto-support-message.is-support .otto-support-message-body {
+  color: #102a3a !important;
+}
+
+.otto-skin .otto-support-message.is-support .otto-support-message-meta {
+  color: #5f6f73 !important;
+}
+
+/* Settings notification: an app card, not an alarm banner. */
+.otto-skin .otto-support-reply-card {
+  border: 1px solid #d7ddd8 !important;
+  background: linear-gradient(135deg, #fffdfc 0%, #edf7f4 100%) !important;
+  color: #102a3a !important;
+  box-shadow: 0 10px 28px rgba(16,42,58,.08) !important;
+}
+
+.otto-skin .otto-support-reply-card:hover {
+  border-color: rgba(20,118,111,.34) !important;
+  background: linear-gradient(135deg, #fffdfc 0%, #e3f1ee 100%) !important;
+}
+
+.otto-skin .otto-support-reply-icon {
+  background: #e3f1ee !important;
+  color: #0d4f55 !important;
+}
+
+.otto-skin .otto-support-reply-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fffdfc;
+  border-radius: 999px;
+  background: #dc3f45;
+}
+
+.otto-skin .otto-support-reply-kicker {
+  color: #14766f !important;
+}
+
+.otto-skin .otto-support-reply-title {
+  color: #102a3a !important;
+}
+
+.otto-skin .otto-support-reply-copy {
+  color: #5f6f73 !important;
+}
+
+.otto-skin .otto-support-reply-arrow {
+  color: #14766f !important;
+}
+
+/* Reserve a proper icon area so the unread dot stays inside the navigation item. */
+.otto-bottom-nav-icon-slot {
+  position: relative;
+  display: grid;
+  width: 32px;
+  height: 28px;
+  flex: 0 0 32px;
+  place-items: center;
+  overflow: visible;
+}
+
+.otto-bottom-nav-icon-slot.is-home {
+  width: 40px;
+  height: 36px;
+  flex-basis: 40px;
+}
+
+.otto-support-nav-dot {
+  position: absolute;
+  top: 0;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fffdfc;
+  border-radius: 999px;
+  background: #dc3f45;
+  box-shadow: 0 1px 3px rgba(80,20,24,.25);
+  animation: otto-support-dot-pulse 1.35s ease-in-out infinite;
+}
+
+@keyframes otto-support-dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(.82); opacity: .58; }
+}
+
+@media (max-width: 640px) {
+  .otto-support-dialog,
+  .otto-support-create-sheet {
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 6px) !important;
+  }
+
+  .otto-support-dialog-footer {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}

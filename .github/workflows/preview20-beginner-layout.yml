@@ -1,0 +1,40 @@
+name: Preview20 beginner guide responsive layout
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+concurrency:
+  group: preview20-beginner-layout-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  layout:
+    if: github.event.pull_request.number == 20 && github.head_ref == 'preview/admin-journey-analytics-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Match Netlify Preview 20 instrumentation (required for analytics consent UI).
+      OTTO_JOURNEY_QA: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Beginner layout viewport matrix (320–1440px)
+        run: node tests/preview20-beginner-layout-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview20-beginner-layout-${{ github.event.pull_request.head.sha }}
+          path: artifacts/beginner-responsive/
+          retention-days: 3

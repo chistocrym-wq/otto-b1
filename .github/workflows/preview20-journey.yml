@@ -1,0 +1,74 @@
+name: Preview20 journey contract and instrumented build
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+concurrency:
+  group: preview20-journey-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  journey:
+    if: github.event.pull_request.number == 20 && github.head_ref == 'preview/admin-journey-analytics-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OTTO_JOURNEY_QA: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      - name: Existing readable-admin regression
+        run: node --test tests/readable-admin.test.mjs
+      - name: Guest trial synthetic security tests
+        run: node --test tests/preview20-guest-trial.test.mjs
+      - name: Active study time synthetic acceptance
+        run: node --test tests/preview20-study-time.test.mjs
+      - name: Persistent journey store and retention regression
+        run: node --test tests/preview20-journey-storage.test.mjs
+      - name: Teacher partnership isolated synthetic tests
+        run: node --test tests/preview20-teachers.test.mjs
+      - name: Lesen eight archive regression
+        run: node --test tests/preview20-lesen-eight.test.mjs
+      - name: Original project typecheck
+        run: npm run typecheck
+      - name: Instrumented full build
+        run: npm run build
+      - name: Install CI-only browser runner
+        run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Instrumented admin browser smoke
+        run: node tests/readable-admin-browser.mjs
+      - name: Journey admin browser acceptance
+        run: node tests/preview20-journey-browser.mjs
+      - name: Analytics consent browser acceptance
+        run: node tests/preview20-analytics-consent-browser.mjs
+      - name: Verified email missing-profile browser recovery
+        run: node tests/preview20-existing-email-recovery-browser.mjs
+      - name: Teacher portal isolated Chromium browser acceptance
+        run: node tests/preview20-teacher-browser.mjs
+      - name: Unified A1 reference browser viewport matrix
+        run: node tests/preview20-reference-unified-browser.mjs
+      - name: Learning navigation and compact header viewport acceptance
+        run: node tests/preview20-learning-nav-browser.mjs
+      - name: Guest mobile Chromium synthetic acceptance
+        run: node tests/preview20-guest-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview20-journey-${{ github.event.pull_request.head.sha }}
+          path: |
+            dist/
+            artifacts/readable-admin/
+            artifacts/journey-browser/
+            artifacts/guest-browser/
+            artifacts/learning-nav/
+            artifacts/reference-unified/
+          retention-days: 1

@@ -1,0 +1,255 @@
+/* User-requested Preview fixes: calm single splash, complete Otto bust, no overlap. */
+
+/* --- Splash: one calm entrance only --- */
+.otto-splash-screen {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.52), transparent 30%),
+    linear-gradient(155deg, #eee1d9 0%, #f5e9df 48%, #ead9d0 100%) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transition: opacity 1.8s cubic-bezier(.22,.7,.25,1), filter 1.8s ease !important;
+}
+
+.otto-splash-glow {
+  opacity: .72 !important;
+  transition: opacity 1.8s ease !important;
+}
+
+.otto-splash-figure {
+  opacity: 0 !important;
+  transform: translateY(18px) scale(.975) !important;
+  filter: blur(2px) !important;
+  transition:
+    opacity 1.55s cubic-bezier(.22,.7,.25,1),
+    transform 1.8s cubic-bezier(.18,.78,.2,1),
+    filter 1.55s ease !important;
+}
+
+.otto-splash-otto {
+  filter: grayscale(0) saturate(.98) contrast(1.015) opacity(1) drop-shadow(0 16px 22px rgba(43,54,54,.14)) !important;
+  transform: scale(1) !important;
+  transition: transform 1.8s cubic-bezier(.18,.78,.2,1), filter 1.5s ease !important;
+}
+
+.otto-splash-brand {
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  transition: opacity 1.25s ease .45s, transform 1.45s cubic-bezier(.18,.78,.2,1) .45s !important;
+}
+
+.otto-splash-screen.is-figure .otto-splash-figure {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0) !important;
+}
+
+.otto-splash-screen.is-figure .otto-splash-brand {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.otto-splash-screen.is-leaving {
+  opacity: 0 !important;
+  filter: blur(5px) !important;
+  pointer-events: none !important;
+}
+
+.otto-splash-screen.is-leaving .otto-splash-figure {
+  opacity: 0 !important;
+  transform: translateY(-5px) scale(1.012) !important;
+  filter: blur(3px) !important;
+}
+
+.otto-splash-screen.is-leaving .otto-splash-brand {
+  opacity: 0 !important;
+  transform: translateY(-3px) !important;
+  transition-delay: 0s !important;
+}
+
+/* --- Home hero: full documents Otto, no cut arms --- */
+.otto-premium-hero {
+  min-height: 300px !important;
+}
+
+.otto-premium-hero-copy {
+  width: 49% !important;
+  max-width: 470px !important;
+  padding: clamp(28px, 4.2vw, 44px) 8px clamp(28px, 4.2vw, 44px) clamp(24px, 4vw, 40px) !important;
+}
+
+.otto-premium-brand {
+  margin: 0 !important;
+  font-size: clamp(31px, 4.6vw, 45px) !important;
+}
+
+.otto-premium-lead {
+  max-width: 390px !important;
+  margin-top: 18px !important;
+}
+
+.otto-premium-bust {
+  top: 10px !important;
+  right: 10px !important;
+  bottom: 10px !important;
+  width: 54% !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+}
+
+.otto-premium-bust::before {
+  inset: 8% 0 4% 10% !important;
+}
+
+.otto-premium-bust-image {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: right bottom !important;
+  transform: none !important;
+  filter: saturate(.96) contrast(1.01) drop-shadow(0 15px 21px rgba(39,54,56,.13)) !important;
+}
+
+/* Readiness is a separate block, never floating on top of Otto/hero. */
+.otto-premium-readiness {
+  z-index: 2 !important;
+  margin: 16px 0 0 !important;
+}
+
+.otto-premium-readiness-main {
+  box-shadow: var(--otto-shadow-sm) !important;
+}
+
+@media (max-width: 640px) {
+  .otto-premium-hero {
+    min-height: 250px !important;
+    border-radius: 24px !important;
+  }
+
+  .otto-premium-hero-copy {
+    width: 47% !important;
+    padding: 22px 4px 22px 18px !important;
+  }
+
+  .otto-premium-brand {
+    font-size: clamp(25px, 8vw, 34px) !important;
+    line-height: .98 !important;
+  }
+
+  .otto-premium-brand i {
+    width: 84% !important;
+    margin-top: 7px !important;
+  }
+
+  .otto-premium-lead {
+    margin-top: 14px !important;
+    font-size: 12px !important;
+    line-height: 1.42 !important;
+  }
+
+  .otto-premium-bust {
+    top: 6px !important;
+    right: 2px !important;
+    bottom: 5px !important;
+    width: 58% !important;
+  }
+
+  .otto-premium-bust-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: right bottom !important;
+  }
+
+  .otto-premium-readiness {
+    margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .otto-premium-hero {
+    min-height: 232px !important;
+  }
+
+  .otto-premium-hero-copy {
+    width: 46% !important;
+    padding-left: 15px !important;
+  }
+
+  .otto-premium-brand {
+    font-size: 24px !important;
+  }
+
+  .otto-premium-lead {
+    font-size: 11px !important;
+  }
+
+  .otto-premium-bust {
+    width: 60% !important;
+    right: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otto-splash-screen,
+  .otto-splash-figure,
+  .otto-splash-otto,
+  .otto-splash-brand {
+    transition-duration: .2s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* --- Home hero reference correction (879x645 reference supplied by user) ---
+   This block is deliberately scoped to the home roadmap hero and only changes geometry. */
+.otto-view-home .otto-roadmap-dashboard .otto-approved-hero {
+  height: clamp(235px, 73.38vw, 316px) !important;
+  min-height: 235px !important;
+  max-height: 316px !important;
+}
+
+.otto-view-home .otto-roadmap-dashboard .otto-approved-hero-copy {
+  top: 20px !important;
+  left: 22px !important;
+  width: 55% !important;
+}
+
+.otto-view-home .otto-roadmap-dashboard .otto-approved-otto {
+  top: 0 !important;
+  right: 0 !important;
+  width: 66% !important;
+  height: 100% !important;
+}
+
+.otto-view-home .otto-roadmap-dashboard .otto-approved-hero .otto-approved-otto-image {
+  top: 0 !important;
+  right: -5% !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 104% !important;
+  object-fit: contain !important;
+  object-position: right bottom !important;
+}
+
+.otto-view-home .otto-roadmap-dashboard .otto-approved-side-note {
+  top: 72px !important;
+  right: 10px !important;
+}
+
+@media (max-width: 360px) {
+  .otto-view-home .otto-roadmap-dashboard .otto-approved-hero-copy {
+    top: 17px !important;
+    left: 18px !important;
+    width: 57% !important;
+  }
+
+  .otto-view-home .otto-roadmap-dashboard .otto-approved-hero .otto-approved-otto-image {
+    right: -7% !important;
+    height: 105% !important;
+  }
+}

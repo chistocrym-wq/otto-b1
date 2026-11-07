@@ -1,0 +1,74 @@
+/* Text/layout safety only. Do not change approved colors, typography scale or composition. */
+
+.otto-skin,
+.otto-skin * {
+  box-sizing: border-box;
+}
+
+/* Flex/grid children need to be allowed to shrink; otherwise long Russian/German labels
+   can push a card wider than the viewport even when the text itself can wrap. */
+.otto-skin :is(section, article, div, header, footer, nav, main, aside, button, a, label, li, summary) {
+  min-width: 0;
+}
+
+.otto-skin :is(h1, h2, h3, h4, h5, h6, p, strong, b, small, span, label, button, a, summary, li, dd, dt) {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: manual;
+}
+
+.otto-skin button,
+.otto-skin [role='button'] {
+  min-width: 0;
+  white-space: normal;
+}
+
+.otto-skin button > span,
+.otto-skin a > span,
+.otto-skin summary > span {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.otto-skin svg,
+.otto-skin .lucide {
+  flex-shrink: 0;
+}
+
+.otto-skin img,
+.otto-skin video,
+.otto-skin canvas {
+  max-width: 100%;
+}
+
+.otto-skin input,
+.otto-skin textarea,
+.otto-skin select {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* German orthography must remain intact. Never split characters such as Ä/Ö/Ü/ä/ö/ü/ß
+   with break-all; only allow a normal word wrap when a label genuinely cannot fit. */
+.otto-skin :lang(de),
+.otto-skin [data-lang='de'],
+.otto-skin [data-language='de'] {
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+/* Common card/list copy: permit natural height when the content needs an extra line. */
+.otto-skin :is(.otto-page-card, .otto-panel, .otto-module-card, .otto-premium-panel, .otto-premium-skill-card, .otto-premium-details, .otto-ready-card) :is(p, small, strong, h2, h3),
+.otto-skin :is(.otto-account-page, .otto-settings-page, .otto-readiness-page, .otto-modules-hub) :is(p, small, strong, h1, h2, h3, button, a) {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+@media (max-width: 360px) {
+  /* Keep the approved type scale; only very long action labels may tighten slightly. */
+  .otto-skin button {
+    line-height: 1.18;
+  }
+}

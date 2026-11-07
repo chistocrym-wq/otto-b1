@@ -1,0 +1,68 @@
+/* Exact approved home-screen visual overrides. Imported last. */
+
+.otto-approved-hero {
+  position: relative !important;
+  height: clamp(186px, 48.9vw, 210px) !important;
+  min-height: 186px !important;
+  max-height: 210px !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #f6f0e7 url('/otto/approved-home-hero.webp') center top / 100% 100% no-repeat !important;
+  box-shadow: none !important;
+}
+
+.otto-approved-hero::before,
+.otto-approved-hero::after,
+.otto-approved-hero-copy,
+.otto-approved-skyline,
+.otto-approved-otto,
+.otto-approved-side-note {
+  display: none !important;
+}
+
+/* Preserve the approved 941x1672 geometry at the app's 430px design width. */
+.otto-approved-dashboard {
+  width: 100% !important;
+  max-width: 430px !important;
+  margin: 0 auto !important;
+  background: #f6f0e7 !important;
+}
+
+.otto-approved-readiness {
+  margin: 0 16px !important;
+}
+
+.otto-approved-readiness-button {
+  border-radius: 17px !important;
+  background: #fdf9f3 !important;
+  box-shadow: 0 7px 18px rgba(54,56,50,.08) !important;
+}
+
+.otto-approved-recommendation {
+  margin-top: 8px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(90deg,#f4f5ef,#edf3ec) !important;
+}
+
+.otto-approved-training {
+  margin-top: 8px !important;
+  border-radius: 19px !important;
+  background: #fdf9f3 !important;
+}
+
+.otto-approved-primary {
+  background: #a35037 !important;
+  color: #fff !important;
+}
+
+.otto-approved-complete {
+  background: linear-gradient(90deg,#f1f5ed,#eef3eb) !important;
+}
+
+@media (max-width: 430px) {
+  .otto-approved-hero {
+    height: 48.9vw !important;
+    min-height: 0 !important;
+  }
+}

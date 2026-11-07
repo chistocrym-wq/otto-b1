@@ -1,0 +1,70 @@
+name: Preview 13 responsive viewport audit
+on:
+  push:
+    branches:
+      - preview/task-linked-learning
+    paths:
+      - 'src/**'
+      - 'public/reference-source/**'
+      - 'public/mock-exams-30.json'
+      - 'index.html'
+      - 'vite.config.*'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/preview-responsive-audit.mjs'
+      - 'scripts/preview-mobile-onboarding.mjs'
+  workflow_dispatch:
+concurrency:
+  group: otto-preview-responsive-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: read
+jobs:
+  responsive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Playwright Chromium downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium-1.48.2
+      - name: Install Playwright Chromium
+        run: |
+          npm install
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Wait for exact Preview deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 80); do
+            state=$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/status" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const j=JSON.parse(s);console.log((j.statuses||[]).find(v=>v.context==='netlify/otto-a1/deploy-preview')?.state||'pending')})")
+            echo "Preview deploy state: $state"
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" = failure ] || [ "$state" = error ]; then exit 1; fi
+            sleep 10
+          done
+          exit 1
+      - name: Browser audit across ten viewports
+        run: node scripts/preview-responsive-audit.mjs
+      - name: First-run welcome, OTTO tour and learning hub (shared Chromium)
+        run: node scripts/preview-mobile-onboarding.mjs
+      - name: Reference mobile/desktop visual QA (shared Chromium)
+        run: node scripts/preview-reference-mobile-visual.mjs
+      - name: Preserve reference screenshots even if QA fails
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: reference-mobile-visual
+          path: reference-visual-artifacts/*.jpg
+          if-no-files-found: ignore
+          retention-days: 3

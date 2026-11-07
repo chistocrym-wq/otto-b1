@@ -1,0 +1,579 @@
+:root {
+  --otto-nav-height: 66px;
+  --otto-vh: 100vh;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.otto-app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  /* Fallback for browsers without dvh (older Safari/WebView) so the app
+     never grows taller than the actual visible viewport. */
+  height: var(--otto-vh);
+  height: 100dvh;
+  min-height: 0 !important;
+  overflow: hidden;
+}
+
+.otto-app-content {
+  height: calc(100dvh - var(--otto-nav-height) - env(safe-area-inset-bottom));
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(6px, 1vh, 12px) clamp(8px, 2vw, 18px) 6px;
+}
+
+.otto-home-screen,
+.otto-inner-screen {
+  height: 100%;
+  min-height: 0;
+}
+
+.otto-home-screen {
+  overflow: hidden;
+}
+
+.otto-inner-screen {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.otto-inner-screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* Каждая сцена Отто — своё изображение (см. OttoScene.tsx), просто задаём пропорции. */
+.otto-scene {
+  aspect-ratio: 4 / 5;
+}
+
+/* Главная — вся важная информация помещается в один viewport. */
+.otto-dashboard-screen {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(138px, 1fr) auto minmax(112px, auto) auto auto;
+  gap: clamp(5px, .8vh, 9px);
+  overflow: hidden;
+  padding-bottom: 0 !important;
+}
+
+.otto-dashboard-screen .otto-home-hero {
+  min-height: 0 !important;
+  height: 100% !important;
+  margin: 0 !important;
+  border-radius: 24px;
+}
+
+.otto-dashboard-screen .otto-home-copy {
+  width: 54%;
+  padding: clamp(14px, 2.2vh, 22px) 0 12px clamp(14px, 2vw, 24px);
+}
+
+.otto-dashboard-screen .otto-logo-word {
+  font-size: clamp(38px, 6.6vh, 68px);
+}
+
+.otto-dashboard-screen .otto-home-copy h1 {
+  margin-top: clamp(6px, 1vh, 12px);
+  font-size: clamp(20px, 3.7vh, 34px);
+}
+
+.otto-dashboard-screen .otto-home-copy > p {
+  margin-top: 3px;
+  font-size: clamp(12px, 1.9vh, 17px);
+}
+
+.otto-dashboard-screen .otto-handwritten {
+  margin-top: clamp(7px, 1.1vh, 14px);
+  font-size: clamp(12px, 1.8vh, 18px);
+}
+
+.otto-dashboard-screen .otto-home-character {
+  right: 1% !important;
+  bottom: -4% !important;
+  width: auto !important;
+  height: 104% !important;
+  aspect-ratio: 4 / 5;
+  overflow: visible !important;
+}
+
+.otto-home-character-scene {
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  filter: drop-shadow(0 12px 18px rgba(15, 23, 42, .14));
+}
+
+.otto-dashboard-screen .otto-progress-card {
+  min-height: 0;
+  margin: -8px 8px 0 !important;
+  gap: 10px;
+  border-radius: 21px;
+  padding: 7px 10px;
+}
+
+.otto-dashboard-screen .otto-progress-ring {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+}
+
+.otto-dashboard-screen .otto-progress-ring::after {
+  inset: 7px;
+}
+
+.otto-dashboard-screen .otto-progress-ring span {
+  font-size: 15px;
+}
+
+.otto-progress-title {
+  color: #101a35;
+  font-size: clamp(14px, 2vh, 18px);
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.otto-progress-subtitle {
+  margin-top: 1px;
+  color: #73809a;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.otto-progress-line {
+  margin-top: 5px;
+}
+
+.otto-dashboard-screen .otto-progress-link {
+  min-width: 110px;
+  border-radius: 17px;
+  padding: 8px 9px;
+  font-size: 12px;
+}
+
+.otto-dashboard-screen .otto-progress-bars {
+  height: 27px;
+}
+
+.otto-dashboard-screen .otto-progress-bars i {
+  width: 5px;
+}
+
+.otto-dashboard-screen .otto-progress-bars i:nth-child(1) { height: 12px; }
+.otto-dashboard-screen .otto-progress-bars i:nth-child(2) { height: 19px; }
+.otto-dashboard-screen .otto-progress-bars i:nth-child(3) { height: 27px; }
+
+.otto-dashboard-section {
+  min-height: 0;
+  margin: 0 !important;
+}
+
+.otto-dashboard-screen .otto-section-title {
+  margin: 0 0 4px 3px;
+  font-size: clamp(15px, 2.2vh, 20px);
+  line-height: 1;
+}
+
+.otto-dashboard-screen .otto-module-grid {
+  gap: 6px;
+}
+
+.otto-dashboard-screen .otto-home-module-card {
+  min-height: 0;
+  height: clamp(48px, 6.7vh, 62px);
+  gap: 8px;
+  border-radius: 17px;
+  padding: 6px 9px;
+}
+
+.otto-dashboard-screen .otto-home-module-icon {
+  width: clamp(34px, 4.8vh, 43px);
+  height: clamp(34px, 4.8vh, 43px);
+  flex-basis: clamp(34px, 4.8vh, 43px);
+  border-radius: 14px;
+}
+
+.otto-dashboard-screen .otto-home-module-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.otto-dashboard-screen .otto-home-module-card strong {
+  font-size: clamp(13px, 1.9vh, 16px);
+  line-height: 1.05;
+}
+
+.otto-dashboard-screen .otto-home-module-card small {
+  margin-top: 1px;
+  font-size: 10px;
+}
+
+.otto-card-chevron {
+  color: #0f7d74;
+}
+
+.otto-dashboard-screen .otto-materials-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.otto-dashboard-screen .otto-material-card {
+  min-height: 0;
+  height: clamp(48px, 6.7vh, 62px);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 6px;
+  border-radius: 16px;
+  padding: 6px 7px;
+}
+
+.otto-dashboard-screen .otto-material-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+
+.otto-dashboard-screen .otto-material-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.otto-dashboard-screen .otto-material-card strong {
+  font-size: clamp(10px, 1.55vh, 13px);
+  line-height: 1.05;
+}
+
+.otto-dashboard-screen .otto-material-card small {
+  margin-top: 1px;
+  font-size: 9px;
+}
+
+.otto-dashboard-screen .otto-material-card > svg {
+  width: 14px;
+}
+
+.otto-dashboard-screen .otto-exam-cta {
+  min-height: 0;
+  height: clamp(68px, 9.6vh, 88px);
+  margin: 0;
+  gap: 8px;
+  border-radius: 20px;
+  padding: 8px 8px 8px clamp(76px, 11vw, 105px);
+}
+
+.otto-dashboard-screen .otto-exam-otto {
+  left: -3px;
+  bottom: -18px;
+  width: clamp(78px, 11vw, 100px);
+  height: clamp(98px, 14vw, 125px);
+}
+
+.otto-exam-otto-scene {
+  width: 100%;
+  height: 100%;
+}
+
+.otto-dashboard-screen .otto-exam-cta h2 {
+  font-size: clamp(13px, 1.9vh, 17px);
+  line-height: 1.05;
+}
+
+.otto-dashboard-screen .otto-exam-cta p {
+  margin-top: 3px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: clamp(9px, 1.35vh, 11px);
+  line-height: 1.2;
+}
+
+.otto-dashboard-screen .otto-exam-button {
+  min-width: 118px;
+  border-radius: 15px;
+  padding: 9px 11px;
+  font-size: 12px;
+}
+
+/* Нижняя навигация всегда остаётся на месте и не съедает лишнюю высоту. */
+.otto-bottom-nav {
+  height: calc(var(--otto-nav-height) + env(safe-area-inset-bottom));
+  padding: 0 6px env(safe-area-inset-bottom) !important;
+}
+
+.otto-bottom-nav-inner {
+  height: var(--otto-nav-height);
+  border-radius: 22px 22px 0 0 !important;
+}
+
+.otto-bottom-nav-item {
+  min-height: var(--otto-nav-height) !important;
+  gap: 2px !important;
+  font-size: 9px !important;
+}
+
+.otto-bottom-nav-icon {
+  width: 21px !important;
+  height: 21px !important;
+}
+
+/* Верхнеуровневые экраны — без прокрутки страницы. */
+.otto-hub-screen {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+}
+
+.otto-hub-screen .otto-page-hero {
+  flex: 0 0 clamp(112px, 20vh, 158px);
+  min-height: 0 !important;
+  margin: 0 !important;
+  border-radius: 22px;
+  padding: 16px clamp(120px, 25vw, 195px) 16px 18px;
+}
+
+.otto-hub-screen .otto-page-hero h1 {
+  font-size: clamp(20px, 3.1vh, 30px);
+}
+
+.otto-hub-screen .otto-page-hero-character {
+  right: -12px !important;
+  bottom: -22px !important;
+  width: clamp(125px, 23vw, 180px) !important;
+  height: clamp(156px, 29vw, 225px) !important;
+  aspect-ratio: 4 / 5;
+}
+
+.otto-page-hero-scene {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, .13));
+}
+
+.otto-module-list,
+.otto-settings-list {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.otto-hub-screen .otto-module-row,
+.otto-hub-screen .otto-setting-row {
+  min-height: 0 !important;
+  height: 100%;
+  border-radius: 18px;
+  padding: 8px 11px;
+}
+
+.otto-hub-screen .otto-module-row-icon,
+.otto-hub-screen .otto-setting-row > span {
+  width: clamp(40px, 6vh, 50px);
+  height: clamp(40px, 6vh, 50px);
+  flex-basis: clamp(40px, 6vh, 50px);
+  border-radius: 15px;
+}
+
+.otto-hub-screen .otto-module-row strong,
+.otto-hub-screen .otto-setting-row strong {
+  font-size: clamp(14px, 2vh, 17px);
+}
+
+.otto-hub-screen .otto-module-row small,
+.otto-hub-screen .otto-setting-row small,
+.otto-hub-screen .otto-module-row-desc {
+  font-size: 10px;
+}
+
+.otto-view-account .otto-account-card {
+  flex: 0 0 auto;
+  gap: 7px;
+  border-radius: 20px;
+  padding: 9px;
+}
+
+.otto-view-account .otto-account-stat {
+  min-height: clamp(74px, 12vh, 96px);
+  border-radius: 16px;
+}
+
+.otto-view-account .otto-account-stat > span {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.otto-view-account .otto-account-stat strong {
+  margin-top: 3px;
+  font-size: 20px;
+}
+
+.otto-view-account .otto-account-summary {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Разные изображения Отто в рабочих экранах. */
+.otto-companion {
+  position: fixed !important;
+  z-index: 38 !important;
+  right: 6px !important;
+  bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 6px) !important;
+  width: clamp(66px, 10vw, 92px) !important;
+  height: auto !important;
+  pointer-events: none;
+  opacity: .98;
+  filter: drop-shadow(0 10px 14px rgba(15, 23, 42, .16));
+}
+
+.otto-companion-scene {
+  width: 100%;
+}
+
+.otto-companion-horen { width: clamp(72px, 11vw, 98px) !important; }
+.otto-companion-schreiben { width: clamp(70px, 10.5vw, 96px) !important; }
+.otto-companion-exam { width: clamp(74px, 11vw, 100px) !important; }
+
+/* На очень низких экранах ещё немного уплотняем, но ничего не обрезаем. */
+@media (max-height: 720px) {
+  :root { --otto-nav-height: 58px; }
+  .otto-app-content { padding-top: 5px; }
+  .otto-dashboard-screen { grid-template-rows: minmax(124px, 1fr) auto minmax(100px, auto) auto auto; gap: 4px; }
+  .otto-dashboard-screen .otto-handwritten { display: none; }
+  .otto-dashboard-screen .otto-progress-card { padding-top: 5px; padding-bottom: 5px; }
+  .otto-dashboard-screen .otto-progress-ring { width: 46px; height: 46px; flex-basis: 46px; }
+  .otto-dashboard-screen .otto-progress-ring::after { inset: 6px; }
+  .otto-dashboard-screen .otto-home-module-card,
+  .otto-dashboard-screen .otto-material-card { height: 45px; }
+  .otto-dashboard-screen .otto-home-module-icon { width: 32px; height: 32px; flex-basis: 32px; }
+  .otto-dashboard-screen .otto-material-icon { width: 30px; height: 30px; }
+  .otto-dashboard-screen .otto-material-card small { display: none; }
+  .otto-dashboard-screen .otto-exam-cta { height: 61px; }
+  .otto-dashboard-screen .otto-exam-cta p { -webkit-line-clamp: 1; }
+  .otto-hub-screen .otto-page-hero { flex-basis: 105px; }
+}
+
+@media (max-width: 520px) {
+  .otto-dashboard-screen .otto-home-copy { width: 55%; padding-left: 12px; }
+  .otto-dashboard-screen .otto-home-character { right: -5% !important; height: 102% !important; }
+  .otto-dashboard-screen .otto-progress-link { min-width: 78px; padding: 7px; }
+  .otto-dashboard-screen .otto-progress-bars { display: none; }
+  .otto-dashboard-screen .otto-progress-link > span:last-of-type { font-size: 10px; }
+  .otto-dashboard-screen .otto-material-card { grid-template-columns: auto minmax(0, 1fr); }
+  .otto-dashboard-screen .otto-material-card > svg { display: none; }
+  .otto-dashboard-screen .otto-exam-cta { padding-left: 70px; }
+  .otto-dashboard-screen .otto-exam-button { min-width: 92px; padding: 8px; font-size: 10px; }
+  .otto-hub-screen .otto-page-hero { padding-right: 112px; padding-left: 14px; }
+  .otto-hub-screen .otto-page-hero-character { right: -20px !important; width: 135px !important; height: 169px !important; }
+  .otto-module-progress { width: 72px !important; }
+}
+
+@media (max-height: 620px) {
+  .otto-inner-screen {
+    overflow-y: auto;
+  }
+  .otto-home-screen {
+    overflow-y: auto;
+  }
+  .otto-dashboard-screen {
+    min-height: 610px;
+  }
+}
+
+/* Phone layout of trainer module and settings hubs. The former viewport-sized
+   four-row grid compressed explanations to 10px and clipped long copy. */
+@media (max-width: 700px) {
+  .otto-hub-screen:has(.otto-module-list),
+  .otto-hub-screen:has(.otto-settings-list) {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+  .otto-hub-screen .otto-module-list,
+  .otto-hub-screen .otto-settings-list {
+    flex: 0 0 auto;
+    grid-template-rows: none;
+    grid-auto-rows: minmax(88px, auto);
+    align-content: start;
+    gap: 11px;
+  }
+  .otto-hub-screen .otto-module-row,
+  .otto-hub-screen .otto-setting-row {
+    height: auto;
+    min-height: 88px !important;
+    padding: 14px 15px;
+    border-radius: 18px;
+  }
+  .otto-hub-screen .otto-module-row strong,
+  .otto-hub-screen .otto-setting-row strong {
+    font-size: clamp(18px, 4.8vw, 19px);
+    line-height: 1.25;
+  }
+  .otto-hub-screen .otto-module-row small,
+  .otto-hub-screen .otto-setting-row small,
+  .otto-hub-screen .otto-module-row-desc {
+    font-size: 14px;
+    line-height: 1.4;
+    hyphens: none;
+    word-break: normal;
+  }
+  .otto-hub-screen .otto-page-hero h1 {
+    font-size: clamp(24px, 6.1vw, 26px);
+    line-height: 1.2;
+    hyphens: none;
+  }
+}
+
+/* Short phone screens: keep copy accessible through scrolling rather than
+   collapsing cards or hiding secondary explanations to fit one viewport. */
+@media (max-width: 700px) and (max-height: 720px) {
+  .otto-home-screen { overflow-y: auto; overflow-x: hidden; }
+  .otto-dashboard-screen {
+    height: auto;
+    min-height: 100%;
+    grid-template-rows: none;
+    gap: 10px;
+    overflow: visible;
+    padding-bottom: 20px !important;
+  }
+  .otto-dashboard-screen .otto-handwritten,
+  .otto-dashboard-screen .otto-material-card small {
+    display: revert;
+  }
+  .otto-dashboard-screen .otto-home-module-card,
+  .otto-dashboard-screen .otto-material-card {
+    height: auto;
+    min-height: 52px;
+  }
+  .otto-dashboard-screen .otto-exam-cta p {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+}

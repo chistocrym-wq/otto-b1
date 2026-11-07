@@ -1,0 +1,63 @@
+name: Preview 19 mobile and module browser QA
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+  statuses: read
+jobs:
+  chromium:
+    if: github.event.pull_request.number == 19
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install browser
+        run: |
+          npm install
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Wait for this commit's Netlify Deploy Preview 19
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          for i in $(seq 1 50); do
+            state=$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$HEAD_SHA/status" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const j=JSON.parse(s);console.log((j.statuses||[]).find(v=>v.context==='netlify/otto-a1/deploy-preview')?.state||'pending')})")
+            echo "$HEAD_SHA $state"
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" = error ] || [ "$state" = failure ]; then exit 1; fi
+            sleep 10
+          done
+          exit 1
+      - name: Real Chromium screenshots and navigation (mocked test account)
+        run: node scripts/preview19-browser-qa.mjs
+      - name: Functional Chromium QA (isolated account, mocked AI and progress)
+        if: success()
+        run: node scripts/preview19-functional-qa.mjs
+      - name: Schreiben account-isolated autosave Chromium regression
+        if: success()
+        run: node scripts/preview19-schreiben-drafts-qa.mjs
+      - name: Four requested fixes Chromium QA (tasks, training modes, forms)
+        if: success()
+        run: node scripts/preview19-four-fixes-qa.mjs
+      - name: Read-only v2 history Chromium QA (verified synthetic GET)
+        if: success()
+        run: node scripts/preview19-v2-bridge-browser-qa.mjs
+      - name: Upload screenshots and QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview19-browser-qa
+          path: |
+            preview19-browser-artifacts/*
+            preview19-functional-artifacts/*
+            preview19-schreiben-draft-artifacts/*
+            preview19-four-fixes-artifacts/*
+            preview19-v2-bridge-artifacts/*
+          if-no-files-found: ignore
+          retention-days: 7

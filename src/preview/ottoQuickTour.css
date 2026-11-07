@@ -1,0 +1,178 @@
+/* Quick tour uses OTTO assets, colors and the actual interface labels. */
+.otto-tour-backdrop { position: fixed; inset: 0; z-index: 220; background: var(--otto-bg); color: var(--otto-ink); }
+.otto-tour-scroll { box-sizing: border-box; display: flex; height: 100dvh; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: max(12px, env(safe-area-inset-top, 0px)) 12px max(18px, env(safe-area-inset-bottom, 0px)); -webkit-overflow-scrolling: touch; }
+.otto-tour-panel { box-sizing: border-box; width: min(100%, 540px); min-width: 0; margin: auto; padding: clamp(14px, 4vw, 24px); border: 1px solid var(--otto-line); border-radius: 25px; background: var(--otto-surface); box-shadow: var(--otto-shadow-md); }
+.otto-tour-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.otto-tour-header p { font-size: 12px !important; line-height: 1.35 !important; letter-spacing: .07em; font-weight: 850; color: var(--otto-petrol-dark); }
+.otto-tour-header p span { margin-left: 6px; color: var(--otto-muted); }
+.otto-tour-header button { display: grid; width: 40px; height: 40px; min-height: 40px; flex: 0 0 40px; place-items: center; border: 1px solid var(--otto-line); border-radius: 12px; background: var(--otto-surface); }
+.otto-tour-progress { display: flex; gap: 5px; margin-top: 12px; }
+.otto-tour-progress span { flex: 1; height: 4px; border-radius: 8px; background: var(--otto-line); }
+.otto-tour-progress span.is-active { background: var(--otto-petrol); }
+.otto-tour-heading { display: flex; align-items: center; gap: 13px; margin-top: 13px; }
+.otto-tour-heading h1 { min-width: 0; font-size: clamp(22px, 5vw, 28px) !important; line-height: 1.2 !important; font-weight: 900; hyphens: none !important; word-break: normal !important; overflow-wrap: normal !important; }
+.otto-tour-heading h1:focus { outline: none; }
+.otto-tour-character { width: 62px; height: 76px; flex: 0 0 62px; }
+.otto-tour-visual { display: flex; min-height: 112px; align-items: center; justify-content: center; margin-top: 12px; padding: 12px; border: 1px solid var(--otto-line); border-radius: 18px; background: var(--otto-bg-soft); }
+.otto-tour-mode-fragment { display: flex; width: 100%; align-items: flex-start; gap: 11px; padding: 12px; border: 2px solid #5eead4; border-radius: 18px; background: #f0fdfa; color: #0f172a; }
+.otto-tour-square { display: grid; width: 40px; height: 40px; flex: 0 0 40px; place-items: center; border-radius: 14px; background: white; color: #0f766e; }
+.otto-tour-fragment-text { min-width: 0; flex: 1; }
+.otto-tour-fragment-text b { display: block; font-size: 16px; line-height: 1.35; }
+.otto-tour-fragment-text small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.45; color: #475569; }
+.otto-tour-shortcuts { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.otto-tour-shortcut { display: grid; width: 54px; height: 54px; place-items: center; border: 1px solid #99f6e4; border-radius: 50%; background: #fff; color: #115e59; box-shadow: 0 8px 20px #0f766e26; }
+.otto-tour-fragment-caption { width: 100%; text-align: center; font-size: 12px; line-height: 1.45; color: #475569; }
+.otto-tour-card-fragment { display: grid; gap: 12px; justify-items: center; }
+.otto-tour-save { display: inline-flex; align-items: center; gap: 8px; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 12px; background: white; color: #334155; font-size: 13px; font-weight: 800; }
+.otto-tour-number-fragment { display: grid; width: min(100%, 310px); gap: 7px; }
+.otto-tour-number-fragment > b { font-size: 14px; }
+.otto-tour-number-input { display: block; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: white; font-size: 17px; font-weight: 800; }
+.otto-tour-number-answer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 10px; background: white; color: #0f172a; font-size: 15px; }
+.otto-tour-module-fragment { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.otto-tour-module-fragment span { display: flex; align-items: center; gap: 7px; min-width: 0; padding: 11px 8px; border: 1px solid #e2e8f0; border-radius: 13px; background: white; color: #0f172a; font-size: 14px; font-weight: 800; }
+.otto-tour-module-fragment svg { color: #0f766e; flex-shrink: 0; }
+.otto-tour-help-fragment { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.otto-tour-help-fragment span { display: flex; align-items: center; gap: 7px; padding: 9px 10px; border: 1px solid #99f6e4; border-radius: 12px; background: white; color: #115e59; font-size: 13px; font-weight: 800; }
+.otto-tour-training-fragment { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.otto-tour-training-fragment > span { padding: 12px 16px; border: 1px solid #99f6e4; border-radius: 12px; background: #f0fdfa; color: #134e4a; font-size: 15px; font-weight: 800; }
+.otto-tour-training-fragment small { width: 100%; text-align: center; font-size: 12px; line-height: 1.4; color: #475569; }
+.otto-tour-instructions { display: grid; gap: 8px; margin-top: 14px; }
+.otto-tour-instructions p { margin: 0; font-size: 14px !important; line-height: 1.45 !important; color: var(--otto-ink); hyphens: none !important; word-break: normal !important; }
+.otto-tour-instructions b { color: var(--otto-petrol-dark); }
+.otto-tour-footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-top: 17px; }
+.otto-tour-footer button { display: inline-flex; min-width: 0; min-height: 46px; align-items: center; justify-content: center; gap: 5px; padding: 8px 6px; border-radius: 12px; font-size: 14px !important; line-height: 1.2 !important; font-weight: 800; }
+.otto-tour-back { border: 1px solid var(--otto-line); background: var(--otto-surface); color: var(--otto-ink); }
+.otto-tour-back:disabled { opacity: .4; cursor: not-allowed; }
+.otto-tour-skip { border: 1px solid var(--otto-line); background: var(--otto-bg-soft); color: var(--otto-petrol-dark); }
+.otto-tour-next { background: var(--otto-cta); color: white; }
+.otto-tour-footer button:focus-visible, .otto-tour-header button:focus-visible { outline: 3px solid var(--otto-petrol); outline-offset: 2px; }
+@media (max-width: 360px) {
+  .otto-tour-scroll { padding-inline: 8px; }
+  .otto-tour-panel { padding: 12px; border-radius: 20px; }
+  .otto-tour-visual { padding: 8px; }
+  .otto-tour-heading { gap: 8px; }
+  .otto-tour-heading h1 { font-size: 22px !important; }
+  .otto-tour-character { width: 52px; height: 65px; flex-basis: 52px; }
+  .otto-tour-footer button { font-size: 13px !important; }
+}
+@media (max-height: 650px) {
+  .otto-tour-visual { min-height: 90px; margin-top: 9px; }
+  .otto-tour-instructions { gap: 5px; margin-top: 10px; }
+  .otto-tour-footer { margin-top: 11px; }
+}
+
+/* Phone tour layout: readable labels and full-size actions without squeezing
+   three controls into three narrow columns. Desktop geometry is unchanged. */
+@media (max-width: 640px) {
+  .otto-tour-scroll {
+    align-items: flex-start;
+    padding-top: max(12px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+    scroll-padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  }
+  .otto-tour-panel { margin: 0 auto; }
+  .otto-tour-header button { width: 48px; height: 48px; min-height: 48px; flex-basis: 48px; }
+  .otto-tour-header p { font-size: 13px !important; }
+  .otto-tour-fragment-text small,
+  .otto-tour-fragment-caption,
+  .otto-tour-training-fragment small { font-size: 14px; }
+  .otto-tour-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .otto-tour-footer button { min-height: 48px; padding-inline: 10px; }
+  .otto-tour-next { grid-column: 1 / -1; }
+}
+
+
+/* Seven-screen editorial guide: reuse OTTO's existing palette and visuals. */
+.otto-tour-instructions ul { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.otto-tour-instructions li { font-size: 14px; line-height: 1.5; color: var(--otto-ink); hyphens: none; word-break: normal; }
+.otto-tour-mode-options { display: grid; width: 100%; gap: 10px; }
+.otto-tour-mode-options .otto-tour-mode-fragment { min-width: 0; }
+.otto-tour-learning-fragment { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.otto-tour-learning-fragment > span { padding: 10px 12px; border: 1px solid var(--otto-line); border-radius: 12px; background: var(--otto-surface); font-size: 13px; font-weight: 800; text-align: center; }
+.otto-tour-instructions { overflow-wrap: normal; }
+@media (max-width: 640px) {
+  .otto-tour-instructions p, .otto-tour-instructions li { font-size: 15px !important; line-height: 1.5 !important; }
+  .otto-tour-visual { min-width: 0; }
+  .otto-tour-learning-fragment { flex-direction: column; }
+  .otto-tour-learning-fragment > span { width: 100%; }
+}
+
+
+/* Full-screen guide lives in a body portal, outside the app's clipped shell.
+   Only one scrollport is visible; underlying learning content is fully covered. */
+.otto-tour-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  z-index: 2147483000;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--otto-bg);
+}
+.otto-tour-scroll {
+  width: 100%;
+  max-height: 100dvh;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.otto-tour-scroll::-webkit-scrollbar { width: 3px; }
+.otto-tour-scroll::-webkit-scrollbar-thumb { background: transparent; }
+.otto-tour-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Preview20 guide: same functional five-button OTTO dock as the trainer. */
+.otto-tour-backdrop {
+ --otto-nav-height:80px;
+ --otto-tour-bottom-safe:max(env(safe-area-inset-bottom,0px),var(--tg-content-safe-area-inset-bottom,0px));
+}
+.otto-tour-backdrop .otto-tour-scroll {
+ height:calc(100dvh - var(--otto-nav-height) - var(--otto-tour-bottom-safe));
+ max-height:calc(100dvh - var(--otto-nav-height) - var(--otto-tour-bottom-safe));
+ min-height:0;
+ padding-bottom:16px;
+ scroll-padding-bottom:16px;
+}
+.otto-tour-backdrop .otto-bottom-nav {
+ box-sizing:border-box;
+ height:calc(var(--otto-nav-height) + var(--otto-tour-bottom-safe));
+ padding:0 max(6px,env(safe-area-inset-right,0px)) var(--otto-tour-bottom-safe) max(6px,env(safe-area-inset-left,0px));
+ z-index:2;
+}
+.otto-tour-backdrop .otto-bottom-nav-inner {
+ box-sizing:border-box;
+ width:100%;
+ max-width:920px;
+ height:var(--otto-nav-height);
+ min-height:var(--otto-nav-height);
+ grid-template-columns:repeat(5,minmax(0,1fr));
+ overflow:hidden;
+}
+.otto-tour-backdrop .otto-bottom-nav-inner::after {content:none;display:none}
+.otto-tour-backdrop .otto-bottom-nav-item {
+ box-sizing:border-box;
+ height:100%;
+ min-height:0;
+ min-width:0;
+ padding:6px 2px 9px;
+ gap:3px;
+ justify-content:center;
+}
+.otto-tour-backdrop .otto-bottom-nav-item > span:last-child {
+ display:block;
+ width:100%;
+ max-width:100%;
+ white-space:normal;
+ overflow:visible;
+ text-overflow:clip;
+ overflow-wrap:break-word;
+ line-height:1.12;
+ font-size:clamp(9px,2.5vw,11px);
+ text-align:center;
+}
+.otto-tour-backdrop .otto-bottom-nav-icon-slot {flex:0 0 auto}
+.otto-tour-module-fragment span:last-child {grid-column:1 / -1}
+.otto-tour-learning-fragment > span {display:flex;align-items:center;gap:7px}
+.otto-tour-training-fragment > span {display:inline-flex;align-items:center;gap:7px}

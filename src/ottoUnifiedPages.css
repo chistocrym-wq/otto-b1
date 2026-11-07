@@ -1,0 +1,414 @@
+/* Unified visual layer for every screen except the approved home composition. */
+:root {
+  --otto-ui-bg: #f1fbfb;
+  --otto-ui-bg-2: #f8fdfd;
+  --otto-ui-ink: #071b43;
+  --otto-ui-muted: #5e718c;
+  --otto-ui-teal: #0797a2;
+  --otto-ui-teal-bright: #0badb2;
+  --otto-ui-teal-dark: #087b87;
+  --otto-ui-soft: #e4f8f7;
+  --otto-ui-border: #dfeff0;
+  --otto-ui-shadow: 0 10px 28px rgba(30, 91, 99, .065);
+}
+
+.telegram-app:not(.otto-view-home) {
+  color: var(--otto-ui-ink);
+  background:
+    radial-gradient(circle at 94% 4%, rgba(68, 213, 220, .15), transparent 26%),
+    radial-gradient(circle at 2% 32%, rgba(77, 207, 211, .09), transparent 28%),
+    linear-gradient(180deg, var(--otto-ui-bg) 0%, var(--otto-ui-bg-2) 52%, #eefafa 100%) !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-backdrop { opacity: .42; }
+
+.telegram-app:not(.otto-view-home) .otto-app-content {
+  width: 100% !important;
+  max-width: 980px !important;
+  padding: 12px 16px 8px !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-inner-screen {
+  padding: 0 0 12px !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-inner-screen > .animate-fade-in {
+  width: 100%;
+}
+
+/* Shared typography and surfaces. */
+.telegram-app:not(.otto-view-home) h1,
+.telegram-app:not(.otto-view-home) h2,
+.telegram-app:not(.otto-view-home) h3,
+.telegram-app:not(.otto-view-home) strong,
+.telegram-app:not(.otto-view-home) b {
+  color: var(--otto-ui-ink);
+}
+
+.telegram-app:not(.otto-view-home) .otto-kicker {
+  color: var(--otto-ui-teal);
+  letter-spacing: .1em;
+}
+
+.telegram-app:not(.otto-view-home) .otto-page-hero {
+  min-height: 148px !important;
+  flex-basis: 148px !important;
+  margin: 0 !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .94) !important;
+  border-radius: 28px !important;
+  background:
+    radial-gradient(circle at 87% 20%, rgba(79, 210, 220, .25), transparent 31%),
+    linear-gradient(135deg, #ffffff 0 44%, #e7faf8 100%) !important;
+  padding: 22px 180px 22px 24px !important;
+  box-shadow: var(--otto-ui-shadow) !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-page-hero h1 {
+  max-width: 610px;
+  color: var(--otto-ui-ink) !important;
+  font-size: clamp(24px, 3.1vw, 34px) !important;
+  line-height: 1.05;
+}
+
+.telegram-app:not(.otto-view-home) .otto-page-hero p { color: var(--otto-ui-muted) !important; }
+
+.telegram-app:not(.otto-view-home) .otto-page-hero-character {
+  right: 4px !important;
+  bottom: -34px !important;
+  width: 145px !important;
+  height: 181px !important;
+  opacity: .96;
+  pointer-events: none;
+}
+
+.telegram-app:not(.otto-view-home) .otto-page-hero-scene {
+  width: 100% !important;
+  height: 100% !important;
+  filter: drop-shadow(0 10px 16px rgba(23, 70, 77, .11));
+}
+
+.telegram-app:not(.otto-view-home) .otto-sticky-head,
+.telegram-app:not(.otto-view-home) .animate-fade-in > div:has(button[aria-label="Назад"]):first-child,
+.telegram-app:not(.otto-view-home) .animate-fade-in > div:has(button[aria-label="Вернуться"]):first-child {
+  border: 1px solid rgba(255,255,255,.94) !important;
+  border-radius: 22px !important;
+  background: rgba(255,255,255,.94) !important;
+  box-shadow: 0 8px 24px rgba(24, 82, 90, .07) !important;
+  backdrop-filter: blur(10px);
+}
+
+.telegram-app:not(.otto-view-home) .otto-back-button,
+.telegram-app:not(.otto-view-home) button[aria-label="Назад"],
+.telegram-app:not(.otto-view-home) button[aria-label="Вернуться"] {
+  border-color: var(--otto-ui-border) !important;
+  background: #fff !important;
+  color: var(--otto-ui-teal-dark) !important;
+  box-shadow: 0 4px 12px rgba(24, 83, 90, .05);
+}
+
+/* Consistent cards without changing exercise logic/content. */
+.telegram-app:not(.otto-view-home) .otto-module-row,
+.telegram-app:not(.otto-view-home) .otto-account-card,
+.telegram-app:not(.otto-view-home) .otto-account-summary,
+.telegram-app:not(.otto-view-home) section[class*="bg-white"],
+.telegram-app:not(.otto-view-home) div[class*="bg-white"][class*="rounded-2xl"],
+.telegram-app:not(.otto-view-home) div[class*="bg-white"][class*="rounded-3xl"] {
+  border-color: var(--otto-ui-border) !important;
+  box-shadow: var(--otto-ui-shadow) !important;
+}
+
+.telegram-app:not(.otto-view-home) section[class*="rounded-2xl"],
+.telegram-app:not(.otto-view-home) section[class*="rounded-3xl"],
+.telegram-app:not(.otto-view-home) div[class*="rounded-2xl"],
+.telegram-app:not(.otto-view-home) div[class*="rounded-3xl"] {
+  border-radius: 22px !important;
+}
+
+/* Primary actions use the approved turquoise family instead of black. */
+.telegram-app:not(.otto-view-home) button[class*="bg-slate-900"],
+.telegram-app:not(.otto-view-home) button[class*="bg-teal-600"],
+.telegram-app:not(.otto-view-home) button[class*="bg-teal-700"] {
+  background: linear-gradient(135deg, #10aab0, #087f8c) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 7px 18px rgba(8, 132, 143, .14);
+}
+
+.telegram-app:not(.otto-view-home) button:not(:disabled) { transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease; }
+.telegram-app:not(.otto-view-home) button:not(:disabled):active { transform: scale(.985); }
+
+.telegram-app:not(.otto-view-home) input,
+.telegram-app:not(.otto-view-home) textarea,
+.telegram-app:not(.otto-view-home) select {
+  border-color: #d7e8ea !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+}
+.telegram-app:not(.otto-view-home) input:focus,
+.telegram-app:not(.otto-view-home) textarea:focus,
+.telegram-app:not(.otto-view-home) select:focus {
+  border-color: var(--otto-ui-teal-bright) !important;
+  box-shadow: 0 0 0 3px rgba(11, 173, 178, .10) !important;
+}
+
+/* Hub pages fill their available height instead of leaving random blank bands. */
+.telegram-app:not(.otto-view-home) .otto-hub-screen {
+  height: 100%;
+  min-height: 0;
+  gap: 10px !important;
+  padding: 0 !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-module-list {
+  flex: 1 1 auto;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 9px !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-module-row {
+  min-height: 0 !important;
+  height: 100%;
+  gap: 14px;
+  border-radius: 22px !important;
+  background: rgba(255,255,255,.97) !important;
+  padding: 11px 14px !important;
+}
+
+.telegram-app:not(.otto-view-home) .otto-module-row:nth-child(1) { background: linear-gradient(135deg,#fffdf5,#fbf3dd) !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row:nth-child(2) { background: linear-gradient(135deg,#f7f6ff,#eceafb) !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row:nth-child(3) { background: linear-gradient(135deg,#fff7f3,#fdebe4) !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row:nth-child(4) { background: linear-gradient(135deg,#effff9,#e1f8ef) !important; }
+
+.telegram-app:not(.otto-view-home) .otto-module-row-icon {
+  width: 52px !important;
+  height: 52px !important;
+  flex-basis: 52px !important;
+  border-radius: 17px !important;
+  background: rgba(255,255,255,.75) !important;
+  color: var(--otto-ui-teal-dark) !important;
+  box-shadow: inset 0 0 0 1px rgba(8,145,154,.08);
+}
+.telegram-app:not(.otto-view-home) .otto-module-row-icon svg { width: 27px !important; height: 27px !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row strong { font-size: 18px !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row small { color: var(--otto-ui-teal-dark) !important; font-size: 12px !important; }
+.telegram-app:not(.otto-view-home) .otto-module-row-desc { color: var(--otto-ui-muted) !important; font-size: 11px !important; }
+
+/* Account page — equal visual density, no dead lower half. */
+.otto-view-account .otto-account-card {
+  flex: 0 0 auto;
+  gap: 9px !important;
+  padding: 10px !important;
+  background: rgba(255,255,255,.94) !important;
+}
+.otto-view-account .otto-account-stat {
+  min-height: 88px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(145deg,#f7fefe,#eaf8f7) !important;
+}
+.otto-view-account .otto-account-stat > span { background: #dff7f5 !important; color: var(--otto-ui-teal) !important; }
+.otto-view-account .otto-account-summary { flex: 1 1 auto; justify-content: center; background: rgba(255,255,255,.97) !important; }
+
+/* Functional settings accordions. */
+.telegram-app:not(.otto-view-home) .otto-settings-list {
+  display: flex !important;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 9px !important;
+  overflow-y: auto;
+  padding: 1px;
+  scrollbar-width: none;
+}
+.telegram-app:not(.otto-view-home) .otto-settings-list::-webkit-scrollbar { display: none; }
+.telegram-app:not(.otto-view-home) .otto-setting-row {
+  position: relative;
+  display: grid !important;
+  width: 100%;
+  min-height: 76px !important;
+  height: auto !important;
+  grid-template-columns: 52px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid var(--otto-ui-border) !important;
+  border-radius: 21px !important;
+  background: rgba(255,255,255,.97) !important;
+  padding: 11px 13px !important;
+  text-align: left;
+  box-shadow: var(--otto-ui-shadow) !important;
+}
+.telegram-app:not(.otto-view-home) .otto-setting-row.is-open { background: linear-gradient(135deg,#fff,#eefbfa) !important; }
+.telegram-app:not(.otto-view-home) .otto-setting-icon {
+  display: grid;
+  width: 50px !important;
+  height: 50px !important;
+  place-items: center;
+  border-radius: 17px !important;
+  background: #e0f7f5 !important;
+  color: var(--otto-ui-teal-dark) !important;
+}
+.telegram-app:not(.otto-view-home) .otto-setting-icon svg { width: 24px; height: 24px; }
+.otto-setting-copy { display: block; min-width: 0; }
+.otto-setting-copy strong { display: block; font-size: 16px !important; }
+.otto-setting-copy small { display: block; margin-top: 2px; color: var(--otto-ui-muted) !important; font-size: 12px !important; line-height: 1.3; }
+.otto-setting-details { display: block; margin-top: 9px; color: #38516d; font-size: 13px; line-height: 1.45; }
+.otto-setting-chevron { width: 20px; height: 20px; color: var(--otto-ui-teal-dark); transition: transform .18s ease; }
+.otto-setting-row.is-open .otto-setting-chevron { transform: rotate(180deg); }
+
+/* News: sparse content becomes one deliberate filled panel, not an accidental empty page. */
+.otto-view-news .otto-inner-screen > .animate-fade-in {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 0 !important;
+}
+.otto-view-news .otto-page-hero {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  align-items: center;
+  margin-top: 0 !important;
+}
+.otto-view-news .otto-news-icon {
+  width: 74px;
+  height: 74px;
+  flex: 0 0 74px;
+  background: #def7f5;
+  color: var(--otto-ui-teal);
+}
+
+/* Support page. */
+.otto-support-page {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  gap: 11px;
+  padding-bottom: 2px;
+}
+.otto-support-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--otto-ui-border);
+  border-radius: 24px;
+  background: linear-gradient(135deg,#e7fbfa,#dff6f6);
+  padding: 18px;
+  box-shadow: var(--otto-ui-shadow);
+}
+.otto-support-badge { display: grid; width: 58px; height: 58px; flex: 0 0 58px; place-items: center; border-radius: 19px; background: #fff; color: var(--otto-ui-teal); }
+.otto-support-badge svg { width: 30px; height: 30px; }
+.otto-support-intro h2 { font-size: 19px; font-weight: 900; }
+.otto-support-intro p { margin-top: 4px; color: var(--otto-ui-muted); font-size: 13px; line-height: 1.45; }
+.otto-support-grid { display: grid; flex: 1 1 auto; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.otto-support-card { display: flex; min-height: 0; align-items: flex-start; gap: 12px; border: 1px solid var(--otto-ui-border); border-radius: 22px; background: rgba(255,255,255,.97); padding: 16px; box-shadow: var(--otto-ui-shadow); }
+.otto-support-card > svg { width: 25px; height: 25px; flex: 0 0 25px; color: var(--otto-ui-teal); }
+.otto-support-card strong { display: block; font-size: 15px; }
+.otto-support-card p { margin-top: 5px; color: var(--otto-ui-muted); font-size: 12px; line-height: 1.45; }
+.otto-support-copy { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 18px; background: linear-gradient(135deg,#10aab0,#087f8c); padding: 11px 18px; color: #fff !important; font-weight: 800; box-shadow: 0 8px 20px rgba(8,132,143,.14); }
+.otto-support-copy svg { width: 20px; height: 20px; }
+
+/* Fixed companion OTTO stays present but never steals the reading area. */
+.telegram-app:not(.otto-view-home) .otto-companion {
+  z-index: 45 !important;
+  right: 7px !important;
+  bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 7px) !important;
+  width: 54px !important;
+  max-width: 54px !important;
+  opacity: .86 !important;
+  pointer-events: none !important;
+  filter: drop-shadow(0 7px 10px rgba(20,65,70,.10)) !important;
+}
+.telegram-app:not(.otto-view-home) .otto-companion-scene { width: 100% !important; height: auto !important; }
+
+/* Inner bottom navigation mirrors the approved home navigation. */
+.telegram-app:not(.otto-view-home) .otto-bottom-nav {
+  height: calc(var(--otto-nav-height) + env(safe-area-inset-bottom));
+  padding: 0 !important;
+}
+.telegram-app:not(.otto-view-home) .otto-bottom-nav-inner {
+  width: 100%;
+  max-width: 980px;
+  height: var(--otto-nav-height);
+  border: 1px solid #e3eff0 !important;
+  border-bottom: 0 !important;
+  border-radius: 24px 24px 0 0 !important;
+  background: rgba(255,255,255,.985) !important;
+  box-shadow: 0 -8px 24px rgba(27,78,84,.06) !important;
+}
+.telegram-app:not(.otto-view-home) .otto-bottom-nav-item {
+  min-height: var(--otto-nav-height) !important;
+  gap: 3px !important;
+  color: #526981 !important;
+  font-size: 10px !important;
+  font-weight: 550 !important;
+}
+.telegram-app:not(.otto-view-home) .otto-bottom-nav-item.is-active { color: var(--otto-ui-teal) !important; font-weight: 800 !important; }
+.telegram-app:not(.otto-view-home) .otto-bottom-nav-icon { width: 22px !important; height: 22px !important; }
+
+.otto-action-toast {
+  position: fixed;
+  z-index: 120;
+  left: 50%;
+  bottom: calc(var(--otto-nav-height) + env(safe-area-inset-bottom) + 14px);
+  max-width: calc(100vw - 32px);
+  transform: translateX(-50%);
+  border: 1px solid #cce9e8;
+  border-radius: 16px;
+  background: rgba(255,255,255,.98);
+  padding: 10px 16px;
+  color: var(--otto-ui-ink);
+  font-size: 13px;
+  font-weight: 750;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(20,69,76,.14);
+}
+
+/* Home: keep the approved design, only eliminate trailing scroll-space below materials. */
+.otto-view-home .otto-real-home { padding-bottom: max(17.95cqw, 72px); }
+.otto-view-home .otto-real-materials-section { margin-bottom: 1.0cqw; }
+
+@media (max-width: 700px) {
+  .telegram-app:not(.otto-view-home) .otto-app-content { padding: 9px 10px 6px !important; }
+  .telegram-app:not(.otto-view-home) .otto-page-hero {
+    min-height: 130px !important;
+    flex-basis: 130px !important;
+    padding: 17px 112px 17px 17px !important;
+    border-radius: 23px !important;
+  }
+  .telegram-app:not(.otto-view-home) .otto-page-hero h1 { font-size: 22px !important; }
+  .telegram-app:not(.otto-view-home) .otto-page-hero-character {
+    right: -8px !important;
+    bottom: -26px !important;
+    width: 112px !important;
+    height: 140px !important;
+  }
+  .telegram-app:not(.otto-view-home) .otto-hub-screen { gap: 8px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-list { gap: 7px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-row { gap: 10px; padding: 9px 10px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-row-icon { width: 45px !important; height: 45px !important; flex-basis: 45px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-row strong { font-size: 16px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-progress { width: 64px !important; }
+  .otto-view-account .otto-account-card { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+  .otto-view-account .otto-account-stat { min-height: 78px !important; padding: 5px !important; }
+  .otto-view-account .otto-account-stat > span { width: 32px !important; height: 32px !important; }
+  .otto-view-account .otto-account-stat strong { font-size: 18px !important; }
+  .otto-view-account .otto-account-stat small { font-size: 9px !important; line-height: 1.2; }
+  .otto-support-grid { grid-template-columns: 1fr; grid-template-rows: repeat(3,minmax(0,1fr)); gap: 8px; }
+  .otto-support-card { padding: 12px; }
+  .otto-support-intro { padding: 13px; }
+  .otto-support-badge { width: 48px; height: 48px; flex-basis: 48px; }
+  .telegram-app:not(.otto-view-home) .otto-companion { width: 46px !important; max-width: 46px !important; right: 4px !important; opacity: .78 !important; }
+}
+
+@media (max-width: 430px) {
+  .telegram-app:not(.otto-view-home) .otto-app-content { padding-left: 7px !important; padding-right: 7px !important; }
+  .telegram-app:not(.otto-view-home) .otto-page-hero { padding-right: 94px !important; }
+  .telegram-app:not(.otto-view-home) .otto-page-hero-character { right: -14px !important; width: 100px !important; height: 125px !important; }
+  .telegram-app:not(.otto-view-home) .otto-module-progress { width: 54px !important; }
+  .telegram-app:not(.otto-view-home) .otto-setting-row { grid-template-columns: 44px minmax(0,1fr) 20px; gap: 10px; padding: 10px !important; }
+  .telegram-app:not(.otto-view-home) .otto-setting-icon { width: 43px !important; height: 43px !important; }
+  .otto-setting-copy strong { font-size: 15px !important; }
+  .otto-setting-copy small { font-size: 11px !important; }
+  .otto-setting-details { font-size: 12px; }
+  .otto-support-intro { align-items: flex-start; }
+}
