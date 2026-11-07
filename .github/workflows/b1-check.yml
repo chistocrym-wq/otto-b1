@@ -31,11 +31,17 @@ jobs:
           npx playwright install chromium
       - name: Verify exam, grading, draft persistence, voice and mobile
         run: node tests/b1-preview-browser.mjs
-      - name: Require all 599 audio assets before Preview is called complete
-        run: node --test tests/b1-audio.test.mjs
       - name: Upload build for inspection
         uses: actions/upload-artifact@v4
         with:
           name: otto-b1-preview-dist
           path: dist/
           retention-days: 5
+
+  audio-coverage:
+    name: Validate 599 published B1 audio files
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check complete audio manifest and pack integrity
+        run: node --test tests/b1-audio.test.mjs
