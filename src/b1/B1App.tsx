@@ -4,30 +4,34 @@ import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Subject, type 
 const SUBJECTS: B1Subject[] = ['horen', 'lesen', 'schreiben', 'sprechen'];
 const NAME: Record<B1Subject,string> = {horen:'Hören',lesen:'Lesen',schreiben:'Schreiben',sprechen:'Sprechen'};
 const MAX_PLAYS: Record<number,number> = {1:2,2:1,3:1,4:2};
-function isReviewOnly(line:string) {
- return /^(?:RU\s*[·:]|Перевод|Правильный ответ|Lösung|Erklärung|Объяснение|Musterlösung|Antwortschlüssel|Ключ|Hinweis für Lehrende)/i.test(line);
+function isRestricted(line:string) {
+ return /^(?:RU\s*[·:]|Перевод|Полный перевод|Lösung|Lösungen|LÖSUNG|Erklärung|Begründung|Объяснение|Musterlösung|Mustertext|Musterantwort|Ключ|Ключи|Правильн|Ответы|Auswertung|Bewertung|[1-9]\.\s*Полный перевод)/i.test(line)
+   || /[А-Яа-яЁё]/.test(line);
 }
 function visibleLines(lines:string[], reviewed:boolean) {
  if(reviewed)return lines;
- let transcript=false, skipTranslation=false;
- return lines.filter((line)=>{
-   if(/^AUDIO DE\s*[·:]/i.test(line)){transcript=true;skipTranslation=false;return true;}
-   if(/^(?:Aufgabe|Frage|Text \d|Beispiel|Aussage|Folie|SITUATION \(DE\))/i.test(line)){transcript=false;skipTranslation=false;}
-   if(/^(?:RU\s*[·:]|Перевод|Полный перевод|СИТУАЦИЯ \(RU\))/i.test(line)){skipTranslation=true;transcript=false;return false;}
-   if(skipTranslation && (/^(?:Aufgabe|Frage|[a-j][).]|Text \d)/i.test(line))){skipTranslation=false;}
-   if(isReviewOnly(line) || transcript || skipTranslation)return false;
-   if(/^\s*(?:\(?Richtig\)?|\(?Falsch\)?|Lösung:)/i.test(line))return false;
-   return true;
- });
+ let transcript=false;
+ const visible:string[]=[];
+ for(const line of lines) {
+   if(/^AUDIO DE\s*[·:]/i.test(line)){transcript=true;visible.push(line);continue;}
+   if(/^(?:RU\s*[·:]|СИТУАЦИЯ \(RU\)|[1-9]\.\s*Полный перевод|Aufgabe\s+\d+|Задание\s+\d+|Folie\s+\d+|\d+\.\s*(?:Текст|Задание)|SITUATION \(DE\))/i.test(line))transcript=false;
+   if(transcript||isRestricted(line))continue;
+   visible.push(line);
+ }
+ return visible;
+}
+function questionLabel(lines:string[],id:string) {
+ const re=new RegExp('^(?:Aufgabe\\s+)?'+id.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')+'(?:[.)\\s—–-]|$)','i');
+ return lines.find(line=>re.test(line)&&!/[А-Яа-яЁё]/.test(line)&&!/Lösung|Antworten/.test(line))?.slice(0,250)||'Aufgabe '+id;
 }
 function getDraft(id:string):{answers:Record<string,string>;essay:string;done:boolean}{
  try{const v=JSON.parse(localStorage.getItem(id)||'{}');return {answers:v.answers||{},essay:v.essay||'',done:!!v.done};}
  catch{return {answers:{},essay:'',done:false};}
 }
-function choices(answer:string):string[]{
+function choices(answer:string, key:Record<string,string>):string[]{
  if(['richtig','falsch'].includes(answer))return ['richtig','falsch'];
  if(['ja','nein'].includes(answer))return ['ja','nein'];
- if(answer==='0'||/^[d-j]$/.test(answer))return ['0','a','b','c','d','e','f','g','h','i','j'];
+ if(answer==='0'||/^[d-j]$/.test(answer)||Object.values(key).some(v=>v==='0'||/^[d-j]$/.test(v)))return ['0','a','b','c','d','e','f','g','h','i','j'];
  return ['a','b','c'];
 }
 function AudioClip({id,subject,teil}:{id:string;subject:B1Subject;teil:number}){
@@ -129,9 +133,9 @@ export default function B1App(){
       </div>:
       <fieldset className="space-y-3"><legend className="font-semibold">Ваши ответы</legend>
         {Object.entries(setData.answerKey||{}).map(([id,answer])=><label key={id} className="flex flex-wrap items-center gap-3 rounded-lg border p-3">
-          <span className="min-w-24 font-semibold">Aufgabe {id}</span>
+          <span className="min-w-24 font-semibold">{questionLabel(setData.lines,id)}</span>
           <select aria-label={'Aufgabe '+id} value={answers[id]||''} disabled={done} className="min-h-11 rounded-lg border bg-white px-3" onChange={e=>setAnswers(prev=>({...prev,[id]:e.target.value}))}>
-           <option value="">Выберите ответ</option>{choices(answer).map(v=><option key={v} value={v}>{v}</option>)}
+           <option value="">Выберите ответ</option>{choices(answer,setData.answerKey||{}).map(v=><option key={v} value={v}>{v}</option>)}
           </select>
           {done&&<span className="text-sm">Верный ответ: {answer}</span>}
          </label>)}
