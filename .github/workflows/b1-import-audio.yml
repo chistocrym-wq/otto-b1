@@ -1,0 +1,49 @@
+name: OTTO B1 import source audio from GitHub release
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-source-audio:
+    if: github.ref == 'refs/heads/feature/goethe-b1-content'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/goethe-b1-content
+          persist-credentials: true
+      - name: Download exact original MP3 ZIPs from B1 release
+        run: |
+          mkdir -p .b1-source-audio
+          gh release download b1-audio-source \
+            --pattern 'HT3.zip' \
+            --pattern 'HT4.zip' \
+            --pattern 'ST3.zip' \
+            --dir .b1-source-audio
+          test -s .b1-source-audio/HT3.zip
+          test -s .b1-source-audio/HT4.zip
+          test -s .b1-source-audio/ST3.zip
+      - name: Build only missing source MP3 packs
+        run: |
+          python3 scripts/build_b1_audio_packs.py \
+            .b1-source-audio/HT3.zip \
+            .b1-source-audio/HT4.zip \
+            .b1-source-audio/ST3.zip
+      - name: Reject incomplete audio manifest
+        run: node --test tests/b1-audio.test.mjs
+      - name: Commit B1-only media assets to B1 feature branch
+        run: |
+          git config user.name "otto-b1-preview-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public-b1/b1/audio-packs/
+          if git diff --cached --quiet; then
+            echo 'No missing audio packages to add.'
+            exit 0
+          fi
+          git commit -m "assets(b1): add validated original MP3 audio packs"
+          git push origin HEAD:feature/goethe-b1-content
