@@ -1,0 +1,74 @@
+name: OTTO B1 Netlify non-production preview
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  b1-netlify-preview:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == 'chistocrym-wq/otto-b1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NETLIFY_B1_AUTH_TOKEN: ${{ secrets.NETLIFY_B1_AUTH_TOKEN }}
+      NETLIFY_B1_SITE_ID: ${{ secrets.NETLIFY_B1_SITE_ID }}
+    steps:
+      - name: Checkout exact B1 branch
+        uses: actions/checkout@v4
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Require dedicated B1 Netlify credentials
+        shell: bash
+        run: |
+          if [[ -z "$NETLIFY_B1_AUTH_TOKEN" || -z "$NETLIFY_B1_SITE_ID" ]]; then
+            echo "::error::B1 Preview blocked: configure NETLIFY_B1_AUTH_TOKEN and NETLIFY_B1_SITE_ID for an independent OTTO B1 site."
+            exit 1
+          fi
+      - name: Verify site identity, never publish to A1
+        shell: bash
+        run: |
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $NETLIFY_B1_AUTH_TOKEN" \
+            "https://api.netlify.com/api/v1/sites/$NETLIFY_B1_SITE_ID" |
+            node -e '
+              let s="";
+              process.stdin.on("data",x=>s+=x);
+              process.stdin.on("end",()=>{
+                const site=JSON.parse(s);
+                if(!/^otto-b1(?:-|$)/i.test(site.name||"")) {
+                  console.error("Site must have an otto-b1 name; refusing deploy to "+site.name);
+                  process.exit(1);
+                }
+                const linked=site.build_settings?.repo_url||"";
+                if(linked && !linked.includes("chistocrym-wq/otto-b1")) {
+                  console.error("Netlify site is linked to a different repository");
+                  process.exit(1);
+                }
+                console.log("Dedicated B1 site verified: "+site.name);
+              });
+            '
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate content, types and full audio inventory
+        run: |
+          npm run typecheck
+          npm run test:b1
+          node --test tests/b1-audio.test.mjs
+      - name: Build independent B1 React app
+        run: npm run build
+      - name: Deploy B1 preview alias (never Production)
+        shell: bash
+        run: |
+          npx --yes netlify-cli@latest deploy \
+            --auth "$NETLIFY_B1_AUTH_TOKEN" \
+            --site "$NETLIFY_B1_SITE_ID" \
+            --dir dist \
+            --alias "pr-${{ github.event.pull_request.number || 'manual' }}" \
+            --json > /tmp/otto-b1-preview.json
+          node -e 'const x=require("/tmp/otto-b1-preview.json"); if(!x.deploy_url){console.error("No preview URL");process.exit(1)};console.log("OTTO B1 Preview: "+x.deploy_url)'
