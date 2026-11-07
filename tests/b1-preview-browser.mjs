@@ -26,6 +26,7 @@ try{
  await page.getByRole('button',{name:'Lesen'}).click();
  await page.getByRole('heading',{name:/Lesen · Teil 1 · №1/}).waitFor();
  const responses=page.locator('select[aria-label^="Aufgabe"]');
+ await responses.first().waitFor({timeout:10000});
  if(await responses.count()===0){
    console.error('B1 reading controls missing. Main text:',(await page.locator('main').innerText()).slice(0,2000));
    console.error('B1 reading controls missing. Selects:',await page.locator('select').evaluateAll(nodes=>nodes.map(n=>({outer:n.outerHTML.slice(0,300)}))));
@@ -44,6 +45,7 @@ try{
  await page.getByRole('button',{name:'Schreiben'}).click();
  await page.getByRole('heading',{name:/Schreiben · Teil 1 · №1/}).waitFor();
  await page.getByRole('textbox',{name:'Ваш текст'}).fill('Ich habe am Samstag einen Kurs besucht. Es war sehr interessant.');
+ assert.match(await page.evaluate(()=>localStorage.getItem('otto:b1:draft:local-preview:schreiben:1:1')||''),/interessant/,'Schreiben should persist immediately after input');
  await page.reload();
  await page.getByRole('button',{name:'Schreiben'}).click();
  assert.match(await page.getByRole('textbox',{name:'Ваш текст'}).inputValue(),/interessant/);
