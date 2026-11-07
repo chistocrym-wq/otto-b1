@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Set, type B1Subject, type B1Teil } from './content';
+import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Subject, type B1Teil } from './content';
 
 const SUBJECTS: B1Subject[] = ['horen', 'lesen', 'schreiben', 'sprechen'];
 const NAME: Record<B1Subject,string> = {horen:'Hören',lesen:'Lesen',schreiben:'Schreiben',sprechen:'Sprechen'};
