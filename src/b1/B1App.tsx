@@ -35,17 +35,54 @@ function choices(answer:string, key:Record<string,string>):string[]{
  if(answer==='0'||/^[d-j]$/.test(answer)||Object.values(key).some(v=>v==='0'||/^[d-j]$/.test(v)))return ['0','a','b','c','d','e','f','g','h','i','j'];
  return ['a','b','c'];
 }
+let indexPromise: Promise<Record<string,number>> | null = null;
+const packCache = new Map<number,Promise<Array<{name:string;b64:string}>>>();
+function audioIndex(){
+ if(!indexPromise)indexPromise=fetch('/b1/audio-index.json').then(r=>{if(!r.ok)throw new Error('Audio index HTTP '+r.status);return r.json() as Promise<Record<string,number>>;});
+ return indexPromise;
+}
+async function resolveAudio(id:string){
+ const index=await audioIndex();
+ const pack=index[id];
+ if(!Number.isInteger(pack))throw new Error('Audio is not available: '+id);
+ if(pack===0)return {src:'/b1/audio/'+encodeURIComponent(id)+'.mp3',object:false};
+ let promise=packCache.get(pack);
+ if(!promise){
+  promise=fetch('/b1/audio-packs/bundle-'+String(pack).padStart(3,'0')+'.jsonl')
+    .then(async r=>{if(!r.ok)throw new Error('Audio pack HTTP '+r.status);
+       return (await r.text()).split(/\n/).filter(Boolean).map(row=>JSON.parse(row) as {name:string;b64:string});});
+  packCache.set(pack,promise);
+ }
+ const records=await promise;
+ const record=records.find(x=>x.name===id+'.mp3');
+ if(!record)throw new Error('Audio missing in pack: '+id);
+ const raw=atob(record.b64);
+ const bytes=new Uint8Array(raw.length);
+ for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+ return {src:URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'})),object:true};
+}
 function AudioClip({id,subject,teil}:{id:string;subject:B1Subject;teil:number}){
  const [plays,setPlays]=useState(0);
+ const [src,setSrc]=useState('');
+ const [busy,setBusy]=useState(false);
+ const [audioError,setAudioError]=useState('');
+ const isObject=useRef(false);
  const max=subject==='horen'? MAX_PLAYS[teil]||1:Infinity;
+ useEffect(()=>()=>{if(isObject.current&&src)URL.revokeObjectURL(src);},[src]);
+ const load=async()=>{
+  setBusy(true);setAudioError('');
+  try{const result=await resolveAudio(id);isObject.current=result.object;setSrc(result.src);}
+  catch(e){setAudioError(e instanceof Error?e.message:'Не удалось загрузить аудио');}
+  finally{setBusy(false);}
+ };
  return <div className="rounded-xl border border-teal-200 bg-teal-50 p-3">
   <div className="mb-2 text-sm font-semibold">{id}</div>
-  {plays>=max?<p className="text-sm">Лимит прослушиваний достигнут.</p>:
-  <audio key={id} controls preload="none" className="w-full"
-   src={'/b1/audio/'+encodeURIComponent(id)+'.mp3'}
-   onPlay={e=>{const el=e.currentTarget;if(el.currentTime<0.3)setPlays(p=>p+1);}}
-   onError={()=>undefined}/>}
-  <p className="mt-1 text-xs text-slate-600">{Number.isFinite(max)?'В этом задании прослушиваний: '+plays+' / '+max:'Тренировочное аудио'}</p>
+  {!src?<button type="button" onClick={()=>void load()} disabled={busy} className="min-h-11 rounded-xl border border-teal-700 px-4 font-semibold text-teal-800">{busy?'Загружаем аудио…':'Подготовить аудио'}</button>:
+    plays>=max?<p className="text-sm">Лимит прослушиваний достигнут.</p>:
+    <audio key={id} controls preload="none" className="w-full" src={src}
+      onPlay={e=>{if(e.currentTarget.currentTime<0.3)setPlays(p=>p+1);}}/>}
+  {audioError&&<p role="alert" className="mt-2 text-sm text-rose-700">{audioError}</p>}
+  <p className="mt-1 text-xs text-slate-600">{Number.isFinite(max)?'Прослушиваний: '+plays+' / '+max:'Тренировочное аудио'}</p>
  </div>;
 }
 export default function B1App(){
