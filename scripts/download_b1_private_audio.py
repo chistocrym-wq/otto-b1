@@ -23,7 +23,14 @@ def retrieve(name: str, destination: Path):
     temp = destination.with_suffix('.download')
     try:
         request = Request(url, headers={'User-Agent': 'OTTO-B1-private-audio-import/1'})
-        with urlopen(request, timeout=90) as response, temp.open('wb') as output:
+        try:
+            response = urlopen(request, timeout=90)
+        except Exception:
+            # HTTPError can contain the complete presigned URL. Never log it.
+            raise RuntimeError('Private source download failed for ' + name) from None
+        with response, temp.open('wb') as output:
+            if urlsplit(response.geturl()).scheme != 'https':
+                raise ValueError('Source redirected to insecure transport: ' + name)
             size = 0
             while True:
                 chunk = response.read(1024 * 1024)
@@ -49,7 +56,11 @@ def main():
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args()
     for file in FILES:
-        retrieve(file, args.out / file)
+        try:
+            retrieve(file, args.out / file)
+        except Exception:
+            # Prevent URL leaks through underlying exception tracebacks.
+            raise RuntimeError('Private source validation failed for ' + file) from None
 
 if __name__ == '__main__':
     main()
