@@ -7,26 +7,10 @@ import { B1_PARTS, b1DraftKey, loadB1Teil, scoreB1Answers, type B1Subject, type 
 const SUBJECTS: B1Subject[] = ['horen', 'lesen', 'schreiben', 'sprechen'];
 const NAME: Record<B1Subject,string> = {horen:'Hören',lesen:'Lesen',schreiben:'Schreiben',sprechen:'Sprechen'};
 const MAX_PLAYS: Record<number,number> = {1:2,2:1,3:1,4:2};
-function isRestricted(line:string) {
- return /^(?:RU\s*[·:]|Перевод|Полный перевод|Lösung|Lösungen|LÖSUNG|Erklärung|Begründung|Объяснение|Musterlösung|Mustertext|Musterantwort|Ключ|Ключи|Правильн|Ответы|Auswertung|Bewertung|[1-9]\.\s*Полный перевод)/i.test(line)
-   || /[А-Яа-яЁё]/.test(line);
-}
 function hideInlineAnswer(line:string):string {
  return line
   .replace(/\s*\((?:Richtig|Falsch|Ja|Nein|[a-j])\)\s*$/i, '')
   .replace(/\s*\(Lösung:[^)]*\)/gi, ' (Beispiel)');
-}
-function visibleLines(lines:string[], reviewed:boolean) {
- if(reviewed)return lines;
- let transcript=false;
- const visible:string[]=[];
- for(const line of lines) {
-   if(/^AUDIO DE\s*[·:]/i.test(line)){transcript=true;visible.push(line);continue;}
-   if(/^(?:RU\s*[·:]|СИТУАЦИЯ \(RU\)|[1-9]\.\s*Полный перевод|Aufgabe\s+\d+|Задание\s+\d+|Folie\s+\d+|\d+\.\s*(?:Текст|Задание)|SITUATION \(DE\))/i.test(line))transcript=false;
-   if(transcript||isRestricted(line))continue;
-   visible.push(hideInlineAnswer(line));
- }
- return visible;
 }
 function questionLabel(lines:string[],id:string) {
  const re=new RegExp('^(?:Aufgabe\\s+)?'+id.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')+'(?:[.)\\s—–-]|$)','i');
