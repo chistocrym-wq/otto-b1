@@ -11,8 +11,8 @@ function isRestricted(line:string) {
 }
 function hideInlineAnswer(line:string):string {
  return line
-  .replace(/\\s*\\((?:Richtig|Falsch|Ja|Nein|[a-j])\\)\\s*$/i, '')
-  .replace(/\\s*\\(Lösung:[^)]*\\)/gi, ' (Beispiel)');
+  .replace(/\s*\((?:Richtig|Falsch|Ja|Nein|[a-j])\)\s*$/i, '')
+  .replace(/\s*\(Lösung:[^)]*\)/gi, ' (Beispiel)');
 }
 function visibleLines(lines:string[], reviewed:boolean) {
  if(reviewed)return lines;
@@ -164,7 +164,7 @@ export default function B1App(){
    {setData?<section key={subject+'-'+teil+'-'+setNum} className="rounded-2xl bg-white p-4 shadow-sm md:p-7">
     <h2 className="mb-4 text-2xl font-bold">{NAME[subject]} · Teil {teil} · №{setNum}</h2>
     <p className="mb-5 text-sm text-slate-600">{done?'Попытка завершена. Доступны перевод и разбор.':'Режим тренировки: ответы и перевод будут открыты после завершения попытки.'}</p>
-    <div className="space-y-3">{setData.audioIds.filter(id=>!(subject==='sprechen'&&/-[QR]\\d{2}$/.test(id))).map(id=>setData.audioAvailable.includes(id)?
+    <div className="space-y-3">{setData.audioIds.filter(id=>!(subject==='sprechen'&&/-[QR]\d{2}$/.test(id))).map(id=>setData.audioAvailable.includes(id)?
      <AudioClip key={id} id={id} subject={subject} teil={teil}/>:
      <p key={id} className="rounded-xl bg-amber-50 p-3 text-sm">Запись {id} отсутствует в исходных материалах.</p>)}</div>
     <div className="my-5 space-y-2">{visibleLines(setData.lines,done).map((line,i)=>
