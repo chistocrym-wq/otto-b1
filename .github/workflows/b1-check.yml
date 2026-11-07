@@ -1,0 +1,33 @@
+name: OTTO B1 Preview Checks
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  b1-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: TypeScript typecheck
+        run: npm run typecheck
+      - name: Verify all B1 source tasks
+        run: npm run test:b1
+      - name: Build isolated OTTO B1
+        run: npm run build
+      - name: Upload build for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: otto-b1-preview-dist
+          path: dist/
+          retention-days: 5
